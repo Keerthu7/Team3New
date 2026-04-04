@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color Tokens */
+  --color-inverse-on-surface: #edf0fc;
+  --color-surface-dim: #d7dae5;
+  --color-on-background: #181c23;
+  --color-primary: #28557F;
+  --color-on-primary-fixed: #001d35;
+  --color-primary-fixed-dim: #a0cafb;
+  --color-on-surface: #181c23;
+  --color-on-secondary: #ffffff;
+  --color-surface-tint: #28557F;
+  --color-error: #ba1a1a;
+  --color-background: #f9f9ff;
+  --color-on-surface-variant: #42474e;
+  --color-outline: #72777f;
+  --color-surface-container-high: #e5e8f3;
+  --color-surface-container-low: #f0f3fe;
+  --color-error-container: #ffdad6;
+  --color-on-secondary-container: #004270;
+  --color-tertiary-container: #095492;
+  --color-surface-container: #ebedf9;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-fixed: #d3e4ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-tertiary-fixed-variant: #004880;
+  --color-tertiary-fixed-dim: #a1c9ff;
+  --color-secondary-fixed: #d1e4ff;
+  --color-on-secondary-fixed-variant: #00497c;
+  --color-on-error-container: #93000a;
+  --color-secondary-fixed-dim: #9dcaff;
+  --color-outline-variant: #c2c7cf;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #28557f;
+  --color-on-tertiary-fixed: #001c38;
+  --color-secondary-container: #63b0fd;
+  --color-secondary: #28557F;
+  --color-inverse-primary: #a0cafb;
+  --color-surface-container-highest: #dfe2ed;
+  --color-primary-fixed: #d0e4ff;
+  --color-tertiary: #28557F;
+  --color-on-primary-fixed-variant: #194973;
+  --color-surface-variant: #dfe2ed;
+  --color-on-tertiary-container: #a0c9ff;
+  --color-on-secondary-fixed: #001d35;
+  --color-surface-bright: #f9f9ff;
+  --color-inverse-surface: #2c3039;
+  --color-on-primary-container: #a0cafa;
+  --color-surface: #f9f9ff;
+  --color-on-error: #ffffff;
+
+  /* Font Families */
+  --font-headline: "var(--font-poppins)", sans-serif;
+  --font-body: "var(--font-poppins)", sans-serif;
+  --font-label: "var(--font-poppins)", sans-serif;
+  --font-display: "var(--font-poppins)", sans-serif;
+
+  /* Border Radius */
+  --radius-default: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+}
+
+@layer utilities {
+  .tonal-layering-via-blur {
+    backdrop-filter: blur(12px);
+  }
+
+  .grid-pattern {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+}
+
+:root {
+  --background: #f9f9ff;
+  --foreground: #181c23;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #181c23;
+    --foreground: #f9f9ff;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
