@@ -56,7 +56,7 @@ export default function AboutUs() {
                 Our expertise spans across residential, commercial, and institutional projects, where we seamlessly blend aesthetics with structural integrity. From initial concept to final execution, we work closely with our clients to understand their vision and translate it into spaces that inspire and endure.
               </p>
               <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
-                With a commitment to sustainable practices and cutting-edge technology, we create designs that not only meet today's needs but anticipate tomorrow's challenges. Every project we undertake is a testament to our dedication to quality, innovation, and the art of creating meaningful spaces.
+                With a commitment to sustainable practices and cutting-edge technology, we create designs that not only meet today&apos;s needs but anticipate tomorrow&apos;s challenges. Every project we undertake is a testament to our dedication to quality, innovation, and the art of creating meaningful spaces.
               </p>
             </div>
           </div>
