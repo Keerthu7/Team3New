@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image"; 
-import Link from "next/link"; // Link import panniyachu
+import Link from "next/link"; 
 import { Star, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -95,9 +95,8 @@ export function Testimonials() {
           </h2>
           
           <div className="flex flex-col gap-8 mt-4">
-            {/* Navigates to /projects on click */}
             <Link href="/projects">
-              <button className="w-fit flex items-center gap-3 px-8 py-4 bg-[#28557F] text-white rounded-none font-bold text-xs uppercase tracking-widest hover:bg-black transition-all group border border-[#28557F]">
+              <button className="w-fit flex items-center gap-3 px-8 py-4 bg-[#28557F] text-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-black transition-all group shadow-md border border-[#28557F]">
                 View Our Works 
                 <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </button>
@@ -121,7 +120,7 @@ export function Testimonials() {
               {duplicatedTestimonials.map((testimonial, i) => (
                 <div 
                   key={i} 
-                  className="w-[350px] md:w-[450px] inline-flex shrink-0 p-10 bg-gray-50 rounded-none border border-gray-100 flex-col gap-10 whitespace-normal shadow-sm"
+                  className="w-[350px] md:w-[450px] inline-flex shrink-0 p-10 bg-gray-50 rounded-2xl border border-gray-100 flex-col gap-10 whitespace-normal shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="flex gap-1">
                     {[...Array(testimonial.stars)].map((_, j) => (
@@ -137,9 +136,7 @@ export function Testimonials() {
                   </p>
                   
                   <div className="mt-auto flex items-center gap-4">
-                    
-                    {/* Sharp corners for individual client logos */}
-                    <div className="relative w-14 h-14 shrink-0 rounded-none flex items-center justify-center bg-white shadow-md border border-gray-100 overflow-hidden">
+                    <div className="relative w-14 h-14 shrink-0 rounded-xl flex items-center justify-center bg-white shadow-sm border border-gray-100 overflow-hidden">
                       <Image 
                         src={testimonial.logo} 
                         alt={`${testimonial.name} Logo`}
