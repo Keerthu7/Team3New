@@ -56,25 +56,18 @@ const projectData = [
 function ProjectItem({ project, index }: { project: typeof projectData[0], index: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // v4.1: Unified Offset for all projects.
-  // Using 100px clearance to ensure Stage 1 is immediately obvious.
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 100px", "end end"],
   });
 
-  // Stage 1: Branding Overlay (Bottom Left)
-  // v4.1: Strictly ends at 30% to make room for the transition buffer.
   const stage1Opacity = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0]);
   const stage1Y = useTransform(scrollYProgress, [0, 0.3], [0, -40]);
 
-  // Stage 2: Detailed Card (Top Right)
-  // v4.1: Only starts appearing at 50% AFTER the 20% safe buffer zone.
   const cardOpacity = useTransform(scrollYProgress, [0.5, 0.65, 0.85, 1], [0, 1, 1, 0]);
   const cardScale = useTransform(scrollYProgress, [0.5, 0.65], [0.95, 1]);
   const cardY = useTransform(scrollYProgress, [0.85, 1], [0, -50]);
 
-  // Background Image Scale
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
@@ -114,37 +107,46 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
           style={{ opacity: cardOpacity, scale: cardScale, y: cardY }}
           className="absolute inset-0 flex items-start justify-end p-6 md:p-12 z-30 pointer-events-none"
         >
-          <div className="bg-white/95 backdrop-blur-2xl rounded-none p-5 md:p-6 max-w-sm w-full shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-white/40 pointer-events-auto flex flex-col gap-5 mt-24">
+          {/* MATHUNA EDAM 1: Card Background Transparent & Rounded Corners */}
+          {/* bg-white/30 backdrop-blur-xl rounded-3xl */}
+          <div className="bg-white/30 backdrop-blur-xl rounded-3xl p-5 md:p-6 max-w-sm w-full shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-white/40 pointer-events-auto flex flex-col gap-5 mt-24">
+            
             <div className="flex items-center justify-between">
-              <div className="bg-primary/5 border border-primary/10 px-4 py-1.5 rounded-none flex items-center gap-2">
+              {/* Architecture Tag - Rounded pill shape */}
+              <div className="bg-white/50 border border-white/60 px-4 py-1.5 rounded-full flex items-center gap-2">
                 <div className="grid grid-cols-2 gap-1 animate-pulse">
                   {[...Array(4)].map((_, i) => (
                     <div key={i} className="w-0.5 h-0.5 bg-primary rounded-full" />
                   ))}
                 </div>
-                <span className="text-[9px] font-semibold text-primary tracking-[0.3em] uppercase">Architecture</span>
+                <span className="text-[9px] font-bold text-primary tracking-[0.3em] uppercase">Architecture</span>
               </div>
-              <span className="text-[9px] font-semibold text-gray-400 tracking-[0.2em] uppercase">
+              <span className="text-[9px] font-bold text-gray-700 tracking-[0.2em] uppercase bg-white/40 px-3 py-1.5 rounded-full">
                 {project.date}
               </span>
             </div>
 
-            <div className="relative w-full aspect-[16/9] rounded-none overflow-hidden shadow-lg border border-white/50">
+            {/* Inner Image - Rounded corners added (rounded-2xl) */}
+            <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-white/50">
               <Image src={project.interiorImage} alt={project.name} fill className="object-cover" />
             </div>
 
             <div>
-              <h3 className="text-xl md:text-2xl font-semibold text-primary mb-3 leading-tight uppercase tracking-tighter">
+              <h3 className="text-xl md:text-2xl font-bold text-primary mb-3 leading-tight uppercase tracking-tighter">
                 {project.name}
               </h3>
-              <p className="text-gray-500 leading-relaxed font-semibold mb-6 text-[10px] md:text-[11px] pr-2">
+              <p className="text-gray-800 leading-relaxed font-semibold mb-6 text-[10px] md:text-[11px] pr-2">
                 {project.description}
               </p>
+              
               <Link href={`/projects/${project.id}`}>
-                <button className="w-full px-8 py-3 bg-primary text-white rounded-none font-semibold text-[9px] uppercase tracking-[0.25em] hover:bg-black transition-all shadow-md shadow-primary/10 flex items-center justify-center gap-3 group">
+                {/* MATHUNA EDAM 2: Button Rounded Corners */}
+                {/* rounded-full use panniruken */}
+                <button className="w-full px-8 py-3 bg-primary text-white rounded-full font-semibold text-[9px] uppercase tracking-[0.25em] hover:bg-black transition-all shadow-md shadow-primary/10 flex items-center justify-center gap-3 group">
                   Check Project
-                  <div className="w-4 h-4 rounded-none bg-white/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <div className="w-1 h-1 bg-white rounded-none shadow-sm" />
+                  {/* Inside Icon also rounded */}
+                  <div className="w-4 h-4 rounded-full bg-white/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-1 h-1 bg-white rounded-full shadow-sm" />
                   </div>
                 </button>
               </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image"; // Image component import aagi irukanum
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
@@ -12,56 +12,55 @@ export function Header() {
     { label: "Projects", href: "/projects" },
     { label: "About us", href: "/about" },
     { label: "Blogs", href: "/blog" },
-    { label: "Contact us", href: "/contact" },
+    { label: "contact us", href: "/contact" },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] w-full bg-white/80 backdrop-blur-xl border-b border-[#28557F]/5 px-8 md:px-16 py-4 transition-all duration-300">
-      <nav className="flex w-full max-w-[1700px] mx-auto items-center justify-between">
-        
-        {/* LOGO SECTION - Ithu thaan maathi iruken */}
-        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-          <Image 
-            src="/images/logo.png" // Unga logo-voda sariyana path-a inga kudunga
-            alt="Team 3 Associates" 
-            width={180} // Logo-voda agalam (ungaluku yetha maari mathikonga)
-            height={50} // Logo-voda uyaram
-            priority // Header logo dhu priority true kudukrathu nallathu
-            className="object-contain h-auto w-auto max-h-[40px]" // Style adjust panna
-          />
-        </Link>
+    <header className="absolute top-8 left-1/2 -translate-x-1/2 z-[100] w-[88%] max-w-[1050px] bg-white rounded-[100px] px-8 md:px-10 py-2 md:py-2.5 shadow-md flex items-center justify-between">
+      
+      {/* LOGO SECTION */}
+      <Link href="/" className="flex items-center hover:opacity-80 transition-opacity ml-2 md:ml-4">
+        <Image 
+          src="/images/logo.png" 
+          alt="Team 3 Associates" 
+          width={170}   
+          height={45}   
+          priority 
+          className="object-contain h-auto w-auto max-h-[38px] md:max-h-[42px]" 
+        />
+      </Link>
 
-        {/* Desktop Nav Section */}
-        <div className="hidden items-center gap-10 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-[13px] font-bold text-[#28557F] hover:opacity-70 transition-all tracking-wide"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+      {/* Desktop Nav Section */}
+      <div className="hidden items-center gap-8 lg:gap-12 md:flex">
+        {navLinks.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            // Inga thaan hover:text-blue-700 ah thookittu hover:opacity-70 potruken
+            className="text-[14px] font-bold text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="md:hidden text-[#28557F]"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </nav>
+      {/* Mobile Toggle */}
+      <button 
+        className="md:hidden text-[#1A4A75] p-2 hover:bg-gray-100 rounded-full transition-colors mr-1"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      >
+        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 p-6 flex flex-col gap-4 animate-in slide-in-from-top duration-300">
+        <div className="absolute top-[115%] left-0 w-full bg-white rounded-[24px] shadow-xl p-5 flex flex-col gap-4 md:hidden border border-gray-100">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-[14px] font-bold text-[#28557F] hover:opacity-70 transition-all"
+              className="text-[14px] font-bold text-[#1A4A75] hover:opacity-70 transition-all"
             >
               {link.label}
             </Link>
