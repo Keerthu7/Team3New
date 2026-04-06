@@ -53,7 +53,37 @@ export default function BlogPage() {
     conclusionTitle: "Architectural Vision",
     conclusionImage: "/images/projects/kmch-diagnostic/interior_2.png",
     conclusionP1: "The KMCH Diagnostic Center stands as a testament to our commitment to precision-driven architecture in the healthcare sector. It is more than a building; it is a meticulously engineered environment designed to support the institution's mission of life-saving care. Through this project, we have demonstrated that clinical excellence and high-end architectural design are not mutually exclusive, but rather complementary forces in the future of medical wellness.",
-    conclusionP3: "TEAM 3 ASSOCIATES - EXCELLENCE IN HEALTHCARE DESIGN"
+    conclusionP3: "TEAM 3 ASSOCIATES - EXCELLENCE IN HEALTHCARE DESIGN",
+    
+    technicalDetails: {
+      finishes: {
+        facade: { desc: "Seasoned teakwood louvers", images: ["/images/kmch/1.jpg"] },
+        wall: { desc: "02 / Full body vitrified terrazzo tiles\n03 / Ceramic tiles\n04 / Stained birch ply", images: ["/images/kmch/2.jpg", "/images/kmch/3.jpg", "/images/kmch/6.jpg"] },
+        flooring: { desc: "05 / Kota stone\n06 / China mosaic", images: ["/images/kmch/8.jpg", "/images/kmch/1.jpg"] },
+      },
+      materials: [
+        { label: "Windows", value: "Fenesta from Alfa Claddings" },
+        { label: "Tiles", value: "Kajaria from Vaigai Ceramics" },
+        { label: "Decorative Lighting", value: "Abby & Ledos from Gojis" },
+        { label: "Color", value: "Asian Paints" },
+        { label: "Sanitaryware", value: "Kohler" },
+        { label: "Bath Fittings", value: "Jaguar" },
+        { label: "Furniture", value: "Sources Unlimited" },
+        { label: "Furnishings", value: "Dreams Furnishings" },
+        { label: "Wallpaper", value: "Marshalls" },
+        { label: "Hardware", value: "Hafele from Rams Agency" },
+        { label: "Kitchen Sink", value: "Franke" },
+        { label: "Air Conditioning", value: "Mitsubishi" },
+      ],
+      contributors: [
+        { label: "Structural", value: "Le Premier" },
+        { label: "Civil", value: "Dinesh from Ace Structures" },
+      ],
+      photoCredits: [
+        { label: "Interior", value: "Yash Jain & Senthil" },
+        { label: "Exterior", value: "Ganesh Ramachandran" },
+      ],
+    },
   };
 
   return (

@@ -314,6 +314,115 @@ export default function MagazineSpread({
            </div>
         </section>
 
+        {/* SPREAD: Technical Specifications & Credits (Based on reference image) */}
+        {blog.technicalDetails && (
+          <section className="w-full max-w-[1440px] bg-white shadow-[0_0_60px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row min-h-[900px] overflow-hidden p-8 md:p-16 lg:p-24 bg-white relative">
+             <div className="absolute top-8 right-12 text-sm font-bold opacity-30">35</div>
+             
+             {/* Left side: Finishing Grid */}
+             <div className="w-full lg:w-[45%] flex flex-col gap-12 border-b lg:border-b-0 lg:border-r border-black/10 pr-12">
+                <div className="flex gap-4 items-start">
+                   <div className="w-[120px] shrink-0">
+                      <h4 className="text-[11px] font-bold uppercase tracking-widest text-black/90 mb-2">Facade Finishes</h4>
+                      <p className="text-[9px] opacity-60 leading-tight">
+                         01 / {blog.technicalDetails.finishes.facade.desc}
+                      </p>
+                   </div>
+                   <div className="flex-grow aspect-[3/5] relative bg-neutral-100 overflow-hidden">
+                      <Image 
+                         src={blog.technicalDetails.finishes.facade.images[0] || "/images/placeholder.png"} 
+                         alt="Facade Finish" fill className="object-cover" 
+                      />
+                      <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">01</span>
+                   </div>
+                </div>
+
+                <div className="flex gap-4 items-start">
+                   <div className="w-[120px] shrink-0">
+                      <h4 className="text-[11px] font-bold uppercase tracking-widest text-black/90 mb-2">Wall Finishes</h4>
+                      <p className="text-[9px] opacity-60 leading-tight">
+                         {blog.technicalDetails.finishes.wall.desc}
+                      </p>
+                   </div>
+                   <div className="flex gap-4 w-full h-[400px]">
+                      <div className="relative flex-grow h-full bg-neutral-100">
+                         <Image src={blog.technicalDetails.finishes.wall.images[0] || "/images/placeholder.png"} alt="Wall Finish 1" fill className="object-cover" />
+                         <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">02</span>
+                      </div>
+                      <div className="flex flex-col gap-4 w-[45%] h-full">
+                         <div className="relative flex-grow bg-neutral-100">
+                            <Image src={blog.technicalDetails.finishes.wall.images[1] || "/images/placeholder.png"} alt="Wall Finish 2" fill className="object-cover" />
+                            <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">03</span>
+                         </div>
+                         <div className="relative flex-grow bg-neutral-100">
+                            <Image src={blog.technicalDetails.finishes.wall.images[2] || "/images/placeholder.png"} alt="Wall Finish 3" fill className="object-cover" />
+                            <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">04</span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+
+                <div className="flex gap-4 items-start">
+                   <div className="w-[120px] shrink-0">
+                      <h4 className="text-[11px] font-bold uppercase tracking-widest text-black/90 mb-2">Flooring Finishes</h4>
+                      <p className="text-[9px] opacity-60 leading-tight">
+                         {blog.technicalDetails.finishes.flooring.desc}
+                      </p>
+                   </div>
+                   <div className="flex gap-4 w-full h-[300px]">
+                      <div className="relative flex-grow h-full bg-neutral-100">
+                         <Image src={blog.technicalDetails.finishes.flooring.images[0] || "/images/placeholder.png"} alt="Floor Finish 1" fill className="object-cover" />
+                         <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">05</span>
+                      </div>
+                      <div className="relative flex-grow h-full bg-neutral-100">
+                         <Image src={blog.technicalDetails.finishes.flooring.images[1] || "/images/placeholder.png"} alt="Floor Finish 2" fill className="object-cover" />
+                         <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">06</span>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+             {/* Right side: Detailed Lists */}
+             <div className="w-full lg:w-[55%] lg:pl-16 flex flex-col justify-center">
+                <div className="mb-12 border-b border-black/10 pb-8">
+                   <h3 className="text-xl font-bold tracking-tight mb-6">Unique Material Applications</h3>
+                   <div className="grid grid-cols-1 gap-y-3">
+                      {blog.technicalDetails.materials.map((m: any, idx: number) => (
+                         <div key={idx} className="flex border-b border-black/5 pb-1 last:border-0">
+                            <span className="w-[180px] text-[12px] font-bold">{m.label}</span>
+                            <span className="text-[12px] opacity-70">: {m.value}</span>
+                         </div>
+                      ))}
+                   </div>
+                </div>
+
+                <div className="mb-12 border-b border-black/10 pb-8">
+                   <h3 className="text-xl font-bold tracking-tight mb-6">Key Contributors</h3>
+                   <div className="grid grid-cols-1 gap-y-3">
+                      {blog.technicalDetails.contributors.map((c: any, idx: number) => (
+                         <div key={idx} className="flex border-b border-black/5 pb-1 last:border-0">
+                            <span className="w-[180px] text-[12px] font-bold">{c.label}</span>
+                            <span className="text-[12px] opacity-70">: {c.value}</span>
+                         </div>
+                      ))}
+                   </div>
+                </div>
+
+                <div>
+                   <h3 className="text-xl font-bold tracking-tight mb-6">Photo Credits</h3>
+                   <div className="grid grid-cols-1 gap-y-3">
+                      {blog.technicalDetails.photoCredits.map((p: any, idx: number) => (
+                         <div key={idx} className="flex border-b border-black/5 pb-1 last:border-0">
+                            <span className="w-[180px] text-[12px] font-bold">{p.label}</span>
+                            <span className="text-[12px] opacity-70">: {p.value}</span>
+                         </div>
+                      ))}
+                   </div>
+                </div>
+             </div>
+          </section>
+        )}
+
         {/* SPREAD 8: Conclusion */}
         <section className="w-full max-w-[1440px] shadow-[0_0_40px_rgba(0,0,0,0.1)] relative overflow-hidden flex items-end justify-end mb-24 min-h-[450px] md:min-h-[600px] aspect-[16/9] lg:aspect-[21/9] border border-black/5">
            <Image src={blog.conclusionImage} alt="Conclusion" fill className="object-cover object-center opacity-95" />
