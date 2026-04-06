@@ -2,12 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {Header} from "@/components/header"; // Header import error fix panniyachu
+import { Header } from "@/components/header"; 
 import { Footer } from "@/components/footer";
-// Variants type-a framer-motion la irunthu extra-va import pannirukom
 import { motion, Variants } from "framer-motion";
 
-// Animations-a component-ku veliya 'Variants' type kooda define pannirukom (Ithu thaan TS Error-a fix pannum)
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
@@ -30,7 +28,7 @@ export default function AboutUs() {
     <div className="bg-[#f9f9ff] text-[#181c23] overflow-x-hidden antialiased font-sans">
       <Header />
       
-      {/* 1. Hero Section - Fade in & subtle scale animation */}
+      {/* 1. Hero Section */}
       <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div 
           initial={{ scale: 1.05, opacity: 0 }}
@@ -48,7 +46,6 @@ export default function AboutUs() {
           />
         </motion.div>
         
-        {/* Text animation inside Hero */}
         <motion.div 
           initial="hidden"
           animate="visible"
@@ -67,7 +64,7 @@ export default function AboutUs() {
         </motion.div>
       </section>
 
-      {/* 2. Company Overview - Scroll triggered fade in */}
+      {/* 2. Company Overview */}
       <section className="bg-[#2d5679] min-h-screen flex items-center justify-center py-16">
         <motion.div 
           initial="hidden"
@@ -94,14 +91,14 @@ export default function AboutUs() {
                 Our expertise spans across residential, commercial, and institutional projects, where we seamlessly blend aesthetics with structural integrity. From initial concept to final execution, we work closely with our clients to understand their vision and translate it into spaces that inspire and endure.
               </p>
               <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
-                With a commitment to sustainable practices and cutting-edge technology, we create designs that not only meet today&apos;s needs but anticipate tomorrow&apos;s challenges. Every project we undertake is a testament to our dedication to quality, innovation, and the art of creating meaningful spaces.
+                With a commitment to sustainable practices and cutting-edge technology, we create designs that not only meet today's needs but anticipate tomorrow's challenges. Every project we undertake is a testament to our dedication to quality, innovation, and the art of creating meaningful spaces.
               </p>
             </motion.div>
           </div>
         </motion.div>
       </section>
 
-      {/* 3. Team Section - Image and text sliding in */}
+      {/* 3. Team Section */}
       <section className="bg-white min-h-screen flex flex-col justify-center py-24">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 w-full">
           <motion.div 
@@ -150,7 +147,8 @@ export default function AboutUs() {
                 className={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-stretch gap-8 md:gap-16 lg:gap-24 group`}
               >
                 <div className="w-full md:w-[35%] flex-shrink-0">
-                  <div className="relative h-full overflow-hidden shadow-[20px_20px_0_rgba(45,86,121,0.05)] transition-all duration-700 group-hover:shadow-[10px_10px_0_rgba(45,86,121,0.1)] rounded-sm">
+                  {/* Fixed h-[350px] md:h-full w-full applied here */}
+                  <div className="relative h-[350px] md:h-full w-full overflow-hidden shadow-[20px_20px_0_rgba(45,86,121,0.05)] transition-all duration-700 group-hover:shadow-[10px_10px_0_rgba(45,86,121,0.1)] rounded-sm">
                     <Image
                       src={member.img}
                       alt={member.name}
@@ -179,7 +177,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 4. Expertise Section - Staggered Grid Animation */}
+      {/* 4. Expertise Section */}
       <section className="bg-[#28557F] min-h-screen flex flex-col justify-center py-16 relative overflow-hidden">
         <motion.div 
           initial="hidden"
@@ -224,7 +222,7 @@ export default function AboutUs() {
         </motion.div>
       </section>
 
-      {/* 5. Blogs Section - Pop up animation */}
+      {/* 5. Blogs Section */}
       <section className="bg-white min-h-screen flex flex-col justify-center py-16">
         <motion.div 
           initial="hidden"

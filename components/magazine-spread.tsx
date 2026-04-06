@@ -251,7 +251,7 @@ export default function MagazineSpread({
               <div className="max-w-md mt-8 mb-auto">
                  <h3 className="text-sm font-bold uppercase tracking-widest text-[#000000]/60 mb-4">Facade Narrative</h3>
                  <p className="text-[14px] leading-relaxed opacity-80 font-medium text-justify">
-                    The intersection of the glass curtain wall and textured stone paneling creates a visual dialogue with the surrounding urban medical campus. This choice of materiality is not merely aesthetic but functions to manage solar gain and thermal insulation across the facility&apos;s northern exposure. Each stone panel is placed to create a rhythmic shadow play that evolves with the sun&apos;s position, softening the building&apos;s massive clinical volume into a more human-scale architectural presence.
+                    The intersection of the glass curtain wall and textured stone paneling creates a visual dialogue with the surrounding urban medical campus. This choice of materiality is not merely aesthetic but functions to manage solar gain and thermal insulation across the facility's northern exposure. Each stone panel is placed to create a rhythmic shadow play that evolves with the sun's position, softening the building's massive clinical volume into a more human-scale architectural presence.
                  </p>
               </div>
            </div>
@@ -314,21 +314,24 @@ export default function MagazineSpread({
            </div>
         </section>
 
-        {/* SPREAD: Technical Specifications & Credits (Based on reference image) */}
+        {/* SPREAD: Technical Specifications & Credits */}
         {blog.technicalDetails && (
           <section className="w-full max-w-[1440px] bg-white shadow-[0_0_60px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row min-h-[900px] overflow-hidden p-8 md:p-16 lg:p-24 bg-white relative">
-             <div className="absolute top-8 right-12 text-sm font-bold opacity-30">35</div>
+             <div className="hidden lg:block absolute top-8 right-12 text-sm font-bold opacity-30">35</div>
              
              {/* Left side: Finishing Grid */}
-             <div className="w-full lg:w-[45%] flex flex-col gap-12 border-b lg:border-b-0 lg:border-r border-black/10 pr-12">
-                <div className="flex gap-4 items-start">
-                   <div className="w-[120px] shrink-0">
+             {/* Fixed: Removed pr-12 for mobile, added bottom padding for spacing */}
+             <div className="w-full lg:w-[45%] flex flex-col gap-12 border-b lg:border-b-0 lg:border-r border-black/10 pb-12 lg:pb-0 pr-0 lg:pr-12">
+                
+                {/* Facade */}
+                <div className="flex flex-col sm:flex-row gap-4 sm:items-start">
+                   <div className="w-full sm:w-[120px] shrink-0 mb-2 sm:mb-0">
                       <h4 className="text-[11px] font-bold uppercase tracking-widest text-black/90 mb-2">Facade Finishes</h4>
                       <p className="text-[9px] opacity-60 leading-tight">
                          01 / {blog.technicalDetails.finishes.facade.desc}
                       </p>
                    </div>
-                   <div className="flex-grow aspect-[3/5] relative bg-neutral-100 overflow-hidden">
+                   <div className="w-full sm:flex-grow h-[300px] sm:h-auto aspect-auto sm:aspect-[3/5] relative bg-neutral-100 overflow-hidden">
                       <Image 
                          src={blog.technicalDetails.finishes.facade.images[0] || "/images/placeholder.png"} 
                          alt="Facade Finish" fill className="object-cover" 
@@ -337,59 +340,63 @@ export default function MagazineSpread({
                    </div>
                 </div>
 
-                <div className="flex gap-4 items-start">
-                   <div className="w-[120px] shrink-0">
+                {/* Wall */}
+                <div className="flex flex-col sm:flex-row gap-4 sm:items-start">
+                   <div className="w-full sm:w-[120px] shrink-0 mb-2 sm:mb-0">
                       <h4 className="text-[11px] font-bold uppercase tracking-widest text-black/90 mb-2">Wall Finishes</h4>
-                      <p className="text-[9px] opacity-60 leading-tight">
+                      <p className="text-[9px] opacity-60 leading-tight whitespace-pre-wrap">
                          {blog.technicalDetails.finishes.wall.desc}
                       </p>
                    </div>
-                   <div className="flex gap-4 w-full h-[400px]">
-                      <div className="relative flex-grow h-full bg-neutral-100">
+                   <div className="flex gap-2 sm:gap-4 w-full h-[300px] sm:h-[400px]">
+                      <div className="relative w-[55%] sm:flex-grow h-full bg-neutral-100">
                          <Image src={blog.technicalDetails.finishes.wall.images[0] || "/images/placeholder.png"} alt="Wall Finish 1" fill className="object-cover" />
-                         <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">02</span>
+                         <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">02</span>
                       </div>
-                      <div className="flex flex-col gap-4 w-[45%] h-full">
+                      <div className="flex flex-col gap-2 sm:gap-4 w-[45%] h-full">
                          <div className="relative flex-grow bg-neutral-100">
                             <Image src={blog.technicalDetails.finishes.wall.images[1] || "/images/placeholder.png"} alt="Wall Finish 2" fill className="object-cover" />
-                            <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">03</span>
+                            <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">03</span>
                          </div>
                          <div className="relative flex-grow bg-neutral-100">
                             <Image src={blog.technicalDetails.finishes.wall.images[2] || "/images/placeholder.png"} alt="Wall Finish 3" fill className="object-cover" />
-                            <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">04</span>
+                            <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">04</span>
                          </div>
                       </div>
                    </div>
                 </div>
 
-                <div className="flex gap-4 items-start">
-                   <div className="w-[120px] shrink-0">
+                {/* Flooring */}
+                <div className="flex flex-col sm:flex-row gap-4 sm:items-start">
+                   <div className="w-full sm:w-[120px] shrink-0 mb-2 sm:mb-0">
                       <h4 className="text-[11px] font-bold uppercase tracking-widest text-black/90 mb-2">Flooring Finishes</h4>
-                      <p className="text-[9px] opacity-60 leading-tight">
+                      <p className="text-[9px] opacity-60 leading-tight whitespace-pre-wrap">
                          {blog.technicalDetails.finishes.flooring.desc}
                       </p>
                    </div>
-                   <div className="flex gap-4 w-full h-[300px]">
-                      <div className="relative flex-grow h-full bg-neutral-100">
+                   <div className="flex gap-2 sm:gap-4 w-full h-[200px] sm:h-[300px]">
+                      <div className="relative w-1/2 sm:flex-grow h-full bg-neutral-100">
                          <Image src={blog.technicalDetails.finishes.flooring.images[0] || "/images/placeholder.png"} alt="Floor Finish 1" fill className="object-cover" />
-                         <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">05</span>
+                         <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">05</span>
                       </div>
-                      <div className="relative flex-grow h-full bg-neutral-100">
+                      <div className="relative w-1/2 sm:flex-grow h-full bg-neutral-100">
                          <Image src={blog.technicalDetails.finishes.flooring.images[1] || "/images/placeholder.png"} alt="Floor Finish 2" fill className="object-cover" />
-                         <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40">06</span>
+                         <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">06</span>
                       </div>
                    </div>
                 </div>
              </div>
 
              {/* Right side: Detailed Lists */}
-             <div className="w-full lg:w-[55%] lg:pl-16 flex flex-col justify-center">
+             {/* Fixed: Added pt-12 for mobile spacing */}
+             <div className="w-full lg:w-[55%] pt-12 lg:pt-0 lg:pl-16 flex flex-col justify-center">
                 <div className="mb-12 border-b border-black/10 pb-8">
                    <h3 className="text-xl font-bold tracking-tight mb-6">Unique Material Applications</h3>
                    <div className="grid grid-cols-1 gap-y-3">
                       {blog.technicalDetails.materials.map((m: any, idx: number) => (
                          <div key={idx} className="flex border-b border-black/5 pb-1 last:border-0">
-                            <span className="w-[180px] text-[12px] font-bold">{m.label}</span>
+                            {/* Fixed w-[180px] to be responsive */}
+                            <span className="w-[140px] sm:w-[180px] shrink-0 text-[12px] font-bold">{m.label}</span>
                             <span className="text-[12px] opacity-70">: {m.value}</span>
                          </div>
                       ))}
@@ -401,7 +408,7 @@ export default function MagazineSpread({
                    <div className="grid grid-cols-1 gap-y-3">
                       {blog.technicalDetails.contributors.map((c: any, idx: number) => (
                          <div key={idx} className="flex border-b border-black/5 pb-1 last:border-0">
-                            <span className="w-[180px] text-[12px] font-bold">{c.label}</span>
+                            <span className="w-[140px] sm:w-[180px] shrink-0 text-[12px] font-bold">{c.label}</span>
                             <span className="text-[12px] opacity-70">: {c.value}</span>
                          </div>
                       ))}
@@ -413,7 +420,7 @@ export default function MagazineSpread({
                    <div className="grid grid-cols-1 gap-y-3">
                       {blog.technicalDetails.photoCredits.map((p: any, idx: number) => (
                          <div key={idx} className="flex border-b border-black/5 pb-1 last:border-0">
-                            <span className="w-[180px] text-[12px] font-bold">{p.label}</span>
+                            <span className="w-[140px] sm:w-[180px] shrink-0 text-[12px] font-bold">{p.label}</span>
                             <span className="text-[12px] opacity-70">: {p.value}</span>
                          </div>
                       ))}
