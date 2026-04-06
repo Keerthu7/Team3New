@@ -16,7 +16,7 @@ export default function BlogPage() {
     },
     // Spread 2: The Proposal
     spread2BigImage: "/images/projects/kmch-diagnostic/interior.png",
-    spread2Intro: "The proposal involved designing a state-of-the-art diagnostic center at the hospital premises of KMCH Erode.",
+    spread2Intro: "The proposal involved designing a state-of-the-art diagnostic center at the hospital premises of KMCH Erode. Our primary objective was to de-clutter the traditional hospital environment by creating an independent wing dedicated to high-precision imaging and pathology. The design strategy integrates advanced medical workflow with a hospitality-driven aesthetic, ensuring a stress-free experience for patients. Meticulous attention was given to the spatial orientation to allow for future technological expansions without compromising the current functional integrity of the diagnostic suites.",
     spread2SmallImage: "/images/projects/kmch-diagnostic/hero.png",
     
     // Spread 3: The Patient Journey (Expanded Content)
