@@ -74,12 +74,12 @@ export default function ProjectsSection() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-12 justify-items-center">
           {filteredProjects.map((project) => (
             <Link
               key={project.id}
               href={`/projects/${project.slug}`}
-              className="relative group rounded-xl overflow-hidden h-[200px] md:h-[260px] lg:h-[300px] shadow-sm cursor-pointer block"
+              className="relative group overflow-hidden shadow-sm cursor-pointer block w-full max-w-[613.43px] h-auto aspect-[613.43/367.91] md:h-[367.91px] rounded-[14.75px]"
             >
               {/* Background Image */}
               <img

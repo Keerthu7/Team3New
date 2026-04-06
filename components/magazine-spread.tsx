@@ -251,7 +251,7 @@ export default function MagazineSpread({
               <div className="max-w-md mt-8 mb-auto">
                  <h3 className="text-sm font-bold uppercase tracking-widest text-[#000000]/60 mb-4">Facade Narrative</h3>
                  <p className="text-[14px] leading-relaxed opacity-80 font-medium text-justify">
-                    The intersection of the glass curtain wall and textured stone paneling creates a visual dialogue with the surrounding urban medical campus. This choice of materiality is not merely aesthetic but functions to manage solar gain and thermal insulation across the facility's northern exposure. Each stone panel is placed to create a rhythmic shadow play that evolves with the sun's position, softening the building's massive clinical volume into a more human-scale architectural presence.
+                    The intersection of the glass curtain wall and textured stone paneling creates a visual dialogue with the surrounding urban medical campus. This choice of materiality is not merely aesthetic but functions to manage solar gain and thermal insulation across the facility&apos;s northern exposure. Each stone panel is placed to create a rhythmic shadow play that evolves with the sun&apos;s position, softening the building&apos;s massive clinical volume into a more human-scale architectural presence.
                  </p>
               </div>
            </div>

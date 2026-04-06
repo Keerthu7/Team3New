@@ -11,31 +11,14 @@ export default function ContactPage() {
   const googleMapsLink = "https://maps.google.com/?q=Team+3+Associates+JKR+Towers+Kalapatti";
 
   return (
-    <div className="bg-[#FAFAFC] min-h-screen selection:bg-[#28557F]/10 font-sans">
+    <div className="bg-[#28557F] min-h-screen selection:bg-white/10 font-sans">
       <Header />
       
-      <main className="max-w-7xl mx-auto px-6 pt-24 pb-24">
-        {/* Header Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mb-16"
-        >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="h-[1px] w-12 bg-[#28557F]/30"></div>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#28557F]">
-              Connect With Us
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 tracking-tight leading-[1.1]">
-            Let's discuss your next <br />
-            <span className="font-semibold text-[#28557F]">architectural vision.</span>
-          </h1>
-          <p className="mt-6 text-gray-500 text-base md:text-lg max-w-xl leading-relaxed">
-            Reach out to our studio for consultations, project inquiries, or to simply start a conversation about your structural needs.
-          </p>
-        </motion.div>
+      <main 
+        className="max-w-7xl mx-auto px-6 min-h-screen flex flex-col"
+      >
+        <div className="flex-1 flex flex-col justify-center pt-[112px] pb-[40px]">
+        {/* Header Section Removed */}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start mb-20">
           
@@ -49,12 +32,12 @@ export default function ContactPage() {
             <div className="space-y-6">
               {/* Location - Updated with New Address */}
               <div className="flex items-start gap-4 group">
-                <div className="w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center text-[#28557F] shadow-sm transition-colors group-hover:border-[#28557F]/30 group-hover:bg-[#28557F]/5">
+                <div className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white shadow-sm transition-colors group-hover:border-white/40 group-hover:bg-white/20">
                   <MapPin size={14} />
                 </div>
                 <div className="-mt-0.5">
-                  <h4 className="text-[10px] font-bold text-gray-900 uppercase tracking-widest mb-1">Headquarters</h4>
-                  <p className="text-gray-500 text-[13px] leading-relaxed">
+                  <h4 className="text-[10px] font-bold text-white uppercase tracking-widest mb-1">Headquarters</h4>
+                  <p className="text-white/70 text-[13px] leading-relaxed">
                     Team 3 Associates, JKR Towers, <br />
                     Door No. 5/6, Moonlight Gardens Sitra, <br />
                     Kalapatti Main Rd, Kalapatti, TN - 641048.
@@ -64,28 +47,28 @@ export default function ContactPage() {
 
               {/* Phone */}
               <div className="flex items-start gap-4 group">
-                <div className="w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center text-[#28557F] shadow-sm transition-colors group-hover:border-[#28557F]/30 group-hover:bg-[#28557F]/5">
+                <div className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white shadow-sm transition-colors group-hover:border-white/40 group-hover:bg-white/20">
                   <Phone size={14} />
                 </div>
                 <div className="-mt-0.5">
-                  <h4 className="text-[10px] font-bold text-gray-900 uppercase tracking-widest mb-1">Registry</h4>
-                  <p className="text-gray-500 text-[13px] leading-relaxed">
+                  <h4 className="text-[10px] font-bold text-white uppercase tracking-widest mb-1">Registry</h4>
+                  <p className="text-white/70 text-[13px] leading-relaxed">
                     +91 999 443 333 1111<br />
-                    <span className="text-[12px] opacity-80">Mon - Sat, 9:00 AM to 7:00 PM IST</span>
+                    <span className="text-[12px] opacity-60">Mon - Sat, 9:00 AM to 7:00 PM IST</span>
                   </p>
                 </div>
               </div>
 
               {/* Email */}
               <div className="flex items-start gap-4 group">
-                <div className="w-8 h-8 rounded-full border border-gray-200 bg-white flex items-center justify-center text-[#28557F] shadow-sm transition-colors group-hover:border-[#28557F]/30 group-hover:bg-[#28557F]/5">
+                <div className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-white shadow-sm transition-colors group-hover:border-white/40 group-hover:bg-white/20">
                   <Mail size={14} />
                 </div>
                 <div className="-mt-0.5">
-                  <h4 className="text-[10px] font-bold text-gray-900 uppercase tracking-widest mb-1">Digital Inquiry</h4>
-                  <p className="text-gray-500 text-[13px] leading-relaxed">
-                    <a href="mailto:info@team3associates.com" className="hover:text-[#28557F] transition-colors">info@team3associates.com</a><br />
-                    <a href="mailto:hello@team3associates.com" className="hover:text-[#28557F] transition-colors">hello@team3associates.com</a>
+                  <h4 className="text-[10px] font-bold text-white uppercase tracking-widest mb-1">Digital Inquiry</h4>
+                  <p className="text-white/70 text-[13px] leading-relaxed">
+                    <a href="mailto:info@team3associates.com" className="hover:text-white transition-colors underline underline-offset-4 decoration-white/20">info@team3associates.com</a><br />
+                    <a href="mailto:hello@team3associates.com" className="hover:text-white transition-colors underline underline-offset-4 decoration-white/20">hello@team3associates.com</a>
                   </p>
                 </div>
               </div>
@@ -120,7 +103,7 @@ export default function ContactPage() {
                 allowFullScreen 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                className="grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                className="opacity-100 transition-all duration-700"
               ></iframe>
             </div>
           </motion.div>
@@ -130,46 +113,46 @@ export default function ContactPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:col-span-7 bg-white p-8 md:p-12 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100"
+            className="lg:col-span-7 bg-white/5 p-8 md:p-12 rounded-xl border border-white/10 backdrop-blur-sm"
           >
             <form className="space-y-8">
-              {/* Form fields remain the same as before */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[12px] font-medium text-gray-600">Full Name *</label>
-                  <input type="text" placeholder="John Doe" className="w-full border border-gray-200 rounded-md bg-gray-50/50 px-4 py-3 text-[14px] outline-none focus:border-[#28557F]" />
+                  <label className="text-[12px] font-medium text-white/60">Full Name *</label>
+                  <input type="text" placeholder="John Doe" className="w-full border border-white/20 rounded-md bg-white/5 px-4 py-3 text-[14px] text-white outline-none focus:border-white/50 placeholder:text-white/20" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[12px] font-medium text-gray-600">Email Address *</label>
-                  <input type="email" placeholder="john@example.com" className="w-full border border-gray-200 rounded-md bg-gray-50/50 px-4 py-3 text-[14px] outline-none focus:border-[#28557F]" />
+                  <label className="text-[12px] font-medium text-white/60">Email Address *</label>
+                  <input type="email" placeholder="john@example.com" className="w-full border border-white/20 rounded-md bg-white/5 px-4 py-3 text-[14px] text-white outline-none focus:border-white/50 placeholder:text-white/20" />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[12px] font-medium text-gray-600">Service Category</label>
-                <select defaultValue="" className="w-full border border-gray-200 rounded-md bg-gray-50/50 px-4 py-3 text-[14px] outline-none focus:border-[#28557F] appearance-none cursor-pointer">
-                  <option value="" disabled>Select an area of interest</option>
-                  <option value="Residential">Residential Architecture</option>
-                  <option value="Commercial">Commercial Spaces</option>
-                  <option value="Interior">Interior Design</option>
-                </select>
+                <label className="text-[12px] font-medium text-white/60">Service Category</label>
+                <div className="relative">
+                  <select defaultValue="" className="w-full border border-white/20 rounded-md bg-white/5 px-4 py-3 text-[14px] text-white outline-none focus:border-white/50 appearance-none cursor-pointer">
+                    <option value="" disabled className="bg-[#28557F]">Select interest</option>
+                    <option value="Residential" className="bg-[#28557F]">Residential Architecture</option>
+                    <option value="Commercial" className="bg-[#28557F]">Commercial Spaces</option>
+                    <option value="Interior" className="bg-[#28557F]">Interior Design</option>
+                  </select>
+                </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[12px] font-medium text-gray-600">Message Details *</label>
-                <textarea rows={5} placeholder="Tell us about your project..." className="w-full border border-gray-200 rounded-md bg-gray-50/50 px-4 py-3 text-[14px] outline-none focus:border-[#28557F] resize-none"></textarea>
+                <label className="text-[12px] font-medium text-white/60">Message Details *</label>
+                <textarea rows={5} placeholder="Tell us about your project..." className="w-full border border-white/20 rounded-md bg-white/5 px-4 py-3 text-[14px] text-white outline-none focus:border-white/50 resize-none placeholder:text-white/20"></textarea>
               </div>
 
-              <button type="submit" className="w-full sm:w-auto bg-[#28557F] text-white px-10 py-4 rounded-md text-[13px] font-semibold flex items-center justify-center gap-3 group transition-all hover:bg-[#1a3a5a]">
+              <button type="submit" className="w-full sm:w-auto bg-white text-[#28557F] px-10 py-4 rounded-md text-[13px] font-bold flex items-center justify-center gap-3 group transition-all hover:bg-white/90">
                 Submit Inquiry
                 <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </form>
           </motion.div>
         </div>
-      </main>
-
-      <Footer />
+      </div>
+    </main>
     </div>
   );
 }

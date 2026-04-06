@@ -56,45 +56,72 @@ export default function AboutUs() {
                 Our expertise spans across residential, commercial, and institutional projects, where we seamlessly blend aesthetics with structural integrity. From initial concept to final execution, we work closely with our clients to understand their vision and translate it into spaces that inspire and endure.
               </p>
               <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
-                With a commitment to sustainable practices and cutting-edge technology, we create designs that not only meet today's needs but anticipate tomorrow's challenges. Every project we undertake is a testament to our dedication to quality, innovation, and the art of creating meaningful spaces.
+                With a commitment to sustainable practices and cutting-edge technology, we create designs that not only meet today&apos;s needs but anticipate tomorrow&apos;s challenges. Every project we undertake is a testament to our dedication to quality, innovation, and the art of creating meaningful spaces.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. Team Section [WHITE SECTION] */}
-      <section className="bg-white min-h-screen flex flex-col justify-center py-12">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 w-full text-center">
-          <div className="mb-10">
-            <span className="text-[#2d5679] font-semibold tracking-[0.15em] text-[11px] mb-2 block uppercase">
+      {/* 3. Team Section [WHITE SECTION] - Redesigned to Vertical Monograph List */}
+      <section className="bg-white min-h-screen flex flex-col justify-center py-24">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-10 w-full">
+          <div className="mb-16 md:mb-24 text-center">
+            <span className="text-[#2d5679] font-semibold tracking-[0.2em] text-[11px] mb-3 block uppercase">
               MEET OUR TEAM
             </span>
-            <h2 className="text-[#181c23] text-2xl md:text-3xl font-bold mb-3 uppercase tracking-tight">
+            <h2 className="text-[#181c23] text-3xl md:text-5xl font-bold mb-4 uppercase tracking-tight">
               The Minds Behind Our Vision
             </h2>
-            <p className="text-[#181c23]/70 max-w-2xl mx-auto text-sm font-normal leading-relaxed">
-              Our diverse team of professionals brings together expertise, creativity, and passion to deliver exceptional results on every project.
-            </p>
+            <div className="w-20 h-1 bg-[#2d5679] mx-auto"></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
+          <div className="flex flex-col gap-24 md:gap-32">
             {[
-              { name: "Alexandra Chen", role: "Principal Architect", img: "/team-member-1.png" },
-              { name: "Marcus Rivera", role: "Design Director", img: "/team-member-2.png" },
-              { name: "Elena Voss", role: "Structural Lead", img: "/team-member-3.png" }
+              { 
+                name: "B Sampath Kumar", 
+                role: "Managing Director", 
+                img: "/team-member-1.png",
+                desc: "A civil engineer with over 30 years of experience in Town and Country planning, his profile includes construction of textiles, dams, reservoirs, and tanks as a PWD engineer in an around Theni district. He has ventured into the Land and building liaison field with the skill and experience gained through the years and has built a strong client base including Textiles, Hospitals, Colleges, Schools, Wedding halls, etc. Clients include KMCH, Bannari Amman Group, SRM University, Chennai, Aratt Builders-Bangalore, Good Shepherd Institutions, Marthandam, KRC Constructions, Tirupur and many more."
+              },
+              { 
+                name: "Praveen Kumar", 
+                role: "Engineer", 
+                img: "/team-member-2.png",
+                desc: "A civil engineer with a Masters in Structural Engineering from Leeds University, he has work experience in structural engineering from the UK. He has worked under Shankar & Associates as Senior Structural Engineer contributing his expertise in Residential, Commercial, Hospitals, and Institutional buildings."
+              },
+              { 
+                name: "Prabhakar", 
+                role: "Architect", 
+                img: "/team-member-3.png",
+                desc: "Prabhakar brings in the Creative Freshness to T3A, an Alumnus of RV College Bangalore, he acquired hands-on work experience with Ar. Cherthalam Associates for two years before pursuing his Masters' in Landscape Architecture (M.Larch) from Kingston University, London. A Gold-Medallist and a meritorious student, he is a member of the prestigious Landscape Institute (A UK based professional body for the landscape profession) and the Council of Architecture COA (A statutory body constituted by the Government of India)."
+              }
             ].map((member, idx) => (
-              <div key={idx} className="flex flex-col items-center group">
-                <div className="relative w-3/4 md:w-full aspect-[3/4] overflow-hidden mb-4 shadow-lg rounded-sm">
-                  <Image
-                    src={member.img}
-                    alt={member.name}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+              <div key={idx} className={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-stretch gap-8 md:gap-16 lg:gap-24 group`}>
+                <div className="w-full md:w-[35%] flex-shrink-0">
+                  <div className="relative h-full overflow-hidden shadow-[20px_20px_0_rgba(45,86,121,0.05)] transition-all duration-700 group-hover:shadow-[10px_10px_0_rgba(45,86,121,0.1)] rounded-sm">
+                    <Image
+                      src={member.img}
+                      alt={member.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 35vw, 400px"
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold text-[#181c23] mb-1 uppercase">{member.name}</h3>
-                <p className="text-[#2d5679] font-medium text-[11px] uppercase tracking-wider">{member.role}</p>
+                
+                <div className="flex flex-col flex-grow pt-4 pb-4">
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#181c23] mb-2 uppercase tracking-tight">
+                    {member.name}
+                  </h3>
+                  <p className="text-[#2d5679] font-bold text-sm lg:text-base uppercase tracking-[0.2em] mb-8 relative inline-block">
+                    {member.role}
+                    <span className="absolute -bottom-2 left-0 w-8 h-[2px] bg-[#2d5679]/30"></span>
+                  </p>
+                  <p className="text-[#181c23]/70 text-sm md:text-base font-normal leading-relaxed text-justify whitespace-pre-wrap">
+                    {member.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
