@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Header } from "@/components/header";
+import  {Header}  from "@/components/header";
 import { Footer } from "@/components/footer";
 import { projects } from "@/lib/projects-data";
 import Link from "next/link";

@@ -1,7 +1,27 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Header } from "@/components/header";
+import {Header} from "@/components/header"; // Header import error fix panniyachu
 import { Footer } from "@/components/footer";
+// Variants type-a framer-motion la irunthu extra-va import pannirukom
+import { motion, Variants } from "framer-motion";
+
+// Animations-a component-ku veliya 'Variants' type kooda define pannirukom (Ithu thaan TS Error-a fix pannum)
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
 
 export default function AboutUs() {
   const themeBlue = "#28557F"; 
@@ -10,9 +30,14 @@ export default function AboutUs() {
     <div className="bg-[#f9f9ff] text-[#181c23] overflow-x-hidden antialiased font-sans">
       <Header />
       
-      {/* 1. Hero Section - Pure Image without Blue Shade */}
+      {/* 1. Hero Section - Fade in & subtle scale animation */}
       <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <motion.div 
+          initial={{ scale: 1.05, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="absolute inset-0 z-0"
+        >
           <Image
             src="/hero-group.png"
             alt="Team 3 Associates Group Portrait"
@@ -21,34 +46,47 @@ export default function AboutUs() {
             className="object-cover"
             priority
           />
-        </div>
-        <div className="relative z-10 text-center px-6 max-w-4xl mt-16">
-          <p className="text-white font-semibold tracking-[0.2em] text-xs md:text-sm uppercase mb-4 drop-shadow-lg">
+        </motion.div>
+        
+        {/* Text animation inside Hero */}
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="relative z-10 text-center px-6 max-w-4xl mt-16"
+        >
+          <motion.p variants={fadeInUp} className="text-white font-semibold tracking-[0.2em] text-xs md:text-sm uppercase mb-4 drop-shadow-lg">
             WHO WE ARE
-          </p>
-          <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)] uppercase tracking-tight">
+          </motion.p>
+          <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)] uppercase tracking-tight">
             About Team 3 Associates
-          </h1>
-          <p className="text-base md:text-lg text-white font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+          </motion.h1>
+          <motion.p variants={fadeInUp} className="text-base md:text-lg text-white font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
             Excellence in Architecture, Interior Design & Structural Engineering
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </section>
 
-      {/* 2. Company Overview [BLUE SECTION] - Block Centered, Text Left-Aligned */}
+      {/* 2. Company Overview - Scroll triggered fade in */}
       <section className="bg-[#2d5679] min-h-screen flex items-center justify-center py-16">
-        <div className="max-w-[1200px] w-full px-6 md:px-10 flex justify-center">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="max-w-[1200px] w-full px-6 md:px-10 flex justify-center"
+        >
           <div className="max-w-4xl w-full text-left">
-            <div className="mb-8">
+            <motion.div variants={fadeInUp} className="mb-8">
               <span className="text-white font-semibold tracking-[0.05em] text-sm uppercase mb-4 block">
                 COMPANY OVERVIEW
               </span>
               <h2 className="text-4xl md:text-5xl font-medium text-white leading-tight mb-8">
                 Building Dreams Into Reality
               </h2>
-            </div>
+            </motion.div>
             
-            <div className="text-white/90 space-y-8">
+            <motion.div variants={fadeInUp} className="text-white/90 space-y-8">
               <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
                 Team 3 Associates is a premier architecture and design firm dedicated to transforming spaces into functional works of art. Founded on the principles of innovation, precision, and client satisfaction, we bring together a multidisciplinary team of architects, interior designers, and structural engineers to deliver comprehensive design solutions.
               </p>
@@ -58,15 +96,21 @@ export default function AboutUs() {
               <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
                 With a commitment to sustainable practices and cutting-edge technology, we create designs that not only meet today&apos;s needs but anticipate tomorrow&apos;s challenges. Every project we undertake is a testament to our dedication to quality, innovation, and the art of creating meaningful spaces.
               </p>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* 3. Team Section [WHITE SECTION] - Redesigned to Vertical Monograph List */}
+      {/* 3. Team Section - Image and text sliding in */}
       <section className="bg-white min-h-screen flex flex-col justify-center py-24">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 w-full">
-          <div className="mb-16 md:mb-24 text-center">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="mb-16 md:mb-24 text-center"
+          >
             <span className="text-[#2d5679] font-semibold tracking-[0.2em] text-[11px] mb-3 block uppercase">
               MEET OUR TEAM
             </span>
@@ -74,7 +118,7 @@ export default function AboutUs() {
               The Minds Behind Our Vision
             </h2>
             <div className="w-20 h-1 bg-[#2d5679] mx-auto"></div>
-          </div>
+          </motion.div>
           
           <div className="flex flex-col gap-24 md:gap-32">
             {[
@@ -97,7 +141,14 @@ export default function AboutUs() {
                 desc: "Prabhakar brings in the Creative Freshness to T3A, an Alumnus of RV College Bangalore, he acquired hands-on work experience with Ar. Cherthalam Associates for two years before pursuing his Masters' in Landscape Architecture (M.Larch) from Kingston University, London. A Gold-Medallist and a meritorious student, he is a member of the prestigious Landscape Institute (A UK based professional body for the landscape profession) and the Council of Architecture COA (A statutory body constituted by the Government of India)."
               }
             ].map((member, idx) => (
-              <div key={idx} className={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-stretch gap-8 md:gap-16 lg:gap-24 group`}>
+              <motion.div 
+                key={idx} 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-stretch gap-8 md:gap-16 lg:gap-24 group`}
+              >
                 <div className="w-full md:w-[35%] flex-shrink-0">
                   <div className="relative h-full overflow-hidden shadow-[20px_20px_0_rgba(45,86,121,0.05)] transition-all duration-700 group-hover:shadow-[10px_10px_0_rgba(45,86,121,0.1)] rounded-sm">
                     <Image
@@ -122,23 +173,29 @@ export default function AboutUs() {
                     {member.desc}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 4. Expertise Section [BLUE SECTION] */}
+      {/* 4. Expertise Section - Staggered Grid Animation */}
       <section className="bg-[#28557F] min-h-screen flex flex-col justify-center py-16 relative overflow-hidden">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 w-full relative z-10">
-          <div className="mb-12 text-center">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+          className="max-w-[1400px] mx-auto px-6 md:px-10 w-full relative z-10"
+        >
+          <motion.div variants={fadeInUp} className="mb-12 text-center">
             <span className="text-white/60 font-semibold tracking-[0.15em] text-xs mb-3 block uppercase">
               WHAT WE DO
             </span>
             <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tight text-white">
               Our Areas of Expertise
             </h2>
-          </div>
+          </motion.div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {[
@@ -149,7 +206,11 @@ export default function AboutUs() {
               { icon: "chair_alt", title: "Space Planning", desc: "Optimizing interior layouts for maximum efficiency and flow in commercial and residential spaces." },
               { icon: "layers", title: "Project Mgmt", desc: "End-to-end management ensuring projects are delivered on time and within budget." }
             ].map((item, idx) => (
-              <div key={idx} className="bg-white p-6 flex flex-col items-start h-full rounded-xl group hover:shadow-2xl transition-all duration-300">
+              <motion.div 
+                key={idx} 
+                variants={fadeInUp} 
+                className="bg-white p-6 flex flex-col items-start h-full rounded-xl group hover:shadow-2xl transition-all duration-300"
+              >
                 <div className="w-12 h-12 bg-[#2d5679]/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-[#2d5679] transition-colors duration-300">
                   <span className="material-symbols-outlined text-2xl text-[#2d5679] group-hover:text-white transition-colors duration-300">
                     {item.icon}
@@ -157,30 +218,35 @@ export default function AboutUs() {
                 </div>
                 <h3 className="text-lg font-semibold text-[#2d5679] mb-3 uppercase tracking-tight">{item.title}</h3>
                 <p className="text-gray-600 text-xs leading-relaxed">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* 5. Blogs Section [WHITE SECTION] - Single Centered Blog */}
+      {/* 5. Blogs Section - Pop up animation */}
       <section className="bg-white min-h-screen flex flex-col justify-center py-16">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 w-full text-center">
-          <div className="mb-12">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-[1200px] mx-auto px-6 md:px-10 w-full text-center"
+        >
+          <motion.div variants={fadeInUp} className="mb-12">
             <h2 className="text-[#181c23] text-3xl md:text-4xl font-bold mb-4 uppercase tracking-tight">
               RESOURCES BLOGS & NEWS
             </h2>
             <p className="text-[#181c23]/70 text-sm md:text-base max-w-3xl mx-auto font-normal">
               Explore our blog for the latest architectural trends, design insights, project updates, and industry news to stay inspired.
             </p>
-          </div>
+          </motion.div>
           
-          <div className="flex flex-col items-center justify-center max-w-5xl mx-auto">
+          <motion.div variants={fadeInUp} className="flex flex-col items-center justify-center max-w-5xl mx-auto">
             <div className="group cursor-pointer flex flex-col items-center text-center w-full">
-              {/* Reduced Image Size: max-w-[650px]  */}
               <div className="relative w-full max-w-[590px] aspect-[16/9] overflow-hidden mb-8 rounded-2xl shadow-md">
                 <Image
-                  src="/blog-res-3.png" // Replace with your actual large image path
+                  src="/blog-res-3.png" 
                   alt="KMCH DIAGNOSTIC CENTRE"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -199,8 +265,8 @@ export default function AboutUs() {
                 LEARN MORE &rarr;
               </Link>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       <Footer />

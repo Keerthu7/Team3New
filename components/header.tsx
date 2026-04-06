@@ -12,21 +12,23 @@ export function Header() {
     { label: "Projects", href: "/projects" },
     { label: "About us", href: "/about" },
     { label: "Blogs", href: "/blog" },
-    { label: "contact us", href: "/contact" },
+    { label: "Contact us", href: "/contact" },
   ];
 
   return (
-    <header className="absolute top-8 left-1/2 -translate-x-1/2 z-[100] w-[88%] max-w-[1050px] bg-white rounded-[100px] px-8 md:px-10 py-2 md:py-2.5 shadow-md flex items-center justify-between">
+    // py-2.5 la irunthu py-3 ku mathiyiruken so header light-a perusaagum
+    <header className="absolute top-8 left-1/2 -translate-x-1/2 z-[100] w-[88%] max-w-[1050px] bg-white rounded-[100px] px-8 md:px-10 py-3 shadow-md flex items-center justify-between">
       
-      {/* LOGO SECTION */}
+      {/* LOGO SECTION - Light ah increase panniyachu */}
       <Link href="/" className="flex items-center hover:opacity-80 transition-opacity ml-2 md:ml-4">
         <Image 
           src="/images/logo.png" 
           alt="Team 3 Associates" 
-          width={170}   
-          height={45}   
+          width={220} // 210 la irunthu 220 aakiyachu
+          height={60} 
           priority 
-          className="object-contain h-auto w-auto max-h-[38px] md:max-h-[42px]" 
+          // Max height aiyum light ah increase panniyachu
+          className="object-contain h-auto w-auto max-h-[48px] md:max-h-[54px]" 
         />
       </Link>
 
@@ -36,7 +38,6 @@ export function Header() {
           <Link
             key={link.label}
             href={link.href}
-            // Inga thaan hover:text-blue-700 ah thookittu hover:opacity-70 potruken
             className="text-[14px] font-bold text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
           >
             {link.label}

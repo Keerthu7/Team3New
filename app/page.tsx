@@ -1,4 +1,4 @@
-import { Header } from "../components/header";
+import {Header} from "@/components/header";
 import { Hero } from "../components/hero";
 import { LogoMarquee } from "../components/logo-marquee";
 import { OurClients } from "../components/logo-cloud";
