@@ -297,7 +297,7 @@ export default function MagazineSpread({
                  </p>
               </div>
               <div className="relative w-full aspect-square bg-[#fafafa] flex items-center justify-center p-8">
-                 <Image src={blog.diagramBlueprintImage} alt="Blueprint" fill className="object-contain opacity-80 p-4" />
+                 <Image src={blog.diagramBlueprintImage || "/images/placeholder.png"} alt="Blueprint" fill className="object-contain opacity-80 p-4" />
               </div>
            </div>
 

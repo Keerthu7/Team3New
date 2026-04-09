@@ -38,7 +38,7 @@ export function Header() {
           <Link
             key={link.label}
             href={link.href}
-            className="text-[14px] font-bold text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
+            className="text-[14px] font-medium text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
           >
             {link.label}
           </Link>
@@ -61,7 +61,7 @@ export function Header() {
               key={link.label}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-[14px] font-bold text-[#1A4A75] hover:opacity-70 transition-all"
+              className="text-[14px] font-medium text-[#1A4A75] hover:opacity-70 transition-all"
             >
               {link.label}
             </Link>

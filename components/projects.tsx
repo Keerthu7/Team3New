@@ -30,8 +30,8 @@ const projectData = [
     location: "Coimbatore",
     description: "Cutting-edge healthcare infrastructure designed for efficiency and patient comfort. A synthesis of advanced technology and human-centric design.",
     date: "10, FEB 2026",
-    image: "/images/interiors/kmch_int.png",
-    interiorImage: "/images/project3.png",
+    image: "/images/generated/kmch_exterior_1775710540921.png",
+    interiorImage: "/images/generated/kmch_lobby_1775710525290.png",
   },
   {
     id: 4,
@@ -39,8 +39,8 @@ const projectData = [
     location: "Coimbatore",
     description: "A commercial landmark that redefines the skyline. Integrated workspace solutions with a focus on sustainability and structural excellence.",
     date: "05, MAR 2026",
-    image: "/images/interiors/siva_int.png",
-    interiorImage: "/images/project4.png",
+    image: "/images/generated/siva_skyscraper_1775710572488.png",
+    interiorImage: "/images/generated/siva_atrium_1775710557057.png",
   },
   {
     id: 5,

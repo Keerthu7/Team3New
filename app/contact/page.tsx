@@ -2,12 +2,12 @@
 
 import React from "react";
 import { Header } from "@/components/header";
-import { Footer } from "@/components/footer"; 
 import { MapPin, Phone, Mail, Send, ExternalLink, ChevronDown } from "lucide-react"; 
 import { motion } from "framer-motion";
 
 export default function ContactPage() {
-  const googleMapsLink = "https://maps.app.goo.gl/YourActualLocationLink"; 
+  // Updated with the exact Google Maps link for Team 3 Associates
+  const googleMapsLink = "https://www.google.com/maps/place/Team+3+Associates/@11.0366655,77.0376785,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba8571c5d7c09c3:0x9ae231fdadd57826!8m2!3d11.0366655!4d77.0402534!16s%2Fg%2F11b6_c2bxb"; 
 
   return (
     <div className="bg-[#28557F] min-h-screen selection:bg-[#28557F]/10 font-sans relative flex flex-col overflow-x-hidden">
@@ -59,21 +59,21 @@ export default function ContactPage() {
             >
               <div className="bg-white p-5 rounded-2xl shadow-xl border border-gray-100 flex flex-col">
                 <div className="space-y-5 text-[#28557F]">
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-8 h-8 shrink-0 rounded-full bg-[#28557F]/5 flex items-center justify-center"><MapPin size={15} /></div>
-                    <div><h4 className="text-[10px] font-bold uppercase tracking-widest mb-1">Headquarters</h4><p className="text-gray-600 text-[12px] leading-relaxed">Team 3 Associates, JKR Towers, Sitra, Coimbatore - 641048.</p></div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 shrink-0 rounded-full bg-[#28557F]/10 flex items-center justify-center text-[#28557F]"><MapPin size={18} /></div>
+                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Headquarters</h4><p className="text-gray-900 text-sm font-medium leading-relaxed">Team 3 Associates, JKR Towers, Sitra, Coimbatore - 641048.</p></div>
                   </div>
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-8 h-8 shrink-0 rounded-full bg-[#28557F]/5 flex items-center justify-center"><Phone size={15} /></div>
-                    <div><h4 className="text-[10px] font-bold uppercase tracking-widest mb-1">Registry</h4><p className="text-gray-600 text-[12px] leading-relaxed">+91 999 443 333 1111</p></div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 shrink-0 rounded-full bg-[#28557F]/10 flex items-center justify-center text-[#28557F]"><Phone size={18} /></div>
+                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Registry</h4><p className="text-gray-900 text-sm font-medium leading-relaxed">+91 999 443 333 1111</p></div>
                   </div>
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-8 h-8 shrink-0 rounded-full bg-[#28557F]/5 flex items-center justify-center"><Mail size={15} /></div>
-                    <div><h4 className="text-[10px] font-bold uppercase tracking-widest mb-1">Digital Inquiry</h4><p className="text-gray-600 text-[12px] leading-relaxed break-all font-medium">info@team3associates.com</p></div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 shrink-0 rounded-full bg-[#28557F]/10 flex items-center justify-center text-[#28557F]"><Mail size={18} /></div>
+                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Digital Inquiry</h4><p className="text-[#28557F] text-sm font-bold leading-relaxed break-all">info@team3associates.com</p></div>
                   </div>
                 </div>
 
-                {/* 3. MOBILE VIEW ONLY SOCIAL ICONS (This was hidden before) */}
+                {/* 3. MOBILE VIEW ONLY SOCIAL ICONS */}
                 <div className="lg:hidden flex items-center justify-center gap-6 pt-6 mt-6 border-t border-gray-100">
                   <a href="#" className="w-10 h-10 rounded-full bg-[#28557F]/5 flex items-center justify-center text-[#28557F]">
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
@@ -94,9 +94,18 @@ export default function ContactPage() {
               <div className="relative w-full h-[220px] md:h-[260px] bg-white/5 rounded-2xl overflow-hidden border border-white/10 shadow-lg">
                 <a href={googleMapsLink} target="_blank" className="absolute top-3 left-3 z-20 bg-white/95 p-2 rounded-lg flex items-center gap-2 shadow-md">
                   <ExternalLink size={14} className="text-[#28557F]" />
-                  <span className="text-[10px] font-bold text-gray-800">Sitra, Coimbatore</span>
+                  <span className="text-[10px] font-bold text-gray-800">Team 3 Associates, JKR Towers, Kalapatti Main Rd</span>
                 </a>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.033324021234!2d77.03333333333333!3d11.033333333333333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDAyJzAwLjAiTiA3N8KwMDInMDAuMCJF!5e0!3m2!1sen!2sin!4v1633333333333!5m2!1sen!2sin" width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" className="opacity-90 object-cover"></iframe>
+                {/* Updated iframe src with proper Google Maps embed URL */}
+                <iframe 
+                  src="https://maps.google.com/maps?q=Team%203%20Associates,%20JKR%20Towers,%20Kalapatti,%20Coimbatore&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen 
+                  loading="lazy" 
+                  className="opacity-90 object-cover"
+                ></iframe>
               </div>
             </motion.div>
 
@@ -144,8 +153,6 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -223,7 +223,7 @@ export default function AboutUs() {
       </section>
 
       {/* 5. Blogs Section */}
-      <section className="bg-white min-h-screen flex flex-col justify-center py-16">
+      <section className="bg-white py-12 md:py-16">
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -231,38 +231,66 @@ export default function AboutUs() {
           variants={staggerContainer}
           className="max-w-[1200px] mx-auto px-6 md:px-10 w-full text-center"
         >
-          <motion.div variants={fadeInUp} className="mb-12">
-            <h2 className="text-[#181c23] text-3xl md:text-4xl font-bold mb-4 uppercase tracking-tight">
-              RESOURCES BLOGS & NEWS
+          <motion.div variants={fadeInUp} className="mb-8">
+            <h2 className="text-black text-3xl md:text-[38px] font-medium mb-3 tracking-tight">
+              Resources Blogs & News
             </h2>
-            <p className="text-[#181c23]/70 text-sm md:text-base max-w-3xl mx-auto font-normal">
-              Explore our blog for the latest architectural trends, design insights, project updates, and industry news to stay inspired.
+            <p className="text-black/80 text-[15px] md:text-[16px] max-w-3xl mx-auto font-normal leading-relaxed">
+              Explore our blog for the latest architecture trends, design insights, project updates, <br className="hidden md:block" /> and industry news to stay inspired.
             </p>
           </motion.div>
           
-          <motion.div variants={fadeInUp} className="flex flex-col items-center justify-center max-w-5xl mx-auto">
-            <div className="group cursor-pointer flex flex-col items-center text-center w-full">
-              <div className="relative w-full max-w-[590px] aspect-[16/9] overflow-hidden mb-8 rounded-2xl shadow-md">
-                <Image
-                  src="/blog-res-3.png" 
-                  alt="KMCH DIAGNOSTIC CENTRE"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+          <motion.div variants={fadeInUp} className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto w-full pt-4">
+            {[
+              {
+                title: "KMCH Diagnostic Centre",
+                desc: "Modern research and expert evaluation in all these architecture projects and our services also reflect what individuals value.",
+                img: "/blog-res-3.png",
+                link: "/blog/kmch-diagnostic-centre"
+              },
+              {
+                title: "Siva Trade Centre",
+                desc: "An iconic commercial landmark that redefines the skyline with a bold focus on sustainability and structural excellence.",
+                img: "/images/generated/siva_skyscraper_1775710572488.png",
+                link: "/blog/siva-trade-centre"
+              },
+              {
+                title: "Mr. Jagan Residence",
+                desc: "A stunning modern sustainable architecture featuring sleek design, and seamless indoor-outdoor living integration.",
+                img: "/images/generated/jagan_exterior_1775710472373.png",
+                link: "/blog/mr-jagan-residence"
+              }
+            ].map((blog, idx) => (
+              <div key={idx} className="flex flex-col w-full text-left bg-transparent">
+                <div className="relative w-full aspect-[4/3] overflow-hidden mb-4">
+                  <Image
+                    src={blog.img} 
+                    alt={blog.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                
+                <h3 className="text-black font-bold text-[17px] mb-2">
+                  {blog.title}
+                </h3>
+                
+                <p className="text-[#333333] text-[14.5px] mb-4 font-normal leading-snug">
+                  {blog.desc}
+                </p>
+                
+                <Link className="inline-block mt-auto text-[#111111] font-semibold text-[15px] underline decoration-1 underline-offset-[5px] hover:text-[#2d5679] tracking-wide" href={blog.link}>
+                  Learn More
+                </Link>
               </div>
-              
-              <h3 className="text-xl md:text-2xl font-bold text-[#2d5679] mb-4 uppercase tracking-wide">
-                KMCH DIAGNOSTIC CENTRE
-              </h3>
-              
-              <p className="text-[#181c23]/60 text-sm md:text-base mb-6 font-normal leading-relaxed max-w-2xl mx-auto">
-                Modern research and expert evaluation in all these architecture projects and our services also reflect what individuals value.
-              </p>
-              
-              <Link className="inline-flex items-center gap-2 text-[#2d5679] font-semibold text-sm uppercase tracking-widest hover:opacity-70 transition-opacity" href="/blog">
-                LEARN MORE &rarr;
-              </Link>
-            </div>
+            ))}
+          </motion.div>
+
+          {/* Centered Button from mockup */}
+          <motion.div variants={fadeInUp} className="mt-16">
+            <Link href="/blog" className="inline-flex drop-shadow-[0_8px_12px_rgba(0,0,0,0.15)] bg-[#28557F] text-white px-10 py-3 rounded-full text-lg font-medium hover:bg-[#1c3f60] transition-all hover:-translate-y-0.5">
+              Know More
+            </Link>
           </motion.div>
         </motion.div>
       </section>

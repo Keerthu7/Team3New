@@ -73,7 +73,7 @@ export function Testimonials() {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section id="reviews" className="py-24 bg-white relative overflow-hidden">
+    <section id="reviews" className="pt-8 pb-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
         
         {/* Left Side: Static Header & Rating */}

@@ -17,7 +17,7 @@ export function OurClients() {
   const marqueeLogos = [...logos, ...logos, ...logos, ...logos];
 
   return (
-    <section id="clients" className="py-20 bg-white overflow-hidden">
+    <section id="clients" className="pt-20 pb-8 bg-white overflow-hidden">
       <div className="container mx-auto px-6 mb-16">
         <h2 className="text-xl md:text-2xl font-bold text-center tracking-[0.3em] uppercase text-primary">
           Our Clients
