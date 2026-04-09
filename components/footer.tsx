@@ -21,7 +21,7 @@ export function Footer() {
               alt="Team 3 Associates" 
               width={200} 
               height={55} 
-              className="object-contain object-left mr-auto h-auto w-auto max-h-[48px] brightness-0 invert mb-6" 
+              className="object-contain object-left mr-auto h-auto w-auto max-h-[48px] brightness-0 invert opacity-100 mb-6" 
             />
             <p className="text-[15px] font-medium leading-loose text-white md:max-w-[85%] text-justify">
               A multidisciplinary architecture studio dedicated to creating refined spaces that inspire human connection and elevate the built environment.
@@ -36,7 +36,7 @@ export function Footer() {
                 </svg>
               </Link>
               {/* Instagram */}
-              <Link href="#" className="w-9 h-9 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors shadow-sm group">
+              <Link href="https://www.instagram.com/team3_associates?igsh=am10cWh1dGc3NDd4" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors shadow-sm group">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#28557F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
@@ -50,10 +50,12 @@ export function Footer() {
                   <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
                 </svg>
               </Link>
-              {/* X / Twitter */}
+              {/* LinkedIn */}
               <Link href="#" className="w-9 h-9 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors shadow-sm group">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="none">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#28557F"/>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#28557F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/>
+                  <circle cx="4" cy="4" r="2"/>
                 </svg>
               </Link>
             </div>

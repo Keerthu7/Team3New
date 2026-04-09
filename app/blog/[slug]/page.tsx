@@ -4,7 +4,7 @@ import { Footer } from "@/components/footer";
 import { blogs } from "@/data/blog-data";
 import { notFound } from "next/navigation";
 
-export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const blog = blogs.find((b) => b.slug === slug);
 

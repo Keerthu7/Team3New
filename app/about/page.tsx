@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Header } from "@/components/header"; 
+import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { motion, Variants } from "framer-motion";
 
@@ -21,23 +21,23 @@ const staggerContainer: Variants = {
   }
 };
 
-export default function AboutUs() {
-  const themeBlue = "#28557F"; 
+export default function Page() {
+  const themeBlue = "#28557F";
 
   return (
     <div className="bg-[#f9f9ff] text-[#181c23] overflow-x-hidden antialiased font-sans">
       <Header />
-      
+
       {/* 1. Hero Section */}
       <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
-        <motion.div 
+        <motion.div
           initial={{ scale: 1.05, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="absolute inset-0 z-0"
         >
           <Image
-            src="/hero-group.png"
+            src="/images/about/group-photo.png"
             alt="Team 3 Associates Group Portrait"
             fill
             sizes="100vw"
@@ -45,8 +45,8 @@ export default function AboutUs() {
             priority
           />
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
@@ -66,7 +66,7 @@ export default function AboutUs() {
 
       {/* 2. Company Overview */}
       <section className="bg-[#2d5679] min-h-screen flex items-center justify-center py-16">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -82,7 +82,7 @@ export default function AboutUs() {
                 Building Dreams Into Reality
               </h2>
             </motion.div>
-            
+
             <motion.div variants={fadeInUp} className="text-white/90 space-y-8">
               <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
                 Team 3 Associates is a premier architecture and design firm dedicated to transforming spaces into functional works of art. Founded on the principles of innovation, precision, and client satisfaction, we bring together a multidisciplinary team of architects, interior designers, and structural engineers to deliver comprehensive design solutions.
@@ -101,7 +101,7 @@ export default function AboutUs() {
       {/* 3. Team Section */}
       <section className="bg-white min-h-screen flex flex-col justify-center py-24">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 w-full">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -116,30 +116,30 @@ export default function AboutUs() {
             </h2>
             <div className="w-20 h-1 bg-[#2d5679] mx-auto"></div>
           </motion.div>
-          
+
           <div className="flex flex-col gap-24 md:gap-32">
             {[
-              { 
-                name: "B Sampath Kumar", 
-                role: "Managing Director", 
+              {
+                name: "B Sampath Kumar",
+                role: "Managing Director",
                 img: "/team-member-1.png",
                 desc: "A civil engineer with over 30 years of experience in Town and Country planning, his profile includes construction of textiles, dams, reservoirs, and tanks as a PWD engineer in an around Theni district. He has ventured into the Land and building liaison field with the skill and experience gained through the years and has built a strong client base including Textiles, Hospitals, Colleges, Schools, Wedding halls, etc. Clients include KMCH, Bannari Amman Group, SRM University, Chennai, Aratt Builders-Bangalore, Good Shepherd Institutions, Marthandam, KRC Constructions, Tirupur and many more."
               },
-              { 
-                name: "Praveen Kumar", 
-                role: "Engineer", 
+              {
+                name: "Praveen Kumar",
+                role: "Engineer",
                 img: "/team-member-2.png",
                 desc: "A civil engineer with a Masters in Structural Engineering from Leeds University, he has work experience in structural engineering from the UK. He has worked under Shankar & Associates as Senior Structural Engineer contributing his expertise in Residential, Commercial, Hospitals, and Institutional buildings."
               },
-              { 
-                name: "Prabhakar", 
-                role: "Architect", 
+              {
+                name: "Prabhakar",
+                role: "Architect",
                 img: "/team-member-3.png",
                 desc: "Prabhakar brings in the Creative Freshness to T3A, an Alumnus of RV College Bangalore, he acquired hands-on work experience with Ar. Cherthalam Associates for two years before pursuing his Masters' in Landscape Architecture (M.Larch) from Kingston University, London. A Gold-Medallist and a meritorious student, he is a member of the prestigious Landscape Institute (A UK based professional body for the landscape profession) and the Council of Architecture COA (A statutory body constituted by the Government of India)."
               }
             ].map((member, idx) => (
-              <motion.div 
-                key={idx} 
+              <motion.div
+                key={idx}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -158,7 +158,7 @@ export default function AboutUs() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col flex-grow pt-4 pb-4">
                   <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#181c23] mb-2 uppercase tracking-tight">
                     {member.name}
@@ -179,7 +179,7 @@ export default function AboutUs() {
 
       {/* 4. Expertise Section */}
       <section className="bg-[#28557F] min-h-screen flex flex-col justify-center py-16 relative overflow-hidden">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
@@ -194,7 +194,7 @@ export default function AboutUs() {
               Our Areas of Expertise
             </h2>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {[
               { icon: "architecture", title: "Architecture Design", desc: "Conceptualizing and designing landmark structures that harmonize with their surroundings." },
@@ -204,9 +204,9 @@ export default function AboutUs() {
               { icon: "chair_alt", title: "Space Planning", desc: "Optimizing interior layouts for maximum efficiency and flow in commercial and residential spaces." },
               { icon: "layers", title: "Project Mgmt", desc: "End-to-end management ensuring projects are delivered on time and within budget." }
             ].map((item, idx) => (
-              <motion.div 
-                key={idx} 
-                variants={fadeInUp} 
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
                 className="bg-white p-6 flex flex-col items-start h-full rounded-xl group hover:shadow-2xl transition-all duration-300"
               >
                 <div className="w-12 h-12 bg-[#2d5679]/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-[#2d5679] transition-colors duration-300">
@@ -224,7 +224,7 @@ export default function AboutUs() {
 
       {/* 5. Blogs Section */}
       <section className="bg-white py-12 md:py-16">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -239,7 +239,7 @@ export default function AboutUs() {
               Explore our blog for the latest architecture trends, design insights, project updates, <br className="hidden md:block" /> and industry news to stay inspired.
             </p>
           </motion.div>
-          
+
           <motion.div variants={fadeInUp} className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto w-full pt-4">
             {[
               {
@@ -264,21 +264,21 @@ export default function AboutUs() {
               <div key={idx} className="flex flex-col w-full text-left bg-transparent">
                 <div className="relative w-full aspect-[4/3] overflow-hidden mb-4">
                   <Image
-                    src={blog.img} 
+                    src={blog.img}
                     alt={blog.title}
                     fill
                     className="object-cover"
                   />
                 </div>
-                
+
                 <h3 className="text-black font-bold text-[17px] mb-2">
                   {blog.title}
                 </h3>
-                
+
                 <p className="text-[#333333] text-[14.5px] mb-4 font-normal leading-snug">
                   {blog.desc}
                 </p>
-                
+
                 <Link className="inline-block mt-auto text-[#111111] font-semibold text-[15px] underline decoration-1 underline-offset-[5px] hover:text-[#2d5679] tracking-wide" href={blog.link}>
                   Learn More
                 </Link>
