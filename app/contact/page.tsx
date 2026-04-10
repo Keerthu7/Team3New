@@ -2,16 +2,17 @@
 
 import React, { useState, useRef } from "react";
 import { Header } from "@/components/header";
-import { MapPin, Phone, Mail, Send, ExternalLink, ChevronDown, CalendarDays, ArrowRight, Clock, ChevronRight } from "lucide-react";
+import { MapPin, Phone, Mail, ExternalLink, ChevronRight, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { sendEmailAction } from "./actions";
 
 export default function ContactPage() {
-  // Updated with the exact Google Maps link for Team 3 Associates
   const googleMapsLink = "https://www.google.com/maps/place/Team+3+Associates/@11.0366655,77.0376785,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba8571c5d7c09c3:0x9ae231fdadd57826!8m2!3d11.0366655!4d77.0402534!16s%2Fg%2F11b6_c2bxb"; 
 
   const [step, setStep] = useState(1);
   const [selectedDate, setSelectedDate] = useState(0);
   const [selectedTime, setSelectedTime] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +25,6 @@ export default function ContactPage() {
   const dates = React.useMemo(() => {
     const arr = [];
     const today = new Date();
-    // Start from tomorrow
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
     
@@ -40,34 +40,25 @@ export default function ContactPage() {
     return arr;
   }, []);
 
-  const timeSlots = [
-    "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
-    "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM"
-  ];
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const timeSlots = ["11:00 AM", "03:00 PM", "05:00 PM"];
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     const form = e.currentTarget;
     const formData = new FormData(form);
+    
+    formData.append("date", `${dates[selectedDate].day}, ${dates[selectedDate].date}`);
+    formData.append("time", selectedTime);
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/hello.hynox@gmail.com", {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Accept": "application/json"
-        }
-      });
+      const response = await sendEmailAction(formData);
 
-      if (response.ok) {
-        alert("Success! Your consultation call has been scheduled. Check your email for details!");
-        setStep(1);
+      if (response.success) {
+        setStep(3); 
         form.reset();
       } else {
-        alert("Something went wrong. Please try again.");
+        alert("Something went wrong. Please check your console.");
       }
     } catch (error) {
       alert("Network error. Please try again.");
@@ -80,7 +71,7 @@ export default function ContactPage() {
     <div className="bg-[#28557F] min-h-screen selection:bg-[#28557F]/10 font-sans relative flex flex-col overflow-x-hidden">
       <Header />
 
-      {/* 1. DESKTOP ONLY: Floating Social Icons */}
+      {/* Floating Social Icons */}
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -102,7 +93,7 @@ export default function ContactPage() {
         <div className="h-16 w-[1px] bg-white/20 mx-auto mt-2"></div>
       </motion.div>
 
-      {/* 2. WHATSAPP BUTTON */}
+      {/* WHATSAPP BUTTON */}
       <a 
         href="https://wa.me/919994433331111" 
         target="_blank"
@@ -136,11 +127,11 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 shrink-0 rounded-full bg-[#28557F]/10 flex items-center justify-center text-[#28557F]"><Mail size={18} /></div>
-                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Digital Inquiry</h4><p className="text-[#28557F] text-sm font-bold leading-relaxed break-all">info@team3associates.com</p></div>
+                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Digital Inquiry</h4><p className="text-[#28557F] text-sm font-bold leading-relaxed break-all">team3.siteinfo@gmail.com</p></div>
                   </div>
                 </div>
 
-                {/* 3. MOBILE VIEW ONLY SOCIAL ICONS */}
+                {/* MOBILE VIEW ONLY SOCIAL ICONS */}
                 <div className="lg:hidden flex items-center justify-center gap-6 pt-6 mt-6 border-t border-gray-100">
                   <a href="https://www.instagram.com/team3_associates?igsh=am10cWh1dGc3NDd4" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#28557F]/5 flex items-center justify-center text-[#28557F]">
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
@@ -163,7 +154,6 @@ export default function ContactPage() {
                   <ExternalLink size={14} className="text-[#28557F]" />
                   <span className="text-[10px] font-bold text-gray-800">Team 3 Associates, JKR Towers, Kalapatti Main Rd</span>
                 </a>
-                {/* Updated iframe src with proper Google Maps embed URL */}
                 <iframe 
                   src="https://maps.google.com/maps?q=Team%203%20Associates,%20JKR%20Towers,%20Kalapatti,%20Coimbatore&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                   width="100%" 
@@ -183,7 +173,7 @@ export default function ContactPage() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="lg:col-span-7 bg-white p-6 md:p-8 rounded-[20px] shadow-xl border border-gray-100 flex flex-col w-full h-full lg:max-w-none"
             >
-              {step === 1 ? (
+              {step === 1 && (
                 <>
                   <h3 className="text-[20px] md:text-[22px] font-semibold text-[#111827] mb-5 tracking-tight">When should we meet?</h3>
                   
@@ -207,7 +197,6 @@ export default function ContactPage() {
                       ))}
                     </div>
                     
-                    {/* Scroll Right Overlay Fade */}
                     <div className="absolute right-0 top-0 bottom-4 w-12 sm:w-16 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none flex items-center justify-end pr-0.5 z-10 rounded-r-[20px]">
                       <button 
                         onClick={scrollRight}
@@ -220,7 +209,9 @@ export default function ContactPage() {
 
                   {/* Time Selection */}
                   <h3 className="text-[17px] md:text-[18px] font-semibold text-[#111827] mt-4 mb-4 tracking-tight">Selection time of the day</h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  
+                  {/* Grid-ஐ 3 காலம்களுக்கு ஏற்ப மாற்றியுள்ளேன் */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {timeSlots.map(time => (
                       <button 
                         key={time}
@@ -252,7 +243,9 @@ export default function ContactPage() {
                     Continue
                   </button>
                 </>
-              ) : (
+              )}
+
+              {step === 2 && (
                 <>
                   <div className="flex items-center gap-4 mb-7">
                     <button onClick={() => setStep(1)} className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-all border border-gray-200">
@@ -267,13 +260,6 @@ export default function ContactPage() {
                   </div>
 
                   <form onSubmit={handleFormSubmit} className="flex flex-col gap-5 flex-1">
-                    {/* FormSubmit Config */}
-                    <input type="hidden" name="_subject" value={`New Meeting Scheduled: ${dates[selectedDate].date} at ${selectedTime}`} />
-                    <input type="hidden" name="_autoresponse" value={`Your consultation call with Team 3 Associates has been officially scheduled for ${dates[selectedDate].day}, ${dates[selectedDate].date} at ${selectedTime}. We look forward to meeting with you!`} />
-                    <input type="hidden" name="Selected Date" value={`${dates[selectedDate].day}, ${dates[selectedDate].date}`} />
-                    <input type="hidden" name="Selected Time" value={selectedTime} />
-                    <input type="hidden" name="_captcha" value="false" />
-
                     <div className="space-y-1.5">
                       <label className="text-[13px] font-semibold text-gray-700">Full Name *</label>
                       <input type="text" name="name" required placeholder="John Doe" className="w-full border border-gray-300 rounded-[10px] bg-white px-4 py-3 text-[14px] text-gray-900 outline-none focus:ring-2 focus:ring-[#28557F]/20 focus:border-[#28557F] transition-all" />
@@ -294,6 +280,32 @@ export default function ContactPage() {
                     </button>
                   </form>
                 </>
+              )}
+
+              {/* Step 3: Success Screen */}
+              {step === 3 && (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }} 
+                  animate={{ opacity: 1, scale: 1 }} 
+                  className="flex flex-col items-center justify-center h-full text-center py-10"
+                >
+                  <div className="w-16 h-16 bg-[#25D366]/10 rounded-full flex items-center justify-center mb-5">
+                    <CheckCircle2 size={32} className="text-[#25D366]" />
+                  </div>
+                  <h3 className="text-[24px] font-bold text-[#111827] mb-2 tracking-tight">Call Scheduled!</h3>
+                  <p className="text-gray-600 mb-8 max-w-[280px]">
+                    We've sent a calendar invitation and details to your email address.
+                  </p>
+                  <button 
+                    onClick={() => {
+                      setStep(1);
+                      setSelectedTime("");
+                    }} 
+                    className="text-[#28557F] font-semibold hover:underline text-[14px]"
+                  >
+                    Schedule another call
+                  </button>
+                </motion.div>
               )}
             </motion.div>
           </div>
