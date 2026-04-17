@@ -387,6 +387,36 @@ export default function AdminProjects() {
                                                 </div>
                                             ))}
                                         </div>
+
+                                        <div className="pt-8 border-t space-y-8">
+                                            <h4 className="text-sm font-bold uppercase tracking-widest text-[#28557F]">Material Finishes Palette</h4>
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                                <div className="space-y-4">
+                                                    <ImageUpload 
+                                                        label="Facade Finish Image" 
+                                                        defaultImage={formData.technicalDetails?.finishes?.facade?.images?.[0]} 
+                                                        onUpload={(url) => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, facade: {...formData.technicalDetails.finishes.facade, images: [url]}}}})} 
+                                                    />
+                                                    <input value={formData.technicalDetails?.finishes?.facade?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, facade: {...formData.technicalDetails.finishes.facade, desc: e.target.value}}}})} placeholder="Facade Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-10 px-3 text-xs focus:border-[#28557F] outline-none" />
+                                                </div>
+                                                <div className="space-y-4">
+                                                    <ImageUpload 
+                                                        label="Wall Finish Image" 
+                                                        defaultImage={formData.technicalDetails?.finishes?.wall?.images?.[0]} 
+                                                        onUpload={(url) => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, wall: {...formData.technicalDetails.finishes.wall, images: [url]}}}})} 
+                                                    />
+                                                    <input value={formData.technicalDetails?.finishes?.wall?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, wall: {...formData.technicalDetails.finishes.wall, desc: e.target.value}}}})} placeholder="Wall Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-10 px-3 text-xs focus:border-[#28557F] outline-none" />
+                                                </div>
+                                                <div className="space-y-4">
+                                                    <ImageUpload 
+                                                        label="Floor Finish Image" 
+                                                        defaultImage={formData.technicalDetails?.finishes?.flooring?.images?.[0]} 
+                                                        onUpload={(url) => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, flooring: {...formData.technicalDetails.finishes.flooring, images: [url]}}}})} 
+                                                    />
+                                                    <input value={formData.technicalDetails?.finishes?.flooring?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, flooring: {...formData.technicalDetails.finishes.flooring, desc: e.target.value}}}})} placeholder="Floor Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-10 px-3 text-xs focus:border-[#28557F] outline-none" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </form>

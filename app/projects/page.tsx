@@ -99,9 +99,9 @@ export default function ProjectsSection() {
               {filteredProjects.map((project) => (
                 <Link
                   key={project.id || project._id}
-              href={`/projects/${project.slug}`}
-              className="relative group overflow-hidden shadow-sm cursor-pointer block w-full max-w-[613.43px] h-auto aspect-[613.43/367.91] md:h-[367.91px] rounded-[14.75px]"
-            >
+                  href={`/projects/${project.slug || project._id || project.id}`}
+                  className="relative group overflow-hidden shadow-sm cursor-pointer block w-full max-w-[613.43px] h-auto aspect-[613.43/367.91] md:h-[367.91px] rounded-[14.75px]"
+                >
               {/* Background Image */}
               <img
                 src={project.image}
