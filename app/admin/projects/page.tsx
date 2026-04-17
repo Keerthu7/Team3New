@@ -331,7 +331,7 @@ export default function AdminProjects() {
                                                 </label>
                                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                                     {formData.gallery.map((url: string, index: number) => (
-                                                        <div key={index} className="relative group">
+                                                        <div key={index} className="relative group space-y-2">
                                                             <ImageUpload 
                                                                 label={`Image ${index + 1}`} 
                                                                 defaultImage={url} 
@@ -339,9 +339,26 @@ export default function AdminProjects() {
                                                                     const g = [...formData.gallery]; g[index] = newUrl; setFormData({...formData, gallery: g});
                                                                 }} 
                                                             />
-                                                            <button type="button" onClick={() => {
-                                                                const g = [...formData.gallery]; g.splice(index, 1); setFormData({...formData, gallery: g});
-                                                            }} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                                                            <input 
+                                                                value={formData.galleryCaptions?.[index] || ""} 
+                                                                onChange={(e) => {
+                                                                    const c = [...(formData.galleryCaptions || [])];
+                                                                    while(c.length <= index) c.push("");
+                                                                    c[index] = e.target.value;
+                                                                    setFormData({...formData, galleryCaptions: c});
+                                                                }}
+                                                                placeholder="Caption (e.g. Master Bedroom)"
+                                                                className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-9 px-3 text-[10px] focus:border-[#28557F] outline-none"
+                                                            />
+                                                            <button 
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    const g = [...formData.gallery]; g.splice(index, 1);
+                                                                    const c = [...(formData.galleryCaptions || [])]; c.splice(index, 1);
+                                                                    setFormData({...formData, gallery: g, galleryCaptions: c});
+                                                                }}
+                                                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-lg"
+                                                            >
                                                                 <X size={12} />
                                                             </button>
                                                         </div>

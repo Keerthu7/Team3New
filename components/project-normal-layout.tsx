@@ -112,8 +112,10 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                   />
                   <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-all duration-700"></div>
                   
-                  <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-sm shadow-sm z-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                      <span className="text-[9px] font-bold text-[#28557F] tracking-[0.2em] uppercase">VIEW DETAIL / {String(index + 1).padStart(2, '0')}</span>
+                  <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-sm shadow-sm z-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 max-w-[80%]">
+                      <span className="text-[9px] font-bold text-[#28557F] tracking-[0.2em] uppercase">
+                        {project.galleryCaptions?.[index] || `VIEW DETAIL / ${String(index + 1).padStart(2, '0')}`}
+                      </span>
                   </div>
                 </div>
               );
