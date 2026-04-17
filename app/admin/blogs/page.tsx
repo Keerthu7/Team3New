@@ -20,8 +20,6 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
             const newBlob = await upload(uniqueName, file, {
                 access: 'public',
                 handleUploadUrl: '/api/upload',
-                addRandomSuffix: true,
-                allowOverwrite: true,
             });
             
             setPreview(newBlob.url);
