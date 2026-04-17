@@ -110,6 +110,27 @@ export const projects: Project[] = [
     scopeOfWork: "ARCHITECTURE, INTERIOR, STRUCTURAL DESIGN, LANDSCAPE",
     overview: "Mr. Ramesh Residence in Salem is an architectural study in vertical luxury and urban density. This four-story development is meticulously layered to accommodate multiple premium apartment units, culminating in a spectacular duplex penthouse that serves as the building's crowning jewel. The design utilizes a sophisticated palette of textured granite and high-performance glass to create a rhythmic facade that is both bold and protective. Internally, the spaces are defined by their generous proportions and seamless flow, where large-format openings provide sweeping views of the city skyline while maintaining a sense of residential sanctuary. Every design decision, from the central light-filled atrium to the carefully curated finishes, reflects a commitment to elevating the multi-unit dwelling experience into a statement of modern architectural excellence.",
     designTypes: ["Architectural", "Interior", "Structural"],
+    technicalDetails: {
+      finishes: {
+        facade: { desc: "Textured Granite & High-Performance Glass", images: ["/images/ramesh/3 (1).jpg"] },
+        wall: { desc: "High-end Millwork & Veneer Paneling", images: ["/images/ramesh/1 (1).jpg", "/images/ramesh/5 (2).jpg"] },
+        flooring: { desc: "Italian Marble & Polished Stone", images: ["/images/ramesh/living1.jpg", "/images/ramesh/balcony.jpg"] },
+      },
+      materials: [
+        { label: "Glass", value: "Saint Gobain High-Performance" },
+        { label: "Hardware", value: "Hafele" },
+        { label: "Color", value: "Asian Paints Royale" },
+        { label: "Living Furniture", value: "Roche Bobois" },
+        { label: "Lighting", value: "The Purple Turtles" },
+      ],
+      contributors: [
+        { label: "Structural", value: "Team 3 Structural Cell" },
+        { label: "Interior", value: "Team 3 Interior Studio" },
+      ],
+      photoCredits: [
+        { label: "Photography", value: "Radhakrishnan" },
+      ],
+    },
   },
   {
     id: 3,
@@ -199,6 +220,27 @@ export const projects: Project[] = [
     scopeOfWork: "ARCHITECTURE, INTERIOR, STRUCTURAL DESIGN",
     overview: "Siva Trade Centre represents a new benchmark for commercial architecture in Tirupur, where dynamic form meets rigorous functional efficiency. Designed as a multi-functional hub for one of the region's prominent enterprises, the building integrates high-street retail bays, executive office suites, and specialized logistics facilities within a single, cohesive modern envelope. The architectural language is defined by a rhythmic playful interplay of solid volumes and transparent glass sections, ensuring maximum brand visibility while providing a professional, light-filled internal environment. The spatial planning prioritizes ease of movement and operational clarity, allowing the diverse commercial activities to coexist harmoniously. The building’s nocturnal presence, highlighted by strategic architectural lighting, reinforces its status as a landmark of progress and quality in the heart of the city’s trade district.",
     designTypes: ["Commercial", "Architectural", "Interior"],
+    technicalDetails: {
+      finishes: {
+        facade: { desc: "Rhythmic Glass curtain walls & Solid volumes", images: ["/images/sivatrade EXT/1 view 1.jpg"] },
+        wall: { desc: "Polished Stone & Brushed Metal paneling", images: ["/images/sivatrade inter/1 lobby 1.jpg", "/images/sivatrade inter/11 ff double ht 1.jpg"] },
+        flooring: { desc: "Vitrified Tiles & Anti-skid industrial flooring", images: ["/images/sivatrade inter/17 conference 1.jpg", "/images/sivatrade EXT/2 view.jpg"] },
+      },
+      materials: [
+        { label: "Glass", value: "Schueco Aluminum Systems" },
+        { label: "Paneling", value: "Fundermax Exterior Grade" },
+        { label: "Lighting", value: "Wipro Commercial Lighting" },
+        { label: "HVAC", value: "Daikin VRV System" },
+        { label: "Office Furniture", value: "Herman Miller" },
+      ],
+      contributors: [
+        { label: "Structural", value: "Team 3 Structural Cell" },
+        { label: "MEP", value: "Team 3 Power Solutions" },
+      ],
+      photoCredits: [
+        { label: "Photography", value: "Ganesh Ramachandran" },
+      ],
+    },
   },
   {
     id: 5,
@@ -229,6 +271,26 @@ export const projects: Project[] = [
     scopeOfWork: "ARCHITECTURE, STRUCTURAL DESIGN",
     overview: "The D.R.G Commercial Complex is a visibility-centric retail and office development designed to maximize its prominent location in Namakkal. The project’s architectural strategy revolves around the building’s interaction with the urban streetscape, utilizing a bold, geometric facade to create a strong visual identity that naturally draws the eye of passersby. Behind this striking exterior, the complex offers premium retail spaces on the lower levels and sophisticated, flexible office environments above. The design emphasizes clarity of form and durability of materials, creating a stable yet dynamic platform for business growth. Natural light is channeled deep into the floor plates through strategic glazing, while modern building systems ensure high-performance thermal comfort. This integrated approach ensures that the D.R.G Complex is not just a place of business, but a vibrant architectural contributor to the city's commercial evolution.",
     designTypes: ["Architectural", "Structural"],
+    technicalDetails: {
+      finishes: {
+        facade: { desc: "Geometric Masonry & Textured Plaster", images: ["/images/DRG/1.jpg"] },
+        wall: { desc: "Modern Retail Finishes & Lime Plaster", images: ["/images/DRG/1_8 - Photo.jpg", "/images/DRG/2_20 - Photo.jpg"] },
+        flooring: { desc: "Granolithic Flooring & Polished Concrete", images: ["/images/DRG/3_30 - Photo.jpg", "/images/DRG/1_5 - Photo.jpg"] },
+      },
+      materials: [
+        { label: "Finishes", value: "Asian Paints Apex Ultima" },
+        { label: "Windows", value: "Custom Aluminum Sections" },
+        { label: "Structural Slab", value: "Post-Tensioned Concrete" },
+        { label: "Signage", value: "ACP with LED backlighting" },
+      ],
+      contributors: [
+        { label: "Structural", value: "Le Premier" },
+        { label: "Civil", value: "Ace Structures" },
+      ],
+      photoCredits: [
+        { label: "Photography", value: "Yash Jain" },
+      ],
+    },
   },
   {
     id: 6,
@@ -311,5 +373,25 @@ export const projects: Project[] = [
     scopeOfWork: "ARCHITECTURE, STRUCTURAL DESIGN, SUSTAINABILITY",
     overview: "The Apex Residences redefines high-end vertical living in Pollachi through a pioneering integration of architectural innovation and ecological sensitivity. Conceived as a 'Vertical Ecology', the project treats the multi-story structure as a living system where every residence is granted a private, lushly landscaped garden terrace. These green buffers serve as natural thermal regulators, improving air quality and providing a serene, grounded atmosphere high above the ground. The architectural facade is characterized by deep-set solar fins and staggered balconies that create a dynamic shadow play throughout the day, reinforcing the building's contemporary identity. Internally, the apartments are designed with an emphasis on transparency and openness, allowing the vibrant vertical gardens to become an extension of the living spaces. The Apex Residences is more than a housing complex; it is a sustainable micro-climate that offers its residents a unique, nature-centric lifestyle within the urban context.",
     designTypes: ["Architectural", "Structural", "Sustainability"],
+    technicalDetails: {
+      finishes: {
+        facade: { desc: "Masonry Solar Fins & Vertical Greenery", images: ["/images/jagan/11.jpg"] },
+        wall: { desc: "Natural Stone Paneling & Warm Wood", images: ["/images/jagan/13.jpg", "/images/jagan/58.jpg"] },
+        flooring: { desc: "Engineered Wood & Large Format Tiles", images: ["/images/jagan/66.jpg", "/images/jagan/68.jpg"] },
+      },
+      materials: [
+        { label: "Greenery", value: "Native Pollachi Flora" },
+        { label: "Irrigation", value: "Automated Drip Systems" },
+        { label: "Glass", value: "Double Glazed Units (DGU)" },
+        { label: "Solar Shading", value: "Pre-cast Concrete Fins" },
+      ],
+      contributors: [
+        { label: "Sustainability", value: "Team 3 Green Cell" },
+        { label: "Structural", value: "Team 3 Structural Cell" },
+      ],
+      photoCredits: [
+        { label: "Photography", value: "Senthil" },
+      ],
+    },
   },
 ];
