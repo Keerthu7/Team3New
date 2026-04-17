@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-// Use SRV connection which works perfectly on Vercel's cloud infrastructure
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://Team3:Hynox@cluster0.laszg0s.mongodb.net/Team3?retryWrites=true&w=majority&appName=Cluster0";
+// Always rely strictly on Environment Variables for Secrets!
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
