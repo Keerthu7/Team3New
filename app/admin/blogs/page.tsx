@@ -16,10 +16,12 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
         if (!file) return;
 
         try {
-            const newBlob = await upload(file.name, file, {
+            const uniqueName = `${Date.now()}_${file.name}`;
+            const newBlob = await upload(uniqueName, file, {
                 access: 'public',
                 handleUploadUrl: '/api/upload',
                 addRandomSuffix: true,
+                allowOverwrite: true,
             });
             
             setPreview(newBlob.url);
