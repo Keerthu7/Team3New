@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-// Bypass cached env string to immediately fix user's port block issue
-const MONGODB_URI = "mongodb://Team3:Hynox@ac-pyp4j1h-shard-00-00.laszg0s.mongodb.net:27017,ac-pyp4j1h-shard-00-01.laszg0s.mongodb.net:27017,ac-pyp4j1h-shard-00-02.laszg0s.mongodb.net:27017/Team3?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority";
+// Use SRV connection which works perfectly on Vercel's cloud infrastructure
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://Team3:Hynox@cluster0.laszg0s.mongodb.net/Team3?retryWrites=true&w=majority&appName=Cluster0";
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
