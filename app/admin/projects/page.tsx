@@ -24,9 +24,12 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
             if (data.url) {
                 setPreview(data.url);
                 onUpload(data.url);
+            } else {
+                alert("Upload failed: " + (data.error || "Unknown error"));
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error("Upload failed", error);
+            alert("Network error: " + error.message);
         } finally {
             setUploading(false);
         }
