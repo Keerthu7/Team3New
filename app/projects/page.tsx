@@ -1,13 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import  {Header}  from "@/components/header";
 import { Footer } from "@/components/footer";
-import { projects } from "@/lib/projects-data";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 export default function ProjectsSection() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/projects')
+      .then(res => res.json())
+      .then(data => {
+        setProjects(Array.isArray(data) ? data : []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to load projects", err);
+        setLoading(false);
+      });
+  }, []);
 
   // Filter Categories
   const filters = [
@@ -73,11 +88,17 @@ export default function ProjectsSection() {
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-12 justify-items-center">
-          {filteredProjects.map((project) => (
-            <Link
-              key={project.id}
+        {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <Loader2 className="animate-spin text-[#28557F]" size={40} />
+            </div>
+        ) : (
+          <>
+            {/* Projects Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-12 justify-items-center">
+              {filteredProjects.map((project) => (
+                <Link
+                  key={project.id || project._id}
               href={`/projects/${project.slug}`}
               className="relative group overflow-hidden shadow-sm cursor-pointer block w-full max-w-[613.43px] h-auto aspect-[613.43/367.91] md:h-[367.91px] rounded-[14.75px]"
             >
@@ -100,7 +121,9 @@ export default function ProjectsSection() {
               </div>
             </Link>
           ))}
-        </div>
+          </div>
+          </>
+        )}
 
         {/* Refined Architectural CTA */}
         <div className="mt-20 mb-16 text-center max-w-4xl mx-auto px-4">

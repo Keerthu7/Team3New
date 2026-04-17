@@ -1,10 +1,28 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
 import Image from "next/image";
-import { blogs } from "@/data/blog-data";
+import { Loader2 } from "lucide-react";
 
 export default function BlogPage() {
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/blogs')
+      .then(res => res.json())
+      .then(data => {
+        setBlogs(Array.isArray(data) ? data : []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to load blogs", err);
+        setLoading(false);
+      });
+  }, []);
   return (
     <main className="bg-white min-h-screen">
       <Header />
@@ -21,8 +39,13 @@ export default function BlogPage() {
 
       {/* Blog Grid */}
       <section className="px-6 md:px-12 max-w-7xl mx-auto pb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-          {blogs.map((blog) => (
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="animate-spin text-[#28557F]" size={40} />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+            {blogs.map((blog) => (
             <Link 
               key={blog.slug} 
               href={`/blog/${blog.slug}`}
@@ -46,7 +69,8 @@ export default function BlogPage() {
               </div>
             </Link>
           ))}
-        </div>
+          </div>
+        )}
       </section>
 
       <Footer />
