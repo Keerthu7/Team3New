@@ -264,14 +264,82 @@ export default function AdminBlogs() {
                                     </div>
 
                                     {/* Additional generic fields representing the massive schema omitted for layout brevity, but keeping key images */}
+                                    {/* Section 3: Interior / Concept Gallery */}
                                     <div>
-                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">3</span> Interior / Concept Gallery</h3>
+                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">3</span> Interior Spread (Spread 2)</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <ImageUpload label="Spread 2 Big Image" defaultImage={formData.spread2BigImage} onUpload={(url) => setFormData({...formData, spread2BigImage: url})} />
                                             <ImageUpload label="Spread 2 Small Image" defaultImage={formData.spread2SmallImage} onUpload={(url) => setFormData({...formData, spread2SmallImage: url})} />
                                             <div className="col-span-1 md:col-span-2 space-y-2">
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Spread Intro Paragraph</label>
                                                 <textarea value={formData.spread2Intro} onChange={e => setFormData({...formData, spread2Intro: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 focus:outline-none focus:border-[#28557F] font-medium text-sm transition-colors" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Section 4: Patient Journey & Logistics */}
+                                    <div>
+                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">4</span> Narrative & Logistics</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="space-y-4">
+                                                <input value={formData.patientJourneyTitle} onChange={e => setFormData({...formData, patientJourneyTitle: e.target.value})} placeholder="Journey Title (e.g. Minimalist Flow)" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 focus:outline-none focus:border-[#28557F] text-sm" />
+                                                <textarea value={formData.patientJourneyDesc1} onChange={e => setFormData({...formData, patientJourneyDesc1: e.target.value})} placeholder="Description Part 1..." rows={2} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 focus:outline-none focus:border-[#28557F] text-sm" />
+                                                <textarea value={formData.patientJourneyDesc2} onChange={e => setFormData({...formData, patientJourneyDesc2: e.target.value})} placeholder="Description Part 2..." rows={2} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 focus:outline-none focus:border-[#28557F] text-sm" />
+                                            </div>
+                                            <ImageUpload label="Healing Interior Image" defaultImage={formData.healingInteriorImage} onUpload={(url) => setFormData({...formData, healingInteriorImage: url})} />
+                                            
+                                            <div className="col-span-1 md:col-span-2 pt-6 border-t">
+                                                <input value={formData.logisticsTitle} onChange={e => setFormData({...formData, logisticsTitle: e.target.value})} placeholder="Logistics Title (e.g. Smart Planning)" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 focus:outline-none focus:border-[#28557F] text-sm mb-4" />
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                    <textarea value={formData.logisticsParagraph1} onChange={e => setFormData({...formData, logisticsParagraph1: e.target.value})} placeholder="Logistics P1..." rows={2} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 focus:outline-none focus:border-[#28557F] text-sm" />
+                                                    <textarea value={formData.logisticsParagraph2} onChange={e => setFormData({...formData, logisticsParagraph2: e.target.value})} placeholder="Logistics P2..." rows={2} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 focus:outline-none focus:border-[#28557F] text-sm" />
+                                                </div>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                                                    <ImageUpload label="Logistics Left Image" defaultImage={formData.logisticsLeftImage} onUpload={(url) => setFormData({...formData, logisticsLeftImage: url})} />
+                                                    <ImageUpload label="Logistics Right Image" defaultImage={formData.logisticsRightImage} onUpload={(url) => setFormData({...formData, logisticsRightImage: url})} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Section 5: Nocturnal & Materials */}
+                                    <div>
+                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">5</span> Ambiance & Materiality</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="space-y-4">
+                                                <input value={formData.materialityTitle} onChange={e => setFormData({...formData, materialityTitle: e.target.value})} placeholder="Materiality Title" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
+                                                <textarea value={formData.materialityDescription} onChange={e => setFormData({...formData, materialityDescription: e.target.value})} placeholder="Materiality Description..." rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-sm" />
+                                                <ImageUpload label="Facade Detail Image" defaultImage={formData.facadeDetailImage} onUpload={(url) => setFormData({...formData, facadeDetailImage: url})} />
+                                            </div>
+                                            <div className="space-y-4">
+                                                <input value={formData.nocturnalTitle} onChange={e => setFormData({...formData, nocturnalTitle: e.target.value})} placeholder="Nocturnal Title" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
+                                                <textarea value={formData.nocturnalDescription} onChange={e => setFormData({...formData, nocturnalDescription: e.target.value})} placeholder="Nocturnal Description..." rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-sm" />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <ImageUpload label="Night View" defaultImage={formData.nocturnalNightImage} onUpload={(url) => setFormData({...formData, nocturnalNightImage: url})} />
+                                                    <ImageUpload label="Day View" defaultImage={formData.nocturnalDayImage} onUpload={(url) => setFormData({...formData, nocturnalDayImage: url})} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Section 6: Diagram & Conclusion */}
+                                    <div>
+                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">6</span> Diagrams & Vision</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="col-span-1 md:col-span-2 space-y-4">
+                                                <input value={formData.diagramQuote} onChange={e => setFormData({...formData, diagramQuote: e.target.value})} placeholder="Project Quote / Concept Statement" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm italic" />
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                   <ImageUpload label="Blueprint / Diagram Image" defaultImage={formData.diagramBlueprintImage} onUpload={(url) => setFormData({...formData, diagramBlueprintImage: url})} />
+                                                   <textarea value={formData.diagramRightDesc} onChange={e => setFormData({...formData, diagramRightDesc: e.target.value})} placeholder="Technical description of the blueprint..." rows={4} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-sm" />
+                                                </div>
+                                            </div>
+                                            <div className="col-span-1 md:col-span-2 pt-6 border-t grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <div className="space-y-4">
+                                                    <input value={formData.conclusionTitle} onChange={e => setFormData({...formData, conclusionTitle: e.target.value})} placeholder="Conclusion Title" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
+                                                    <textarea value={formData.conclusionP1} onChange={e => setFormData({...formData, conclusionP1: e.target.value})} placeholder="Conclusion Paragraph..." rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-sm" />
+                                                    <input value={formData.conclusionP3} onChange={e => setFormData({...formData, conclusionP3: e.target.value})} placeholder="Final Tagline (e.g. MASTERS OF MINIMALISM)" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm uppercase font-bold" />
+                                                </div>
+                                                <ImageUpload label="Final Conclusion Image" defaultImage={formData.conclusionImage} onUpload={(url) => setFormData({...formData, conclusionImage: url})} />
                                             </div>
                                         </div>
                                     </div>
