@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Plus, Search, Edit2, Trash2, X, Image as ImageIcon, Loader2, Save } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { upload } from "@vercel/blob/client";
 
 // Helper component for uploading images
 function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUpload: (url: string) => void, defaultImage?: string }) {
@@ -14,22 +15,17 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
         const file = e.target.files?.[0];
         if (!file) return;
 
-        setUploading(true);
-        const formData = new FormData();
-        formData.append("file", file);
-
         try {
-            const res = await fetch("/api/upload", { method: "POST", body: formData });
-            const data = await res.json();
-            if (data.url) {
-                setPreview(data.url);
-                onUpload(data.url);
-            } else {
-                alert("Upload failed: " + (data.error || "Unknown error"));
-            }
+            const newBlob = await upload(file.name, file, {
+                access: 'public',
+                handleUploadUrl: '/api/upload',
+            });
+            
+            setPreview(newBlob.url);
+            onUpload(newBlob.url);
         } catch (error: any) {
             console.error("Upload failed", error);
-            alert("Network error: " + error.message);
+            alert("Upload Error: " + error.message);
         } finally {
             setUploading(false);
         }
