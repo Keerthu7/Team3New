@@ -187,7 +187,7 @@ export default function AdminLeads() {
                                 transition={{ delay: i * 0.05 }}
                                 className="group relative"
                             >
-                                <div className="bg-white border border-[#dfe2ed] p-5 md:p-6 rounded-2xl shadow-sm hover:border-[#28557F] hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                                <div className="bg-white border border-[#dfe2ed] p-5 md:p-6 rounded-2xl shadow-sm hover:border-[#28557F] hover:shadow-md transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                                     <div className="flex items-center gap-6 flex-1">
                                         <div className="h-14 w-14 rounded-2xl bg-[#f0f3fe] border border-[#d0e4ff] flex items-center justify-center font-bold text-[#28557F] text-xl group-hover:bg-[#28557F] group-hover:text-white transition-all duration-500">
                                             {lead.name[0]}
