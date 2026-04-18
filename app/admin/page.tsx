@@ -41,13 +41,18 @@ export default function AdminDashboard() {
             })
             .catch(() => setStats(prev => ({ ...prev, blogs: { count: 0, loading: false } })));
 
-        // Local static leads for now
-        setStats(prev => ({ ...prev, leads: { count: 24, loading: false } }));
-        setRecentLeads([
-            { _id: "1", name: "Sarah Collins", subject: "New Residential Enquiry", date: "Today, 10:30 AM" },
-            { _id: "2", name: "David Peterson", subject: "Commercial Renovation Focus", date: "Yesterday" },
-            { _id: "3", name: "Emma Wilson", subject: "Interior Design Consultation", date: "Oct 24" }
-        ]);
+        // Fetch Leads
+        fetch('/api/leads')
+            .then(res => res.json())
+            .then(data => {
+                const count = Array.isArray(data) ? data.length : 0;
+                setStats(prev => ({ ...prev, leads: { count, loading: false } }));
+                // Show first 5 most recent leads
+                if (Array.isArray(data)) {
+                    setRecentLeads(data.slice(0, 5));
+                }
+            })
+            .catch(() => setStats(prev => ({ ...prev, leads: { count: 0, loading: false } })));
     }, []);
 
     const statCards = [
