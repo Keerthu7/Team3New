@@ -27,11 +27,11 @@ export default function ProjectsSection() {
   // Filter Categories
   const filters = [
     "All",
-    "Apartment",
     "Residential",
-    "Healthcare",
     "Commercial",
-    "Interior",
+    "Hospitality",
+    "Healthcare",
+    "Interiors",
   ];
 
 
