@@ -370,44 +370,113 @@ export default function AdminProjects() {
                                     </div>
 
                                     {/* Section 3: Technical Details */}
-                                    <div className="space-y-10">
-                                        <h3 className="text-lg font-bold text-[#28557F] mb-0 flex items-center border-b pb-3"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">3</span> Technical Specifics</h3>
+                                    <div className="space-y-12">
+                                        <div className="border-b border-[#dfe2ed] pb-4">
+                                            <h3 className="text-xl font-bold text-[#181c23] flex items-center gap-3">
+                                                <span className="w-8 h-8 rounded-xl bg-[#28557F] text-white flex items-center justify-center text-sm">3</span>
+                                                Technical Specifics
+                                            </h3>
+                                        </div>
                                         
-                                        <div className="space-y-4">
-                                            <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f] flex items-center mb-2">Materials Used <button type="button" onClick={() => setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: [...(formData.technicalDetails?.materials || []), {label: "", value: ""}]}})} className="ml-4 text-[10px] bg-[#e5e8f3] px-2 py-1 rounded text-[#28557F] hover:bg-[#d3e4ff] transition font-bold"><Plus size={10} className="inline mr-1" />Add Material</button></label>
-                                            {(formData.technicalDetails?.materials || []).map((m: any, index: number) => (
-                                                <div key={`m-${index}`} className="flex gap-2 relative group">
-                                                    <input value={m.label} onChange={(e) => { const v = [...formData.technicalDetails.materials]; v[index].label = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: v}}) }} placeholder="E.g. Flooring" className="flex-1 bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-11 px-3 text-sm focus:border-[#28557F] outline-none font-medium" />
-                                                    <input value={m.value} onChange={(e) => { const v = [...formData.technicalDetails.materials]; v[index].value = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: v}}) }} placeholder="E.g. Italian Marble" className="flex-1 bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-11 px-3 text-sm focus:border-[#28557F] outline-none font-medium" />
-                                                    <button type="button" onClick={() => { const v = [...formData.technicalDetails.materials]; v.splice(index, 1); setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: v}}) }} className="text-red-500 p-2 hover:bg-red-50 rounded-lg transition-colors"><X size={16} /></button>
-                                                </div>
-                                            ))}
+                                        {/* Materials Section */}
+                                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+                                            <div className="lg:col-span-4">
+                                                <h4 className="text-[11px] font-bold text-[#181c23] uppercase tracking-[0.15em] mb-2">Materials Used</h4>
+                                                <p className="text-xs text-[#72777f] font-medium leading-relaxed">List significant materials, finishes, and hardware used in this project.</p>
+                                            </div>
+                                            <div className="lg:col-span-8 space-y-4">
+                                                {(formData.technicalDetails?.materials || []).map((m: any, index: number) => (
+                                                    <div key={`m-${index}`} className="flex gap-3 animate-in fade-in slide-in-from-top-2">
+                                                        <input value={m.label} onChange={(e) => { const v = [...formData.technicalDetails.materials]; v[index].label = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: v}}) }} placeholder="E.g. Flooring" className="flex-1 bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium transition-all shadow-sm" />
+                                                        <input value={m.value} onChange={(e) => { const v = [...formData.technicalDetails.materials]; v[index].value = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: v}}) }} placeholder="E.g. Italian Marble" className="flex-[1.5] bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium transition-all shadow-sm" />
+                                                        <button type="button" onClick={() => { const v = [...formData.technicalDetails.materials]; v.splice(index, 1); setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: v}}) }} className="h-11 w-11 flex items-center justify-center text-[#ba1a1a] hover:bg-red-50 rounded-xl transition-colors"><X size={18} /></button>
+                                                    </div>
+                                                ))}
+                                                <button type="button" onClick={() => setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: [...(formData.technicalDetails?.materials || []), {label: "", value: ""}]}})} className="w-full h-11 flex items-center justify-center gap-2 border-2 border-dashed border-[#dfe2ed] rounded-xl text-[#28557F] font-bold text-[10px] uppercase tracking-widest hover:bg-[#f0f3fe] hover:border-[#28557F] transition-all bg-white">
+                                                    <Plus size={14} /> Add Material Detail
+                                                </button>
+                                            </div>
                                         </div>
 
-                                        <div className="space-y-4">
-                                            <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f] flex items-center mb-2">Contributors <button type="button" onClick={() => setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: [...(formData.technicalDetails?.contributors || []), {label: "", value: ""}]}})} className="ml-4 text-[10px] bg-[#e5e8f3] px-2 py-1 rounded text-[#28557F] hover:bg-[#d3e4ff] transition font-bold"><Plus size={10} className="inline mr-1" />Add Contributor</button></label>
-                                            {(formData.technicalDetails?.contributors || []).map((m: any, index: number) => (
-                                                <div key={`c-${index}`} className="flex gap-2 relative group">
-                                                    <input value={m.label} onChange={(e) => { const v = [...formData.technicalDetails.contributors]; v[index].label = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: v}}) }} placeholder="E.g. Structural Engineer" className="flex-1 bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-11 px-3 text-sm focus:border-[#28557F] outline-none font-medium" />
-                                                    <input value={m.value} onChange={(e) => { const v = [...formData.technicalDetails.contributors]; v[index].value = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: v}}) }} placeholder="E.g. John Doe Consulting" className="flex-1 bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-11 px-3 text-sm focus:border-[#28557F] outline-none font-medium" />
-                                                    <button type="button" onClick={() => { const v = [...formData.technicalDetails.contributors]; v.splice(index, 1); setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: v}}) }} className="text-red-500 p-2 hover:bg-red-50 rounded-lg transition-colors"><X size={16} /></button>
-                                                </div>
-                                            ))}
+                                        <div className="h-[1px] bg-[#f0f3fe]" />
+
+                                        {/* Contributors Section */}
+                                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+                                            <div className="lg:col-span-4">
+                                                <h4 className="text-[11px] font-bold text-[#181c23] uppercase tracking-[0.15em] mb-2">Project Team</h4>
+                                                <p className="text-xs text-[#72777f] font-medium leading-relaxed">Acknowledge engineers, consultants, and partner firms.</p>
+                                            </div>
+                                            <div className="lg:col-span-8 space-y-4">
+                                                {(formData.technicalDetails?.contributors || []).map((m: any, index: number) => (
+                                                    <div key={`c-${index}`} className="flex gap-3 animate-in fade-in slide-in-from-top-2">
+                                                        <input value={m.label} onChange={(e) => { const v = [...formData.technicalDetails.contributors]; v[index].label = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: v}}) }} placeholder="E.g. Structural Engineer" className="flex-1 bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium shadow-sm transition-all" />
+                                                        <input value={m.value} onChange={(e) => { const v = [...formData.technicalDetails.contributors]; v[index].value = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: v}}) }} placeholder="E.g. Firm Name" className="flex-[1.5] bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium shadow-sm transition-all" />
+                                                        <button type="button" onClick={() => { const v = [...formData.technicalDetails.contributors]; v.splice(index, 1); setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: v}}) }} className="h-11 w-11 flex items-center justify-center text-[#ba1a1a] hover:bg-red-50 rounded-xl transition-colors"><X size={18} /></button>
+                                                    </div>
+                                                ))}
+                                                <button type="button" onClick={() => setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: [...(formData.technicalDetails?.contributors || []), {label: "", value: ""}]}})} className="w-full h-11 flex items-center justify-center gap-2 border-2 border-dashed border-[#dfe2ed] rounded-xl text-[#28557F] font-bold text-[10px] uppercase tracking-widest hover:bg-[#f0f3fe] hover:border-[#28557F] transition-all bg-white">
+                                                    <Plus size={14} /> Add Contributor
+                                                </button>
+                                            </div>
                                         </div>
 
-                                        <div className="space-y-4">
-                                            <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f] flex items-center mb-2">Photo Credits <button type="button" onClick={() => setFormData({...formData, technicalDetails: {...formData.technicalDetails, photoCredits: [...(formData.technicalDetails?.photoCredits || []), {label: "", value: ""}]}})} className="ml-4 text-[10px] bg-[#e5e8f3] px-2 py-1 rounded text-[#28557F] hover:bg-[#d3e4ff] transition font-bold"><Plus size={10} className="inline mr-1" />Add Photo Credit</button></label>
-                                            {(formData.technicalDetails?.photoCredits || []).map((m: any, index: number) => (
-                                                <div key={`p-${index}`} className="flex gap-2 relative group">
-                                                    <input value={m.label} onChange={(e) => { const v = [...formData.technicalDetails.photoCredits]; v[index].label = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, photoCredits: v}}) }} placeholder="E.g. Exterior Shots" className="flex-1 bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-11 px-3 text-sm focus:border-[#28557F] outline-none font-medium" />
-                                                    <input value={m.value} onChange={(e) => { const v = [...formData.technicalDetails.photoCredits]; v[index].value = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, photoCredits: v}}) }} placeholder="E.g. Jane Studios" className="flex-1 bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-11 px-3 text-sm focus:border-[#28557F] outline-none font-medium" />
-                                                    <button type="button" onClick={() => { const v = [...formData.technicalDetails.photoCredits]; v.splice(index, 1); setFormData({...formData, technicalDetails: {...formData.technicalDetails, photoCredits: v}}) }} className="text-red-500 p-2 hover:bg-red-50 rounded-lg transition-colors"><X size={16} /></button>
-                                                </div>
-                                            ))}
+                                        <div className="h-[1px] bg-[#f0f3fe]" />
+
+                                        {/* Photo Credits Section */}
+                                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+                                            <div className="lg:col-span-4">
+                                                <h4 className="text-[11px] font-bold text-[#181c23] uppercase tracking-[0.15em] mb-2">Photo Credits</h4>
+                                                <p className="text-xs text-[#72777f] font-medium leading-relaxed">Specify photographers for different areas or scopes.</p>
+                                            </div>
+                                            <div className="lg:col-span-8 space-y-4">
+                                                {(formData.technicalDetails?.photoCredits || []).map((m: any, index: number) => (
+                                                    <div key={`p-${index}`} className="flex gap-3 animate-in fade-in slide-in-from-top-2">
+                                                        <input value={m.label} onChange={(e) => { const v = [...formData.technicalDetails.photoCredits]; v[index].label = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, photoCredits: v}}) }} placeholder="E.g. Interior Photography" className="flex-1 bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium shadow-sm transition-all" />
+                                                        <input value={m.value} onChange={(e) => { const v = [...formData.technicalDetails.photoCredits]; v[index].value = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, photoCredits: v}}) }} placeholder="E.g. Studio Name" className="flex-[1.5] bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium shadow-sm transition-all" />
+                                                        <button type="button" onClick={() => { const v = [...formData.technicalDetails.photoCredits]; v.splice(index, 1); setFormData({...formData, technicalDetails: {...formData.technicalDetails, photoCredits: v}}) }} className="h-11 w-11 flex items-center justify-center text-[#ba1a1a] hover:bg-red-50 rounded-xl transition-colors"><X size={18} /></button>
+                                                    </div>
+                                                ))}
+                                                <button type="button" onClick={() => setFormData({...formData, technicalDetails: {...formData.technicalDetails, photoCredits: [...(formData.technicalDetails?.photoCredits || []), {label: "", value: ""}]}})} className="w-full h-11 flex items-center justify-center gap-2 border-2 border-dashed border-[#dfe2ed] rounded-xl text-[#28557F] font-bold text-[10px] uppercase tracking-widest hover:bg-[#f0f3fe] hover:border-[#28557F] transition-all bg-white">
+                                                    <Plus size={14} /> Add Photographer
+                                                </button>
+                                            </div>
                                         </div>
 
-                                        <div className="pt-8 border-t space-y-8">
-                                            <h4 className="text-sm font-bold uppercase tracking-widest text-[#28557F]">Material Finishes Palette</h4>
+                                        {/* Material Finishes Palette */}
+                                        <div className="pt-12 border-t-2 border-[#dfe2ed] space-y-12">
+                                            <div className="text-center space-y-3">
+                                                <h4 className="text-sm font-bold uppercase tracking-[0.25em] text-[#181c23]">Material Finishes Palette</h4>
+                                                <div className="w-12 h-1 bg-[#28557F] mx-auto rounded-full" />
+                                            </div>
+
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                                                <div className="space-y-4">
+                                                    <ImageUpload 
+                                                        label="Facade Finish Image" 
+                                                        defaultImage={formData.technicalDetails?.finishes?.facade?.images?.[0]} 
+                                                        onUpload={(url) => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, facade: {...formData.technicalDetails.finishes.facade, images: [url]}}}})} 
+                                                    />
+                                                    <input value={formData.technicalDetails?.finishes?.facade?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, facade: {...formData.technicalDetails.finishes.facade, desc: e.target.value}}}})} placeholder="Facade Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs focus:border-[#28557F] outline-none font-medium transition-all" />
+                                                </div>
+                                                <div className="space-y-4">
+                                                    <ImageUpload 
+                                                        label="Wall Finish Image" 
+                                                        defaultImage={formData.technicalDetails?.finishes?.wall?.images?.[0]} 
+                                                        onUpload={(url) => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, wall: {...formData.technicalDetails.finishes.wall, images: [url]}}}})} 
+                                                    />
+                                                    <input value={formData.technicalDetails?.finishes?.wall?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, wall: {...formData.technicalDetails.finishes.wall, desc: e.target.value}}}})} placeholder="Wall Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs focus:border-[#28557F] outline-none font-medium transition-all" />
+                                                </div>
+                                                <div className="space-y-4">
+                                                    <ImageUpload 
+                                                        label="Floor Finish Image" 
+                                                        defaultImage={formData.technicalDetails?.finishes?.flooring?.images?.[0]} 
+                                                        onUpload={(url) => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, flooring: {...formData.technicalDetails.finishes.flooring, images: [url]}}}})} 
+                                                    />
+                                                    <input value={formData.technicalDetails?.finishes?.flooring?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, flooring: {...formData.technicalDetails.finishes.flooring, desc: e.target.value}}}})} placeholder="Floor Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs focus:border-[#28557F] outline-none font-medium transition-all" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                                 <div className="space-y-4">
                                                     <ImageUpload 
