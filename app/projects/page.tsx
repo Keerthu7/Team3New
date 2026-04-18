@@ -72,15 +72,15 @@ export default function ProjectsSection() {
         </h2>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap gap-3 mb-8">
+        <div className="flex flex-nowrap overflow-x-auto gap-3 mb-10 pb-4 md:pb-0 md:flex-wrap md:overflow-visible scrollbar-hide">
           {filters.map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+              className={`px-6 py-2.5 rounded-full text-[13px] md:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
                 activeFilter === filter
-                  ? "bg-[#28557F] text-white" 
-                  : "bg-[#e5e7eb] text-gray-600 hover:bg-gray-300" 
+                  ? "bg-[#28557F] text-white shadow-lg shadow-[#28557F]/20 scale-105" 
+                  : "bg-white border border-[#dfe2ed] text-gray-600 hover:bg-gray-100" 
               }`}
             >
               {filter}

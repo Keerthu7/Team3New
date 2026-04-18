@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
                 transition={{ duration: 0.6 }}
                 className="relative z-10 w-full max-w-[400px] px-4"
             >
-                <div className="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[2rem] p-8 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] relative overflow-hidden group">
+                <div className="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[2rem] p-6 md:p-8 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] relative overflow-hidden group">
                     {/* Close Icon (UI decoration from image) */}
                     <div className="absolute top-4 right-4 text-white/60 hover:text-white cursor-pointer transition-colors p-1 border border-white/30 rounded-md">
                         <X size={14} />
@@ -157,15 +157,15 @@ export default function AdminLoginPage() {
             </motion.div>
 
             {/* Additional Branding Overlay */}
-            <div className="absolute top-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
+            <div className="absolute top-6 md:top-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 w-full px-4">
                 <img 
                     src="/images/logo.png" 
                     alt="Team 3 Logo" 
-                    className="h-12 w-auto drop-shadow-lg"
+                    className="h-10 md:h-12 w-auto drop-shadow-lg"
                 />
-                <div className="flex items-center gap-2 font-bold text-2xl tracking-tighter text-white">
+                <div className="flex items-center gap-2 font-bold text-xl md:text-2xl tracking-tighter text-white">
                     <span className="bg-white/90 backdrop-blur-sm text-[#28557F] px-2 py-0.5 rounded-sm">TEAM 3</span>
-                    <span className="text-white font-medium text-sm tracking-[0.2em]">ASSOCIATES</span>
+                    <span className="text-white font-medium text-xs md:text-sm tracking-[0.2em] uppercase">Associates</span>
                 </div>
             </div>
         </div>

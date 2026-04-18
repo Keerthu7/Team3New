@@ -119,9 +119,9 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
                     <div key={i} className="w-0.5 h-0.5 bg-primary rounded-full" />
                   ))}
                 </div>
-                <span className="text-[9px] font-bold text-primary tracking-[0.3em] uppercase">Architecture</span>
+                <span className="text-[10px] md:text-[9px] font-bold text-primary tracking-[0.3em] uppercase">Architecture</span>
               </div>
-              <span className="text-[9px] font-bold text-gray-700 tracking-[0.2em] uppercase bg-white/40 px-3 py-1.5 rounded-full">
+              <span className="text-[10px] md:text-[9px] font-bold text-gray-700 tracking-[0.2em] uppercase bg-white/40 px-3 py-1.5 rounded-full">
                 {project.date}
               </span>
             </div>
@@ -142,7 +142,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
               <Link href={`/projects/${project.id}`}>
                 {/* MATHUNA EDAM 2: Button Rounded Corners */}
                 {/* rounded-full use panniruken */}
-                <button className="w-full px-8 py-3 bg-primary text-white rounded-full font-semibold text-[9px] uppercase tracking-[0.25em] hover:bg-black transition-all shadow-md shadow-primary/10 flex items-center justify-center gap-3 group">
+                <button className="w-full px-8 py-4 md:py-3 bg-primary text-white rounded-full font-semibold text-[11px] md:text-[9px] uppercase tracking-[0.25em] hover:bg-black transition-all shadow-md shadow-primary/10 flex items-center justify-center gap-3 group">
                   Check Project
                   {/* Inside Icon also rounded */}
                   <div className="w-4 h-4 rounded-full bg-white/30 flex items-center justify-center group-hover:scale-110 transition-transform">
