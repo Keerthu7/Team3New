@@ -3,21 +3,26 @@ import connectToDatabase from '@/lib/db';
 import Project from '@/models/Project';
 import { projects as fallbackProjects } from '@/lib/projects-data';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const { searchParams } = new URL(req.url);
+    const isAdmin = searchParams.get('admin') === 'true';
+
     await connectToDatabase();
     const projects = await Project.find({}).sort({ createdAt: -1 });
     
     // If DB is genuinely empty (seed hasn't run), return fallback for now
     if (projects.length === 0) {
-        return NextResponse.json(fallbackProjects);
+        return NextResponse.json(isAdmin ? [] : fallbackProjects);
     }
     
     return NextResponse.json(projects);
   } catch (error: any) {
     console.error("MongoDB fetch failed, using fallback data:", error.message);
+    const { searchParams } = new URL(req.url);
+    const isAdmin = searchParams.get('admin') === 'true';
     // Graceful fallback if local network blocks MongoDB
-    return NextResponse.json(fallbackProjects);
+    return NextResponse.json(isAdmin ? [] : fallbackProjects);
   }
 }
 

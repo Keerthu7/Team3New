@@ -24,7 +24,7 @@ export default function AdminDashboard() {
 
     useEffect(() => {
         // Fetch Projects
-        fetch('/api/projects')
+        fetch('/api/projects?admin=true')
             .then(res => res.json())
             .then(data => {
                 const count = Array.isArray(data) ? data.length : 0;
@@ -33,7 +33,7 @@ export default function AdminDashboard() {
             .catch(() => setStats(prev => ({ ...prev, projects: { count: 0, loading: false } })));
 
         // Fetch Blogs
-        fetch('/api/blogs')
+        fetch('/api/blogs?admin=true')
             .then(res => res.json())
             .then(data => {
                 const count = Array.isArray(data) ? data.length : 0;
@@ -42,7 +42,7 @@ export default function AdminDashboard() {
             .catch(() => setStats(prev => ({ ...prev, blogs: { count: 0, loading: false } })));
 
         // Fetch Leads
-        fetch('/api/leads')
+        fetch('/api/leads?admin=true')
             .then(res => res.json())
             .then(data => {
                 const count = Array.isArray(data) ? data.length : 0;
