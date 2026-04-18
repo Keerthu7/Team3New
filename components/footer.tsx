@@ -19,9 +19,9 @@ export function Footer() {
             <Image 
               src="/images/logo.png" 
               alt="Team 3 Associates" 
-              width={260} 
-              height={70} 
-              className="object-contain object-left mr-auto h-auto w-auto max-h-[64px] brightness-0 invert opacity-100 mb-6" 
+              width={320} 
+              height={85} 
+              className="object-contain object-left mr-auto h-auto w-auto max-h-[80px] brightness-0 invert opacity-100 mb-6" 
             />
             <p className="text-[15px] font-medium leading-loose text-white md:max-w-[85%] text-justify">
               A multidisciplinary architecture studio dedicated to creating refined spaces that inspire human connection and elevate the built environment.
