@@ -145,11 +145,11 @@ export default function AdminDashboard() {
                             <div key={lead._id || index} className="p-5 flex items-center justify-between bg-white hover:bg-[#f9f9ff] transition-colors group cursor-pointer">
                                 <div className="flex items-center gap-4">
                                     <div className="h-10 w-10 rounded-xl bg-[#f0f3fe] border border-[#d0e4ff] flex items-center justify-center font-bold text-[#28557F] text-xs">
-                                        {lead.name[0]}
+                                        {lead.name ? lead.name[0] : 'U'}
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-sm text-[#181c23] group-hover:text-[#28557F] transition-colors">{lead.name}</h4>
-                                        <p className="text-xs text-[#42474e] font-medium">{lead.subject}</p>
+                                        <p className="text-xs text-[#42474e] font-medium">{lead.category || "Consultation"}</p>
                                     </div>
                                 </div>
                                 <div className="text-right flex flex-col items-end gap-1.5">
