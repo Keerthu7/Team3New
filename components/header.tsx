@@ -24,11 +24,11 @@ export function Header() {
         <Image 
           src="/images/logo.png" 
           alt="Team 3 Associates" 
-          width={190} 
-          height={50} 
+          width={240} 
+          height={60} 
           priority 
           // Max height slightly reduced
-          className="object-contain h-auto w-auto max-h-[40px] md:max-h-[46px]" 
+          className="object-contain h-auto w-auto max-h-[50px] md:max-h-[58px]" 
         />
       </Link>
 
