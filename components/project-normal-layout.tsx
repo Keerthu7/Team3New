@@ -100,14 +100,14 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
               };
 
               const universalCaptions = [
-                "Materiality and texture play a crucial role in defining the spatial quality of the environment.",
-                "The interplay of natural light and architectural form creates a dynamic interplay throughout its volume.",
-                "Precision in detailing ensures that every junction and transition contributes to the overall design intent.",
-                "Spatial hierarchy is established through a sequence of interconnected volumes and transitional spaces.",
-                "A refined palette of materials creates a sense of harmony and timeless elegance within the built environment.",
-                "The design seeks to balance rigorous functional requirements with a strong, minimalist aesthetic identity.",
-                "Strategic transparency and large openings allow for a seamless visual connection with the surrounding context.",
-                "Architectural elements are utilized to frame specific views and curate the user's journey through the site."
+                "Spatial harmony defined by the interplay of light and shadow.",
+                "Minimalist transitions connecting architectural form and function.",
+                "A refined selection of contemporary textures and materiality.",
+                "Fluid volumes creating a sense of openness and structural scale.",
+                "Precision detailing at every significant architectural junction.",
+                "Integrated materiality reflecting modern design principles.",
+                "Dynamic interplay between structural elements and context.",
+                "Curated views framed through purposeful architectural elements."
               ];
               const caption = universalCaptions[index % universalCaptions.length];
 
@@ -120,13 +120,13 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                     src={img} 
                     alt={`${project.formalTitle} detail ${index + 1}`} 
                     fill 
-                    className="object-cover transition-all duration-1000 group-hover:scale-105"
+                    className="object-cover transition-all duration-1000 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-all duration-700"></div>
+                  {/* Darker overlay on hover to make white text pop */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-700"></div>
                   
-                  <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 bg-white/95 backdrop-blur-md p-4 md:p-8 rounded-sm shadow-2xl z-10 translate-y-4 md:translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 max-w-none md:max-w-[70%] border-l-4 border-[#28557F]">
-                      <p className="text-[9px] md:text-[11px] font-bold text-[#28557F] tracking-[0.3em] uppercase mb-2 md:mb-3 opacity-60">Architectural Detail / {String(index + 1).padStart(2, '0')}</p>
-                      <p className="text-[10px] md:text-[13px] font-bold text-[#181c23] leading-relaxed tracking-tight text-justify uppercase line-clamp-4 md:line-clamp-none">
+                  <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 bg-white/10 backdrop-blur-xl p-6 md:p-10 rounded-xl border border-white/20 shadow-2xl z-10 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 max-w-none md:max-w-[60%]">
+                      <p className="text-[12px] md:text-[14px] font-bold text-white leading-relaxed tracking-wide text-justify uppercase line-clamp-4 md:line-clamp-none drop-shadow-sm">
                         {caption}
                       </p>
                   </div>
