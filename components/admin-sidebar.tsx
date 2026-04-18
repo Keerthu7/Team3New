@@ -74,13 +74,11 @@ export function AdminSidebar() {
                 {/* Branding */}
                 <div className="flex h-20 items-center px-6 border-b border-[#dfe2ed]">
                     <Link href="/admin" className="flex items-center gap-3">
-                        <div className="h-8 w-8 bg-[#28557F] flex items-center justify-center text-white font-bold text-sm rounded shadow-sm">
-                            T3
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="font-bold text-[#181c23] tracking-tight text-base uppercase">TEAM 3</span>
-                            <span className="text-[10px] font-bold text-[#72777f] uppercase tracking-widest leading-none">ASSOCIATES</span>
-                        </div>
+                        <img 
+                            src="/images/logo.png" 
+                            alt="Team 3 Logo" 
+                            className="h-10 w-auto"
+                        />
                     </Link>
                 </div>
 

@@ -1,28 +1,95 @@
 "use client";
 
-import { useState } from "react";
-import { Search, Download, Mail, Zap, UserCheck, Calendar, Phone, Clock, CheckCircle2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Search, Download, Mail, Zap, UserCheck, Calendar, Phone, Clock, CheckCircle2, Loader2, RefreshCcw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const initialLeads = [
-    { _id: "1", name: "Sarah Collins", email: "sarah@example.com", phone: "+91 98765 43210", category: "Residential", status: "New", date: "Today, 10:30 AM", message: "Looking for consultation." },
-    { _id: "2", name: "David Peterson", email: "david@corp.com", phone: "+1 234 567 8900", category: "Commercial", status: "In Progress", date: "Yesterday, 2:15 PM", message: "Need office renovation." },
-    { _id: "3", name: "Emma Wilson", email: "emma@designs.com", phone: "+44 7700 900077", category: "Interior", status: "Replied", date: "Oct 24, 2024", message: "Home interior styling." },
-];
-
 export default function AdminLeads() {
-    const [leads, setLeads] = useState(initialLeads);
+    const [leads, setLeads] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
+    const fetchLeads = async () => {
+        setIsLoading(true);
+        try {
+            console.log("Fetching leads from /api/leads...");
+            const res = await fetch("/api/leads");
+            
+            if (!res.ok) {
+                const text = await res.text();
+                console.error("API Error Response:", text);
+                throw new Error(`Server returned ${res.status}: ${text.slice(0, 100)}`);
+            }
+
+            const data = await res.json();
+            setLeads(data);
+        } catch (error: any) {
+            console.error("Failed to fetch leads:", error);
+            // Optionally show error to user via state
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchLeads();
+    }, []);
+
     const filteredLeads = leads.filter(lead => 
-        lead.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        lead.email.toLowerCase().includes(searchTerm.toLowerCase())
+        (lead.name?.toLowerCase() || "").includes(searchTerm.toLowerCase()) || 
+        (lead.email?.toLowerCase() || "").includes(searchTerm.toLowerCase())
     );
 
-    const updateLeadStatus = (id: string, newStatus: string) => {
-        setLeads(leads.map(l => l._id === id ? { ...l, status: newStatus } : l));
-        setOpenDropdown(null);
+    const updateLeadStatus = async (id: string, newStatus: string) => {
+        try {
+            const res = await fetch("/api/leads", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id, status: newStatus }),
+            });
+            if (res.ok) {
+                setLeads(leads.map(l => l._id === id ? { ...l, status: newStatus } : l));
+            }
+        } catch (error) {
+            console.error("Failed to update status:", error);
+        } finally {
+            setOpenDropdown(null);
+        }
+    };
+
+    const handleExport = () => {
+        if (leads.length === 0) return;
+
+        // Create CSV Header
+        const headers = ["Name", "Email", "Phone", "Category", "Status", "Date", "Preferred Time", "Created At"];
+        const csvRows = [headers.join(",")];
+
+        // Add Data Rows
+        leads.forEach(lead => {
+            const row = [
+                `"${lead.name || ''}"`,
+                `"${lead.email || ''}"`,
+                `"${lead.phone || ''}"`,
+                `"${lead.category || 'Consultation'}"`,
+                `"${lead.status || 'New'}"`,
+                `"${lead.date || ''}"`,
+                `"${lead.preferredTime || ''}"`,
+                `"${new Date(lead.createdAt).toLocaleString()}"`
+            ];
+            csvRows.push(row.join(","));
+        });
+
+        // Create Blob and Download
+        const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", `team3_leads_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = "hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     };
 
     return (
@@ -32,13 +99,22 @@ export default function AdminLeads() {
                     <h1 className="text-2xl font-bold tracking-tight text-[#181c23]">Client Messages</h1>
                     <p className="text-sm text-[#42474e] font-medium mt-1">Manage project inquiries.</p>
                 </div>
-                <button 
-                    disabled={filteredLeads.length === 0}
-                    className="flex items-center justify-center bg-[#181c23] hover:bg-[#2c3039] text-white px-6 h-11 rounded-xl shadow-md transition-all duration-300 font-bold text-sm tracking-tight"
-                >
-                    <Download size={16} className="mr-2" />
-                    Export CSV
-                </button>
+                <div className="flex items-center gap-3">
+                    <button 
+                        onClick={fetchLeads}
+                        className="flex items-center justify-center bg-white border border-[#dfe2ed] text-[#181c23] hover:bg-[#f0f3fe] px-4 h-11 rounded-xl shadow-sm transition-all duration-300 font-bold text-sm tracking-tight"
+                    >
+                        <RefreshCcw size={16} className={isLoading ? "animate-spin" : ""} />
+                    </button>
+                    <button 
+                        onClick={handleExport}
+                        disabled={leads.length === 0}
+                        className="flex items-center justify-center bg-[#181c23] hover:bg-[#2c3039] text-white px-6 h-11 rounded-xl shadow-md transition-all duration-300 font-bold text-sm tracking-tight disabled:opacity-50"
+                    >
+                        <Download size={16} className="mr-2" />
+                        Export CSV
+                    </button>
+                </div>
             </div>
 
             {/* Stats Summary */}
@@ -90,8 +166,19 @@ export default function AdminLeads() {
                 </div>
 
                 <div className="space-y-4">
-                    <AnimatePresence>
-                        {filteredLeads.map((lead, i) => (
+                    {isLoading && leads.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-20 text-[#72777f]">
+                            <Loader2 size={32} className="animate-spin mb-4" />
+                            <p className="text-sm font-medium">Loading messages...</p>
+                        </div>
+                    ) : filteredLeads.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-20 text-[#72777f] border-2 border-dashed border-[#dfe2ed] rounded-3xl">
+                            <Mail size={32} className="mb-4 opacity-20" />
+                            <p className="text-sm font-medium">No messages found matching your search.</p>
+                        </div>
+                    ) : (
+                        <AnimatePresence>
+                            {filteredLeads.map((lead, i) => (
                             <motion.div
                                 key={lead._id}
                                 initial={{ opacity: 0, y: 10 }}
@@ -159,7 +246,8 @@ export default function AdminLeads() {
                             </motion.div>
                         ))}
                     </AnimatePresence>
-                </div>
+                )}
+            </div>
             </div>
         </div>
     );
