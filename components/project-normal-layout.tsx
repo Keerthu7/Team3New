@@ -122,11 +122,10 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                     fill 
                     className="object-cover transition-all duration-1000 group-hover:scale-110"
                   />
-                  {/* Darker overlay on hover to make white text pop */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-700"></div>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-700"></div>
                   
-                  <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 bg-white/10 backdrop-blur-xl p-6 md:p-10 rounded-xl border border-white/20 shadow-2xl z-10 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 max-w-none md:max-w-[60%]">
-                      <p className="text-[12px] md:text-[14px] font-bold text-white leading-relaxed tracking-wide text-justify uppercase line-clamp-4 md:line-clamp-none drop-shadow-sm">
+                  <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-white/10 backdrop-blur-xl p-4 md:p-6 rounded-xl border border-white/20 shadow-2xl z-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 max-w-[85%] md:max-w-[35%]">
+                      <p className="text-[11px] md:text-[12px] font-bold text-white leading-relaxed tracking-wide text-left uppercase drop-shadow-sm">
                         {caption}
                       </p>
                   </div>
