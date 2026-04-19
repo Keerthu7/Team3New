@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import connectToDatabase from '@/lib/db';
 import Blog from '@/models/Blog';
 
@@ -22,6 +23,13 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     const resolvedParams = await params;
     const blog = await Blog.findByIdAndUpdate(resolvedParams.id, body, { new: true, runValidators: true });
     if (!blog) return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
+    
+    // Instant cache busting
+    revalidatePath('/blog');
+    revalidatePath(`/blog/${blog.slug}`);
+    revalidatePath('/admin/blogs');
+    revalidatePath('/admin');
+    
     return NextResponse.json(blog);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
@@ -34,6 +42,12 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     const resolvedParams = await params;
     const blog = await Blog.findByIdAndDelete(resolvedParams.id);
     if (!blog) return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
+    
+    // Instant cache busting
+    revalidatePath('/blog');
+    revalidatePath('/admin/blogs');
+    revalidatePath('/admin');
+    
     return NextResponse.json({ success: true, message: 'Blog deleted' });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

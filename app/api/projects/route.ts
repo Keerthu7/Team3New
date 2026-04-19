@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import connectToDatabase from '@/lib/db';
 import Project from '@/models/Project';
 import { projects as fallbackProjects } from '@/lib/projects-data';
@@ -37,6 +38,12 @@ export async function POST(req: Request) {
     }
     
     const project = await Project.create(body);
+    
+    // Instant cache busting for real-time updates
+    revalidatePath('/projects');
+    revalidatePath('/admin/projects');
+    revalidatePath('/admin');
+    
     return NextResponse.json(project, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });

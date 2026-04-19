@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import connectToDatabase from '@/lib/db';
 import Blog from '@/models/Blog';
 import { blogs as fallbackBlogs } from '@/data/blog-data';
@@ -30,6 +31,12 @@ export async function POST(req: Request) {
     await connectToDatabase();
     const body = await req.json();
     const blog = await Blog.create(body);
+    
+    // Instant cache busting
+    revalidatePath('/blog');
+    revalidatePath('/admin/blogs');
+    revalidatePath('/admin');
+    
     return NextResponse.json(blog, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });

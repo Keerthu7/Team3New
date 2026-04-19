@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import connectToDatabase from '@/lib/db';
 import Project from '@/models/Project';
 
@@ -52,6 +53,13 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     }
 
     if (!project) return NextResponse.json({ error: 'Project not found' }, { status: 404 });
+    
+    // Instant cache busting
+    revalidatePath('/projects');
+    revalidatePath(`/projects/${project.slug || project._id}`);
+    revalidatePath('/admin/projects');
+    revalidatePath('/admin');
+    
     return NextResponse.json(project);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
@@ -77,6 +85,12 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     }
 
     if (!project) return NextResponse.json({ error: 'Project not found' }, { status: 404 });
+    
+    // Instant cache busting
+    revalidatePath('/projects');
+    revalidatePath('/admin/projects');
+    revalidatePath('/admin');
+    
     return NextResponse.json({ success: true, message: 'Project deleted' });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
