@@ -111,8 +111,9 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
               </span>
               <h3 className="text-lg md:text-xl font-bold leading-tight">{project.title}</h3>
             </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </>
   );
