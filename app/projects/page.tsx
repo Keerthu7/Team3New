@@ -1,65 +1,33 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import  {Header}  from "@/components/header";
+import React from "react";
+import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import Link from "next/link";
-import { Loader2 } from "lucide-react";
+import ProjectsClient from "@/components/ProjectsClient";
+import connectToDatabase from '@/lib/db';
+import Project from '@/models/Project';
+import { projects as fallbackProjects } from '@/lib/projects-data';
 
-export default function ProjectsSection() {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [projects, setProjects] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+// This makes the component a Server Component by default in Next.js 13+
+// We fetch data directly here for instant loading
+async function getProjects() {
+  try {
+    await connectToDatabase();
+    const projects = await Project.find({}).sort({ createdAt: -1 });
+    
+    // If DB is genuinely empty (seed hasn't run), return fallback for now
+    if (projects.length === 0) {
+        return JSON.parse(JSON.stringify(fallbackProjects));
+    }
+    
+    return JSON.parse(JSON.stringify(projects));
+  } catch (error: any) {
+    console.error("MongoDB fetch failed, using fallback data:", error.message);
+    // Graceful fallback if database connection fails
+    return JSON.parse(JSON.stringify(fallbackProjects));
+  }
+}
 
-  useEffect(() => {
-    fetch('/api/projects')
-      .then(res => res.json())
-      .then(data => {
-        setProjects(Array.isArray(data) ? data : []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to load projects", err);
-        setLoading(false);
-      });
-  }, []);
-
-  // Filter Categories
-  const filters = [
-    "All",
-    "Residential",
-    "Commercial",
-    "Hospitality",
-    "Healthcare",
-    "Interiors",
-  ];
-
-
-  // Filtering Logic
-  const filteredProjects = (() => {
-    if (activeFilter === "All") return projects;
-
-    // Define Related Categories mapping
-    const relatedMap: Record<string, string[]> = {
-      "Healthcare": ["Commercial"],
-      "Residential": ["Interior", "Apartment"],
-      "Apartment": ["Residential"],
-      "Commercial": ["Healthcare"],
-      "Interior": ["Residential"],
-    };
-
-    const primary = projects.filter((p) => p.filterType === activeFilter);
-    const relatedTypes = relatedMap[activeFilter] || [];
-    const related = projects.filter((p) => 
-      relatedTypes.includes(p.filterType) && p.filterType !== activeFilter
-    );
-    const others = projects.filter((p) => 
-      !primary.includes(p) && !related.includes(p)
-    );
-
-    // Prioritize Primary, then Related, then Others to keep the grid full
-    return [...primary, ...related, ...others];
-  })();
+export default async function ProjectsSection() {
+  const projects = await getProjects();
 
   return (
     <div className="bg-[#f9f9ff] min-h-screen">
@@ -71,59 +39,8 @@ export default function ProjectsSection() {
           Our Projects
         </h2>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-nowrap overflow-x-auto gap-3 mb-10 pb-4 md:pb-0 md:flex-wrap md:overflow-visible scrollbar-hide">
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-6 py-2.5 rounded-full text-[13px] md:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
-                activeFilter === filter
-                  ? "bg-[#28557F] text-white shadow-lg shadow-[#28557F]/20 scale-105" 
-                  : "bg-white border border-[#dfe2ed] text-gray-600 hover:bg-gray-100" 
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
-
-        {loading ? (
-            <div className="flex justify-center items-center py-20">
-              <Loader2 className="animate-spin text-[#28557F]" size={40} />
-            </div>
-        ) : (
-          <>
-            {/* Projects Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-12 justify-items-center">
-              {filteredProjects.map((project) => (
-                <Link
-                  key={project.id || project._id}
-                  href={`/projects/${project.slug || project._id || project.id}`}
-                  className="relative group overflow-hidden shadow-sm cursor-pointer block w-full max-w-[613.43px] h-auto aspect-[613.43/367.91] md:h-[367.91px] rounded-[14.75px]"
-                >
-              {/* Background Image */}
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-
-              {/* Text Content Overlay */}
-              <div className="absolute bottom-0 left-0 w-full p-5 text-white text-left">
-                <span className="text-[9px] font-medium tracking-wide uppercase opacity-90 mb-0.5 block">
-                  {project.category}
-                </span>
-                <h3 className="text-lg md:text-xl font-bold leading-tight">{project.title}</h3>
-              </div>
-            </Link>
-          ))}
-          </div>
-          </>
-        )}
+        {/* Client-side filtering and Optimized Grid */}
+        <ProjectsClient initialProjects={projects} />
 
         {/* Refined Architectural CTA */}
         <div className="mt-20 mb-16 text-center max-w-4xl mx-auto px-4">
