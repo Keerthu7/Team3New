@@ -170,7 +170,7 @@ export default function MagazineSpread({
         <section className="w-full max-w-[1440px] bg-white shadow-[0_0_60px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row min-h-[900px] overflow-hidden">
            <div className="w-full lg:w-1/2 p-12 md:p-20 relative flex border-b lg:border-b-0 lg:border-r border-black/10">
               <div className="relative w-full h-full min-h-[500px]">
-                 <Image src={blog.spread2BigImage} alt="Spread 2" fill className="object-cover" />
+                <Image src={blog.spread2BigImage} alt="Spread 2" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
               </div>
            </div>
            <div className="w-full lg:w-1/2 p-12 md:p-24 relative flex flex-col">
@@ -181,7 +181,7 @@ export default function MagazineSpread({
                  </p>
               </div>
               <div className="relative w-full h-[40%] min-h-[300px] grayscale hover:grayscale-0 transition-all duration-700">
-                 <Image src={blog.spread2SmallImage} alt="Detail" fill className="object-cover" />
+                 <Image src={blog.spread2SmallImage} alt="Detail" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 25vw" />
               </div>
            </div>
         </section>
@@ -199,7 +199,7 @@ export default function MagazineSpread({
            </div>
            <div className="w-full lg:w-1/2 p-12 md:p-24 relative flex flex-col justify-between">
               <div className="relative w-full h-[55%] mb-12 shadow-md">
-                 <Image src={blog.healingInteriorImage} alt="Healing Spaces" fill className="object-cover" />
+                 <Image src={blog.healingInteriorImage} alt="Healing Spaces" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
               </div>
               <div className="p-8 border-l-4 border-black mb-auto mt-8">
                  <h3 className="text-lg font-bold text-[#000000] mb-4 uppercase">Architectural Wellness</h3>

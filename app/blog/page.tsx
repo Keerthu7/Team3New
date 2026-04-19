@@ -1,28 +1,31 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import React from "react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
 import Image from "next/image";
-import { Loader2 } from "lucide-react";
+import connectToDatabase from "@/lib/db";
+import BlogModel from "@/models/Blog";
+import { blogs as fallbackBlogs } from "@/data/blog-data";
 
-export default function BlogPage() {
-  const [blogs, setBlogs] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+async function getBlogs() {
+  try {
+    await connectToDatabase();
+    const mongoBlogs = await BlogModel.find({}).sort({ createdAt: -1 });
+    
+    if (mongoBlogs && mongoBlogs.length > 0) {
+        return JSON.parse(JSON.stringify(mongoBlogs));
+    }
+  } catch (err) {
+    console.error("MongoDB fetch failed for blogs, using static fallback:", err);
+  }
+  
+  // Return empty array or static data if DB fails
+  return [];
+}
 
-  useEffect(() => {
-    fetch('/api/blogs')
-      .then(res => res.json())
-      .then(data => {
-        setBlogs(Array.isArray(data) ? data : []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to load blogs", err);
-        setLoading(false);
-      });
-  }, []);
+export default async function BlogPage() {
+  const blogs = await getBlogs();
+
   return (
     <main className="bg-white min-h-screen">
       <Header />
@@ -39,15 +42,10 @@ export default function BlogPage() {
 
       {/* Blog Grid */}
       <section className="px-6 md:px-12 max-w-7xl mx-auto pb-32">
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <Loader2 className="animate-spin text-[#28557F]" size={40} />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            {blogs.map((blog) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+          {blogs.map((blog: any, index: number) => (
             <Link 
-              key={blog.slug} 
+              key={blog.slug || blog._id} 
               href={`/blog/${blog.slug}`}
               className="group flex flex-col bg-white rounded-lg overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
             >
@@ -56,7 +54,9 @@ export default function BlogPage() {
                   src={blog.thumbnail || blog.heroImage} 
                   alt={blog.title}
                   fill
+                  priority={index < 3} // Optimize first few blog posts
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
                 />
               </div>
               <div className="p-6 md:p-8 flex flex-col items-start">
@@ -69,8 +69,7 @@ export default function BlogPage() {
               </div>
             </Link>
           ))}
-          </div>
-        )}
+        </div>
       </section>
 
       <Footer />
