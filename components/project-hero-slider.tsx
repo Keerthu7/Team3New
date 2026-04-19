@@ -12,25 +12,31 @@ export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (images.length <= 1) return;
+    // Safety check added
+    if (!images || images.length <= 1) return;
+    
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // 5 seconds interval
+    }, 2500); 
 
     return () => clearInterval(timer);
-  }, [images.length]);
+  }, [images]); // Dependency updated to watch the images array
+
+  // If no images are provided, return null to avoid crashes
+  if (!images || images.length === 0) {
+    return null; 
+  }
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
-      <AnimatePresence initial={false} mode="wait">
+    <div className="relative w-full h-full overflow-hidden bg-white">
+      <AnimatePresence initial={false}>
         <motion.div
           key={currentIndex}
           initial={{ x: "100%" }}
           animate={{ x: 0 }}
           exit={{ x: "-100%" }}
           transition={{ 
-            x: { type: "spring", stiffness: 300, damping: 30 },
-            opacity: { duration: 0.5 }
+            x: { type: "tween", duration: 0.6, ease: "linear" }
           }}
           className="absolute inset-0 w-full h-full"
         >
@@ -38,7 +44,7 @@ export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
             src={images[currentIndex]}
             alt={`Slide ${currentIndex + 1}`}
             fill
-            priority={currentIndex === 0}
+            priority={true} 
             className="w-full h-full object-cover"
             sizes="100vw"
           />
