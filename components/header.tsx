@@ -27,8 +27,8 @@ export function Header() {
           width={240} 
           height={60} 
           priority 
-          // Max height slightly reduced
-          className="object-contain h-auto w-auto max-h-[50px] md:max-h-[58px]" 
+          // Increase logo size slightly for better branding presence
+          className="object-contain h-auto w-auto max-h-[56px] md:max-h-[68px]" 
         />
       </Link>
 
