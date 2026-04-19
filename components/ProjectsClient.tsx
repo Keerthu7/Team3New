@@ -11,6 +11,8 @@ interface ProjectsClientProps {
 export default function ProjectsClient({ initialProjects }: ProjectsClientProps) {
   const [activeFilter, setActiveFilter] = useState("All");
 
+  const [errorImages, setErrorImages] = useState<Record<string, boolean>>({});
+
   // Filter Categories
   const filters = [
     "All",
@@ -25,20 +27,26 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
   const filteredProjects = (() => {
     if (activeFilter === "All") return initialProjects;
 
-    // Define Related Categories mapping
+    // Define Related Categories mapping to ensure diverse names show up correctly
     const relatedMap: Record<string, string[]> = {
-      "Healthcare": ["Commercial"],
-      "Residential": ["Interior", "Apartment"],
-      "Apartment": ["Residential"],
-      "Commercial": ["Healthcare"],
-      "Interior": ["Residential"],
+      "Healthcare": ["Commercial", "Clinic", "Hospital"],
+      "Residential": ["Interior", "Apartment", "Apartment Architecture", "Villa", "Residence"],
+      "Apartment": ["Residential", "Apartment Architecture"],
+      "Commercial": ["Healthcare", "Office", "Retail"],
+      "Interiors": ["Interior", "Residential", "Commercial", "Interior Architecture"],
+      "Interior": ["Residential", "Interiors"],
     };
 
-    const primary = initialProjects.filter((p) => p.filterType === activeFilter);
+    const primary = initialProjects.filter((p) => 
+      p.filterType === activeFilter || p.category === activeFilter
+    );
+    
     const relatedTypes = relatedMap[activeFilter] || [];
     const related = initialProjects.filter((p) => 
-      relatedTypes.includes(p.filterType) && p.filterType !== activeFilter
+      (relatedTypes.includes(p.filterType) || relatedTypes.includes(p.category)) && 
+      p.filterType !== activeFilter && p.category !== activeFilter
     );
+    
     const others = initialProjects.filter((p) => 
       !primary.includes(p) && !related.includes(p)
     );
@@ -46,6 +54,10 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
     // Prioritize Primary, then Related, then Others to keep the grid full
     return [...primary, ...related, ...others];
   })();
+
+  const handleImageError = (id: string) => {
+    setErrorImages(prev => ({ ...prev, [id]: true }));
+  };
 
   return (
     <>
@@ -68,21 +80,26 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-12 justify-items-center">
-        {filteredProjects.map((project, index) => (
-          <Link
-            key={project.id || project._id}
-            href={`/projects/${project.slug || project._id || project.id}`}
-            className="relative group overflow-hidden shadow-sm cursor-pointer block w-full max-w-[613.43px] h-auto aspect-[613.43/367.91] md:h-[367.91px] rounded-[14.75px]"
-          >
-            {/* Background Image - Optimized with next/image */}
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              priority={index < 4} // Load first 4 images immediately
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 613px"
-            />
+        {filteredProjects.map((project, index) => {
+          const projectId = project.id || project._id;
+          const isError = errorImages[projectId];
+          
+          return (
+            <Link
+              key={projectId}
+              href={`/projects/${project.slug || project._id || project.id}`}
+              className="relative group overflow-hidden shadow-sm cursor-pointer block w-full max-w-[613.43px] h-auto aspect-[613.43/367.91] md:h-[367.91px] rounded-[14.75px]"
+            >
+              {/* Background Image - Optimized with next/image */}
+              <Image
+                src={isError ? "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" : project.image}
+                alt={project.title}
+                fill
+                priority={index < 4} // Load first 4 images immediately
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 613px"
+                onError={() => handleImageError(projectId)}
+              />
 
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
