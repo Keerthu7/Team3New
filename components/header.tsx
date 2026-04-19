@@ -36,8 +36,8 @@ export function Header() {
           <Link
             key={link.label}
             href={link.href}
-            // Text size 12px la irundhu 13px ku lite ah increase panniyachu
-            className="text-[13px] font-medium text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
+            // Text size 13px la irundhu 15px ku increase panniyachu
+            className="text-[15px] font-medium text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
           >
             {link.label}
           </Link>
@@ -60,8 +60,8 @@ export function Header() {
               key={link.label}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              // Mobile view-layum text size 13px aakkiyachu
-              className="text-[13px] font-medium text-[#1A4A75] hover:opacity-70 transition-all"
+              // Mobile view-layum text size 15px aakkiyachu
+              className="text-[15px] font-medium text-[#1A4A75] hover:opacity-70 transition-all"
             >
               {link.label}
             </Link>
