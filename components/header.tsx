@@ -17,7 +17,7 @@ export function Header() {
 
   return (
     // Header size konjam reduce panniyachu (py-3 to py-2)
-    <header className="absolute top-8 left-1/2 -translate-x-1/2 z-[100] w-[88%] max-w-[1050px] bg-white rounded-[100px] px-8 md:px-10 py-2 shadow-md flex items-center justify-between">
+    <header className="absolute top-6 left-1/2 -translate-x-1/2 z-[100] w-[92%] max-w-[850px] bg-white rounded-[100px] px-6 md:px-8 py-1.5 shadow-md flex items-center justify-between">
       
       {/* LOGO SECTION - Size reduced slightly */}
       <Link href="/" className="flex items-center hover:opacity-80 transition-opacity ml-2 md:ml-4">
@@ -27,13 +27,13 @@ export function Header() {
           width={240} 
           height={60} 
           priority 
-          // Max height slightly reduced
-          className="object-contain h-auto w-auto max-h-[50px] md:max-h-[58px]" 
+          // Max height reduced for compact header
+          className="object-contain h-auto w-auto max-h-[42px] md:max-h-[50px]" 
         />
       </Link>
 
       {/* Desktop Nav Section */}
-      <div className="hidden items-center gap-8 lg:gap-12 md:flex">
+      <div className="hidden items-center gap-6 lg:gap-10 md:flex">
         {navLinks.map((link) => (
           <Link
             key={link.label}
