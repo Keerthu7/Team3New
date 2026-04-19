@@ -320,6 +320,94 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* Section 3: Technical Details */}
+                                    <div className="space-y-12">
+                                        <div className="border-b border-[#dfe2ed] pb-4">
+                                            <h3 className="text-xl font-bold text-[#181c23] flex items-center gap-3">
+                                                <span className="w-8 h-8 rounded-xl bg-[#28557F] text-white flex items-center justify-center text-sm">3</span>
+                                                Technical Specifics
+                                            </h3>
+                                        </div>
+                                        
+                                        {/* Materials Section */}
+                                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+                                            <div className="lg:col-span-4">
+                                                <h4 className="text-[11px] font-bold text-[#181c23] uppercase tracking-[0.15em] mb-2">Materials Used</h4>
+                                                <p className="text-xs text-[#72777f] font-medium leading-relaxed">List significant materials, finishes, and hardware.</p>
+                                            </div>
+                                            <div className="lg:col-span-8 space-y-4">
+                                                {(formData.technicalDetails?.materials || []).map((m: any, index: number) => (
+                                                    <div key={`m-${index}`} className="flex flex-col md:flex-row gap-3">
+                                                        <input value={m.label} onChange={(e) => { const v = [...formData.technicalDetails.materials]; v[index].label = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: v}}) }} placeholder="E.g. Flooring" className="w-full md:flex-1 bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium shadow-sm" />
+                                                        <div className="flex gap-3 flex-1">
+                                                            <input value={m.value} onChange={(e) => { const v = [...formData.technicalDetails.materials]; v[index].value = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: v}}) }} placeholder="E.g. Italian Marble" className="flex-1 bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium shadow-sm" />
+                                                            <button type="button" onClick={() => { const v = [...formData.technicalDetails.materials]; v.splice(index, 1); setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: v}}) }} className="h-11 w-11 flex items-center justify-center text-[#ba1a1a] hover:bg-red-50 rounded-xl transition-colors"><X size={18} /></button>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                                <button type="button" onClick={() => setFormData({...formData, technicalDetails: {...formData.technicalDetails, materials: [...(formData.technicalDetails?.materials || []), {label: "", value: ""}]}})} className="w-full h-11 flex items-center justify-center gap-2 border-2 border-dashed border-[#dfe2ed] rounded-xl text-[#28557F] font-bold text-[10px] uppercase tracking-widest hover:bg-[#f0f3fe] transition-all bg-white">
+                                                    <Plus size={14} /> Add Material Detail
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {/* Contributors Section */}
+                                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+                                            <div className="lg:col-span-4">
+                                                <h4 className="text-[11px] font-bold text-[#181c23] uppercase tracking-[0.15em] mb-2">Project Team</h4>
+                                                <p className="text-xs text-[#72777f] font-medium leading-relaxed">Acknowledge engineers and consultants.</p>
+                                            </div>
+                                            <div className="lg:col-span-8 space-y-4">
+                                                {(formData.technicalDetails?.contributors || []).map((m: any, index: number) => (
+                                                    <div key={`c-${index}`} className="flex flex-col md:flex-row gap-3">
+                                                        <input value={m.label} onChange={(e) => { const v = [...formData.technicalDetails.contributors]; v[index].label = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: v}}) }} placeholder="E.g. Structural Engineer" className="w-full md:flex-1 bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium shadow-sm" />
+                                                        <div className="flex gap-3 flex-1">
+                                                            <input value={m.value} onChange={(e) => { const v = [...formData.technicalDetails.contributors]; v[index].value = e.target.value; setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: v}}) }} placeholder="E.g. Firm Name" className="flex-1 bg-white border border-[#dfe2ed] rounded-xl h-11 px-4 text-sm focus:border-[#28557F] outline-none font-medium shadow-sm" />
+                                                            <button type="button" onClick={() => { const v = [...formData.technicalDetails.contributors]; v.splice(index, 1); setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: v}}) }} className="h-11 w-11 flex items-center justify-center text-[#ba1a1a] hover:bg-red-50 rounded-xl transition-colors"><X size={18} /></button>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                                <button type="button" onClick={() => setFormData({...formData, technicalDetails: {...formData.technicalDetails, contributors: [...(formData.technicalDetails?.contributors || []), {label: "", value: ""}]}})} className="w-full h-11 flex items-center justify-center gap-2 border-2 border-dashed border-[#dfe2ed] rounded-xl text-[#28557F] font-bold text-[10px] uppercase tracking-widest hover:bg-[#f0f3fe] transition-all bg-white">
+                                                    <Plus size={14} /> Add Contributor
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {/* Material Finishes Palette */}
+                                        <div className="pt-12 border-t-2 border-[#dfe2ed] space-y-8">
+                                            <div className="text-center">
+                                                <h4 className="text-sm font-bold uppercase tracking-[0.25em] text-[#181c23]">Material Finishes Palette</h4>
+                                            </div>
+
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                                <div className="space-y-4">
+                                                    <ImageUpload 
+                                                        label="Facade Finish" 
+                                                        defaultImage={formData.technicalDetails?.finishes?.facade?.images?.[0]} 
+                                                        onUpload={(url) => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, facade: {...formData.technicalDetails.finishes.facade, images: [url]}}}})} 
+                                                    />
+                                                    <input value={formData.technicalDetails?.finishes?.facade?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, facade: {...formData.technicalDetails.finishes.facade, desc: e.target.value}}}})} placeholder="Facade Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs font-medium" />
+                                                </div>
+                                                <div className="space-y-4">
+                                                    <ImageUpload 
+                                                        label="Wall Finish" 
+                                                        defaultImage={formData.technicalDetails?.finishes?.wall?.images?.[0]} 
+                                                        onUpload={(url) => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, wall: {...formData.technicalDetails.finishes.wall, images: [url]}}}})} 
+                                                    />
+                                                    <input value={formData.technicalDetails?.finishes?.wall?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, wall: {...formData.technicalDetails.finishes.wall, desc: e.target.value}}}})} placeholder="Wall Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs font-medium" />
+                                                </div>
+                                                <div className="space-y-4">
+                                                    <ImageUpload 
+                                                        label="Floor Finish" 
+                                                        defaultImage={formData.technicalDetails?.finishes?.flooring?.images?.[0]} 
+                                                        onUpload={(url) => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, flooring: {...formData.technicalDetails.finishes.flooring, images: [url]}}}})} 
+                                                    />
+                                                    <input value={formData.technicalDetails?.finishes?.flooring?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, flooring: {...formData.technicalDetails.finishes.flooring, desc: e.target.value}}}})} placeholder="Floor Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs font-medium" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <div className="p-6 border-t border-[#dfe2ed] bg-[#f9f9ff] flex items-center justify-end gap-3 z-50">
