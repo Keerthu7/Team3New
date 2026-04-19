@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { sendEmailAction } from "./actions";
 
 export default function ContactPage() {
-  const googleMapsLink = "https://www.google.com/maps/place/Team+3+Associates/@11.0366655,77.0376785,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba8571c5d7c09c3:0x9ae231fdadd57826!8m2!3d11.0366655!4d77.0402534!16s%2Fg%2F11b6_c2bxb"; 
+  const googleMapsLink = "https://maps.app.goo.gl/Ga7idQ7RvNxt9orB7"; 
 
   const [step, setStep] = useState(1);
   const [selectedDate, setSelectedDate] = useState(0);
