@@ -269,6 +269,89 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div>
+                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">4</span> Narrative & Logistics</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Logistics Title</label>
+                                                <input value={formData.logisticsTitle} onChange={e => setFormData({...formData, logisticsTitle: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 focus:outline-none focus:border-[#28557F] text-sm" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Patient Journey Title</label>
+                                                <input value={formData.patientJourneyTitle} onChange={e => setFormData({...formData, patientJourneyTitle: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 focus:outline-none focus:border-[#28557F] text-sm" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Logistics P1</label>
+                                                <textarea value={formData.logisticsParagraph1} onChange={e => setFormData({...formData, logisticsParagraph1: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Patient Journey P1</label>
+                                                <textarea value={formData.patientJourneyDesc1} onChange={e => setFormData({...formData, patientJourneyDesc1: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
+                                            </div>
+                                            <ImageUpload label="Logistics Left Image" defaultImage={formData.logisticsLeftImage} onUpload={(url) => setFormData({...formData, logisticsLeftImage: url})} />
+                                            <ImageUpload label="Healing Interior Image" defaultImage={formData.healingInteriorImage} onUpload={(url) => setFormData({...formData, healingInteriorImage: url})} />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">5</span> Ambiance & Materiality</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="col-span-1 md:col-span-2 space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Materiality Title</label>
+                                                <input value={formData.materialityTitle} onChange={e => setFormData({...formData, materialityTitle: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
+                                            </div>
+                                            <ImageUpload label="Facade Detail" defaultImage={formData.facadeDetailImage} onUpload={(url) => setFormData({...formData, facadeDetailImage: url})} />
+                                            <ImageUpload label="Lobby Image" defaultImage={formData.lobbyImage} onUpload={(url) => setFormData({...formData, lobbyImage: url})} />
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Nocturnal Title</label>
+                                                <input value={formData.nocturnalTitle} onChange={e => setFormData({...formData, nocturnalTitle: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Nocturnal Description</label>
+                                                <textarea value={formData.nocturnalDescription} onChange={e => setFormData({...formData, nocturnalDescription: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
+                                            </div>
+                                            <ImageUpload label="Night Image" defaultImage={formData.nocturnalNightImage} onUpload={(url) => setFormData({...formData, nocturnalNightImage: url})} />
+                                            <ImageUpload label="Day Image" defaultImage={formData.nocturnalDayImage} onUpload={(url) => setFormData({...formData, nocturnalDayImage: url})} />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">6</span> Diagrams & Vision</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Diagram Quote</label>
+                                                <input value={formData.diagramQuote} onChange={e => setFormData({...formData, diagramQuote: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Blueprint Description</label>
+                                                <textarea value={formData.diagramRightDesc} onChange={e => setFormData({...formData, diagramRightDesc: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
+                                            </div>
+                                            <ImageUpload label="Blueprint Image" defaultImage={formData.diagramBlueprintImage} onUpload={(url) => setFormData({...formData, diagramBlueprintImage: url})} />
+                                            <div className="bg-[#f0f3fe] p-6 rounded-2xl border border-[#d0e4ff] flex items-center justify-center text-center">
+                                                <p className="text-xs font-bold text-[#28557F] uppercase tracking-widest">Section 6 Details & Layout</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">7</span> Conclusion</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="col-span-1 md:col-span-2 space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Conclusion Title</label>
+                                                <input value={formData.conclusionTitle} onChange={e => setFormData({...formData, conclusionTitle: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Ending Paragraph 1</label>
+                                                <textarea value={formData.conclusionP1} onChange={e => setFormData({...formData, conclusionP1: e.target.value})} rows={4} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Ending Paragraph 2</label>
+                                                <textarea value={formData.conclusionP3} onChange={e => setFormData({...formData, conclusionP3: e.target.value})} rows={4} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
+                                            </div>
+                                            <ImageUpload label="Conclusion Image" defaultImage={formData.conclusionImage} onUpload={(url) => setFormData({...formData, conclusionImage: url})} />
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <div className="p-6 border-t border-[#dfe2ed] bg-[#f9f9ff] flex items-center justify-end gap-3 z-50">
