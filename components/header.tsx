@@ -16,10 +16,9 @@ export function Header() {
   ];
 
   return (
-    // Periya logo fit aaga header height lite ah increase panni irukken: h-[60px] & md:h-[70px]
     <header className="absolute top-6 left-1/2 -translate-x-1/2 z-[100] w-[92%] max-w-[850px] bg-white rounded-[100px] px-6 md:px-8 h-[60px] md:h-[70px] shadow-md flex items-center justify-between">
       
-      {/* LOGO SECTION - Logo size perusa aakkiyachu */}
+      {/* LOGO SECTION */}
       <Link href="/" className="flex items-center h-full hover:opacity-80 transition-opacity ml-2 md:ml-4 translate-y-[2px]">
         <Image 
           src="/images/logo.png" 
@@ -27,7 +26,6 @@ export function Header() {
           width={240} 
           height={60} 
           priority 
-          // max-h increase panni logo-va highlight panni irukken: max-h-[44px] md:max-h-[52px]
           className="object-contain h-auto w-auto max-h-[44px] md:max-h-[52px]" 
         />
       </Link>
@@ -38,8 +36,8 @@ export function Header() {
           <Link
             key={link.label}
             href={link.href}
-            // Text size 14px la irundhu 12px aakki chinnadhu panni irukken
-            className="text-[12px] font-medium text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
+            // Text size 12px la irundhu 13px ku lite ah increase panniyachu
+            className="text-[13px] font-medium text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
           >
             {link.label}
           </Link>
@@ -62,8 +60,8 @@ export function Header() {
               key={link.label}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              // Mobile view-layum text size 12px aakkiyachu
-              className="text-[12px] font-medium text-[#1A4A75] hover:opacity-70 transition-all"
+              // Mobile view-layum text size 13px aakkiyachu
+              className="text-[13px] font-medium text-[#1A4A75] hover:opacity-70 transition-all"
             >
               {link.label}
             </Link>
