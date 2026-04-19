@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ProjectHeroSliderProps {
@@ -11,6 +12,7 @@ export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    if (images.length <= 1) return;
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 5000); // 5 seconds interval
@@ -32,10 +34,13 @@ export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
           }}
           className="absolute inset-0 w-full h-full"
         >
-          <img
+          <Image
             src={images[currentIndex]}
             alt={`Slide ${currentIndex + 1}`}
+            fill
+            priority={currentIndex === 0}
             className="w-full h-full object-cover"
+            sizes="100vw"
           />
         </motion.div>
       </AnimatePresence>

@@ -1,46 +1,48 @@
-"use client";
-
 import React from "react";
-import { useParams, useRouter } from "next/navigation";
 import { projects as fallbackProjects } from "@/lib/projects-data";
-import { ChevronLeft, Loader2 } from "lucide-react";
-import { ProjectHeroSlider } from "@/components/project-hero-slider";
 import ProjectNormalLayout from "@/components/project-normal-layout";
+import connectToDatabase from '@/lib/db';
+import Project from '@/models/Project';
 
-export default function ProjectDetailPage() {
-  const params = useParams();
-  const idOrSlug = params.id as string;
-  const [project, setProject] = React.useState<any>(null);
-  const [loading, setLoading] = React.useState(true);
+async function getProject(idOrSlug: string) {
+  try {
+    await connectToDatabase();
+    
+    let project = null;
 
-  React.useEffect(() => {
-    fetch(`/api/projects/${idOrSlug}`)
-      .then(res => res.json())
-      .then(data => {
-        if (!data.error) {
-          setProject(data);
-        } else {
-          // If DB fails, search fallback data
-          const fallback = fallbackProjects.find(p => p.slug === idOrSlug || p.id === Number(idOrSlug));
-          if (fallback) setProject(fallback);
-        }
-        setLoading(false);
-      })
-      .catch(() => {
-        // network error fallback
+    // 1. Try finding by MongoDB ID (if it's a valid ObjectId)
+    if (idOrSlug.match(/^[0-9a-fA-F]{24}$/)) {
+        project = await Project.findById(idOrSlug);
+    }
+
+    // 2. Try finding by Slug (Most common for SEO URLs)
+    if (!project) {
+        project = await Project.findOne({ slug: idOrSlug });
+    }
+
+    // 3. Try finding by Numeric ID (Fallback for older data)
+    if (!project && !isNaN(Number(idOrSlug))) {
+        project = await Project.findOne({ id: Number(idOrSlug) });
+    }
+
+    if (!project) {
+        // Search fallback data
         const fallback = fallbackProjects.find(p => p.slug === idOrSlug || p.id === Number(idOrSlug));
-        if (fallback) setProject(fallback);
-        setLoading(false);
-      });
-  }, [idOrSlug]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-         <Loader2 className="animate-spin text-[#28557F]" size={40} />
-      </div>
-    );
+        return fallback ? JSON.parse(JSON.stringify(fallback)) : null;
+    }
+    
+    return JSON.parse(JSON.stringify(project));
+  } catch (error: any) {
+    console.error("Project fetch failed, using fallback:", error.message);
+    const fallback = fallbackProjects.find(p => p.slug === idOrSlug || p.id === Number(idOrSlug));
+    return fallback ? JSON.parse(JSON.stringify(fallback)) : null;
   }
+}
+
+export default async function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const idOrSlug = resolvedParams.id;
+  const project = await getProject(idOrSlug);
 
   if (!project) {
     return (
