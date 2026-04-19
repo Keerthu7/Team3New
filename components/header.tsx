@@ -16,20 +16,19 @@ export function Header() {
   ];
 
   return (
-    // Header size konjam reduce panniyachu (py-3 to py-2)
-    <header className="absolute top-6 left-1/2 -translate-x-1/2 z-[100] w-[92%] max-w-[850px] bg-white rounded-[100px] px-6 md:px-8 py-1.5 shadow-md flex items-center justify-between">
+    // Periya logo fit aaga header height lite ah increase panni irukken: h-[60px] & md:h-[70px]
+    <header className="absolute top-6 left-1/2 -translate-x-1/2 z-[100] w-[92%] max-w-[850px] bg-white rounded-[100px] px-6 md:px-8 h-[60px] md:h-[70px] shadow-md flex items-center justify-between">
       
-      {/* LOGO SECTION - Size reduced slightly */}
-      <Link href="/" className="flex items-center hover:opacity-80 transition-opacity ml-2 md:ml-4">
+      {/* LOGO SECTION - Logo size perusa aakkiyachu */}
+      <Link href="/" className="flex items-center h-full hover:opacity-80 transition-opacity ml-2 md:ml-4 translate-y-[2px]">
         <Image 
           src="/images/logo.png" 
           alt="Team 3 Associates" 
           width={240} 
           height={60} 
           priority 
-          // Max height reduced for compact header
-          className="object-contain h-auto w-auto max-h-[42px] md:max-h-[50px]" 
-
+          // max-h increase panni logo-va highlight panni irukken: max-h-[44px] md:max-h-[52px]
+          className="object-contain h-auto w-auto max-h-[44px] md:max-h-[52px]" 
         />
       </Link>
 
@@ -39,7 +38,8 @@ export function Header() {
           <Link
             key={link.label}
             href={link.href}
-            className="text-[14px] font-medium text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
+            // Text size 14px la irundhu 12px aakki chinnadhu panni irukken
+            className="text-[12px] font-medium text-[#1A4A75] hover:opacity-70 transition-all tracking-wide"
           >
             {link.label}
           </Link>
@@ -48,7 +48,7 @@ export function Header() {
 
       {/* Mobile Toggle */}
       <button 
-        className="md:hidden text-[#1A4A75] p-2 hover:bg-gray-100 rounded-full transition-colors mr-1"
+        className="md:hidden text-[#1A4A75] p-2 hover:bg-gray-100 rounded-full transition-colors mr-1 flex items-center justify-center"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       >
         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -62,7 +62,8 @@ export function Header() {
               key={link.label}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-[14px] font-medium text-[#1A4A75] hover:opacity-70 transition-all"
+              // Mobile view-layum text size 12px aakkiyachu
+              className="text-[12px] font-medium text-[#1A4A75] hover:opacity-70 transition-all"
             >
               {link.label}
             </Link>
