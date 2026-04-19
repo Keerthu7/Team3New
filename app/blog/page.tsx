@@ -31,7 +31,7 @@ export default async function BlogPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-6 px-6 md:px-12 max-w-7xl mx-auto">
+      <section className="pt-44 pb-6 px-6 md:px-12 max-w-7xl mx-auto">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-3 tracking-tight">
           Our Journals
         </h1>
