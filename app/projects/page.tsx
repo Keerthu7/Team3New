@@ -35,7 +35,7 @@ export default async function ProjectsSection() {
       
       <section className="max-w-7xl mx-auto px-4 pt-44 pb-20 font-sens">
         {/* Title */}
-        <h2 className="text-2xl md:text-3xl font-bold text-[#181c23] mb-6">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#181c23] mb-6">
           Our Projects
         </h2>
 
