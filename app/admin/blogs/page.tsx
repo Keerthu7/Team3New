@@ -5,6 +5,7 @@ import { Plus, Search, Edit2, Trash2, X, Image as ImageIcon, Loader2, Save } fro
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { upload } from "@vercel/blob/client";
+import { convertToWebP } from "@/lib/image-utils";
 
 // Helper component for uploading images
 function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUpload: (url: string) => void, defaultImage?: string }) {
@@ -15,9 +16,16 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
         const file = e.target.files?.[0];
         if (!file) return;
 
+        setUploading(true);
         try {
-            const uniqueName = `${Date.now()}_${file.name}`;
-            const newBlob = await upload(uniqueName, file, {
+            // Convert to WebP before uploading
+            const webpBlob = await convertToWebP(file);
+            
+            // Generate a unique name with .webp extension
+            const fileName = file.name.split('.').slice(0, -1).join('.') || 'image';
+            const uniqueName = `${Date.now()}_${fileName}.webp`;
+
+            const newBlob = await upload(uniqueName, webpBlob, {
                 access: 'public',
                 handleUploadUrl: '/api/upload',
             });
