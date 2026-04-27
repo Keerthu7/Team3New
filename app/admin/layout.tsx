@@ -2,12 +2,20 @@
 
 import { AdminSidebar } from "@/components/admin-sidebar";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export default function AdminLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const pathname = usePathname();
+    const isLoginPage = pathname === "/admin/login";
+
+    if (isLoginPage) {
+        return <>{children}</>;
+    }
+
     return (
         <div className="flex h-screen bg-[#f9f9ff] font-[var(--font-poppins)] overflow-hidden text-[#181c23]">
             {/* Sidebar */}

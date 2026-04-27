@@ -43,41 +43,55 @@ export default function AdminLoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center relative overflow-hidden font-[var(--font-poppins)]">
+        <div className="h-screen w-full flex flex-col items-center justify-center relative overflow-hidden font-[var(--font-poppins)] p-4">
             {/* Background Image - Architecture related landscape */}
             <div 
                 className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
                 style={{ 
                     backgroundImage: "url('/admin-bg.png')",
-                    filter: "brightness(0.7)"
+                    filter: "brightness(0.6)"
                 }}
             />
             
             {/* Overlay Gradient */}
-            <div className="absolute inset-0 z-1 bg-gradient-to-br from-purple-900/20 via-transparent to-pink-900/20" />
+            <div className="absolute inset-0 z-1 bg-gradient-to-br from-black/40 via-transparent to-black/40" />
+
+            {/* Branding Container - Now in flow above the card */}
+            <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="relative z-20 flex flex-col items-center mb-6"
+            >
+                <img 
+                    src="/images/logo.png" 
+                    alt="Team 3 Logo" 
+                    className="h-12 md:h-16 w-auto drop-shadow-xl"
+                />
+            </motion.div>
 
             {/* Glassmorphic Card */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                className="relative z-10 w-full max-w-[400px] px-4"
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative z-10 w-full max-w-[360px]"
             >
-                <div className="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[2rem] p-6 md:p-8 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] relative overflow-hidden group">
-                    {/* Close Icon (UI decoration from image) */}
-                    <div className="absolute top-4 right-4 text-white/60 hover:text-white cursor-pointer transition-colors p-1 border border-white/30 rounded-md">
-                        <X size={14} />
+                <div className="bg-white/10 backdrop-blur-[25px] border border-white/20 rounded-[2rem] p-6 md:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative overflow-hidden">
+                    {/* Close Icon (decorative) */}
+                    <div className="absolute top-5 right-5 text-white/40 hover:text-white cursor-pointer transition-colors p-1 border border-white/20 rounded-md">
+                        <X size={12} />
                     </div>
 
-                    <div className="mb-10 text-center space-y-2">
-                        <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-md">Login</h1>
+                    <div className="mb-8 text-center space-y-1">
+                        <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-lg">Login</h1>
                         <AnimatePresence>
                             {error && (
                                 <motion.div 
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0 }}
-                                    className="text-red-300 text-xs font-medium pt-2"
+                                    className="text-red-300 text-[10px] font-semibold pt-1"
                                 >
                                     {error}
                                 </motion.div>
@@ -85,89 +99,75 @@ export default function AdminLoginPage() {
                         </AnimatePresence>
                     </div>
 
-                    <form onSubmit={handleLogin} className="space-y-8">
-                        {/* Email / Username Field */}
-                        <div className="relative group/field">
-                            <label className="text-xs font-semibold text-white/80 lowercase tracking-wider block mb-1 ml-1">Email</label>
-                            <div className="relative border-b border-white/40 focus-within:border-white transition-all py-1">
+                    <form onSubmit={handleLogin} className="space-y-6">
+                        {/* Email Field */}
+                        <div className="relative group">
+                            <label className="text-[9px] font-bold text-white/60 uppercase tracking-[0.2em] block mb-1.5 ml-1">Email</label>
+                            <div className="relative border-b border-white/30 focus-within:border-white transition-all duration-300 py-0.5">
                                 <input
                                     type="text"
                                     name="username"
-                                    className="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-white/20 text-sm py-2 pr-10"
+                                    className="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-white/20 text-sm py-1.5 pr-8"
                                     placeholder="Enter your email"
                                     required
                                 />
-                                <Mail className="absolute right-0 top-1/2 -translate-y-1/2 text-white/50" size={18} />
+                                <Mail className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40" size={16} />
                             </div>
                         </div>
 
                         {/* Password Field */}
-                        <div className="relative group/field">
-                            <label className="text-xs font-semibold text-white/80 lowercase tracking-wider block mb-1 ml-1">Password</label>
-                            <div className="relative border-b border-white/40 focus-within:border-white transition-all py-1">
+                        <div className="relative group">
+                            <label className="text-[9px] font-bold text-white/60 uppercase tracking-[0.2em] block mb-1.5 ml-1">Password</label>
+                            <div className="relative border-b border-white/30 focus-within:border-white transition-all duration-300 py-0.5">
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
-                                    className="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-white/20 text-sm py-2 pr-10"
+                                    className="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-white/20 text-sm py-1.5 pr-8"
                                     placeholder="••••••••"
                                     required
                                 />
-                                <div 
-                                    className="absolute right-0 top-1/2 -translate-y-1/2 text-white/50 cursor-pointer hover:text-white"
+                                <button 
+                                    type="button"
+                                    className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
-                                    {showPassword ? <Lock size={18} /> : <Lock size={18} />}
-                                    {/* Using Lock for consistency with image, but usually Eye is better. I'll stick to image vibe. */}
-                                </div>
+                                    {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
+                                </button>
                             </div>
                         </div>
 
-                        {/* Remember & Forgot */}
-                        <div className="flex items-center justify-between text-[11px] text-white/70 font-medium">
-                            <label className="flex items-center gap-2 cursor-pointer hover:text-white transition-colors">
-                                <input type="checkbox" className="rounded-sm bg-white/10 border-white/30 text-[#28557F] focus:ring-offset-0 focus:ring-0" />
-                                Remember me
+                        {/* Actions */}
+                        <div className="flex items-center justify-between text-[10px] text-white/60 font-bold uppercase tracking-widest">
+                            <label className="flex items-center gap-1.5 cursor-pointer hover:text-white transition-colors">
+                                <input type="checkbox" className="h-3 w-3 rounded-sm bg-white/10 border-white/30 text-[#28557F] focus:ring-0 focus:ring-offset-0" />
+                                <span>Remember</span>
                             </label>
-                            <button type="button" className="hover:text-white hover:underline transition-all">Forgot Password</button>
+                            <button type="button" className="hover:text-white transition-colors">Forgot?</button>
                         </div>
 
-                        {/* Submit Button */}
+                        {/* Submit */}
                         <motion.button
-                            whileHover={{ scale: 1.02 }}
+                            whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.9)" }}
                             whileTap={{ scale: 0.98 }}
                             type="submit"
                             disabled={isLoading}
-                            className="w-full bg-white text-[#28557F] hover:bg-[#28557F] hover:text-white h-12 rounded-full font-bold text-sm shadow-xl transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden relative group-login-btn"
+                            className="w-full bg-white text-[#28557F] h-12 rounded-xl font-black text-xs shadow-[0_10px_20px_rgba(0,0,0,0.2)] transition-all duration-300 flex items-center justify-center gap-2 uppercase tracking-[0.1em]"
                         >
                             {isLoading ? (
-                                <Loader2 className="animate-spin h-5 w-5" />
+                                <Loader2 className="animate-spin h-4 w-4" />
                             ) : (
-                                "Login"
+                                "Sign In"
                             )}
                         </motion.button>
                         
-                        {/* Register Link */}
-                        <div className="text-center pt-2">
-                            <p className="text-xs text-white/60">
+                        <div className="text-center pt-1">
+                            <p className="text-[10px] text-white/40 font-medium">
                                 Don't have an account? <button type="button" className="text-white font-bold hover:underline ml-1">Register</button>
                             </p>
                         </div>
                     </form>
                 </div>
             </motion.div>
-
-            {/* Additional Branding Overlay */}
-            <div className="absolute top-6 md:top-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 w-full px-4">
-                <img 
-                    src="/images/logo.png" 
-                    alt="Team 3 Logo" 
-                    className="h-10 md:h-12 w-auto drop-shadow-lg"
-                />
-                <div className="flex items-center gap-2 font-bold text-xl md:text-2xl tracking-tighter text-white">
-                    <span className="bg-white/90 backdrop-blur-sm text-[#28557F] px-2 py-0.5 rounded-sm">TEAM 3</span>
-                    <span className="text-white font-medium text-xs md:text-sm tracking-[0.2em] uppercase">Associates</span>
-                </div>
-            </div>
         </div>
     );
 }
