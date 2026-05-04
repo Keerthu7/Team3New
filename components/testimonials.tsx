@@ -137,7 +137,7 @@ export function Testimonials() {
                   
                   <div className="mt-auto flex items-center gap-4">
                     <div className="relative w-14 h-14 shrink-0 rounded-xl flex items-center justify-center bg-white shadow-sm border border-gray-100 overflow-hidden">
-                      <Image 
+                      <Image priority 
                         src={testimonial.logo} 
                         alt={`${testimonial.name} Logo`}
                         fill 

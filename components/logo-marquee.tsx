@@ -33,7 +33,7 @@ export function LogoMarquee() {
               // 'grayscale' matrum 'opacity-50' eduthachu. Original color-la theriyum!
               className="relative w-28 h-12 md:w-40 md:h-16 cursor-default flex-shrink-0 hover:scale-105 transition-transform duration-300"
             >
-              <Image 
+              <Image priority 
                 src={logo.src} 
                 alt={logo.name} 
                 fill

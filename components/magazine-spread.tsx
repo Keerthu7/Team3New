@@ -170,7 +170,7 @@ export default function MagazineSpread({
         <section className="w-full max-w-[1440px] bg-white shadow-[0_0_60px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row min-h-[900px] overflow-hidden">
            <div className="w-full lg:w-1/2 p-12 md:p-20 relative flex border-b lg:border-b-0 lg:border-r border-black/10">
               <div className="relative w-full h-full min-h-[500px]">
-                <Image src={blog.spread2BigImage} alt="Spread 2" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                <Image priority src={blog.spread2BigImage} alt="Spread 2" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
               </div>
            </div>
            <div className="w-full lg:w-1/2 p-12 md:p-24 relative flex flex-col">
@@ -181,7 +181,7 @@ export default function MagazineSpread({
                  </p>
               </div>
               <div className="relative w-full h-[40%] min-h-[300px] grayscale hover:grayscale-0 transition-all duration-700">
-                 <Image src={blog.spread2SmallImage} alt="Detail" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 25vw" />
+                 <Image priority src={blog.spread2SmallImage} alt="Detail" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 25vw" />
               </div>
            </div>
         </section>
@@ -199,7 +199,7 @@ export default function MagazineSpread({
            </div>
            <div className="w-full lg:w-1/2 p-12 md:p-24 relative flex flex-col justify-between">
               <div className="relative w-full h-[55%] mb-12 shadow-md">
-                 <Image src={blog.healingInteriorImage} alt="Healing Spaces" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                 <Image priority src={blog.healingInteriorImage} alt="Healing Spaces" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
               </div>
               <div className="p-8 border-l-4 border-black mb-auto mt-8">
                  <h3 className="text-lg font-bold text-[#000000] mb-4 uppercase">Architectural Wellness</h3>
@@ -223,12 +223,12 @@ export default function MagazineSpread({
                  </p>
               </div>
               <div className="relative w-full aspect-[4/3] shadow-sm max-w-md mx-auto mt-auto group overflow-hidden">
-                 <Image src={blog.logisticsLeftImage} alt="Context 1" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
+                 <Image priority src={blog.logisticsLeftImage} alt="Context 1" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
               </div>
            </div>
            <div className="w-full lg:w-1/2 p-12 md:p-20 relative flex">
              <div className="relative w-full h-full min-h-[500px]">
-                 <Image src={blog.logisticsRightImage} alt="Context 2" fill className="object-cover" />
+                 <Image priority src={blog.logisticsRightImage} alt="Context 2" fill className="object-cover" />
              </div>
            </div>
         </section>
@@ -241,12 +241,12 @@ export default function MagazineSpread({
                  {blog.materialityDescription}
               </p>
               <div className="relative w-full h-[400px] shadow-2xl">
-                 <Image src={blog.facadeDetailImage} alt="Materiality Detail" fill className="object-cover" />
+                 <Image priority src={blog.facadeDetailImage} alt="Materiality Detail" fill className="object-cover" />
               </div>
            </div>
            <div className="w-full lg:w-1/2 p-12 md:p-24 relative flex flex-col justify-between border-r border-black/10">
               <div className="relative w-full h-[65%] mb-12">
-                 <Image src={blog.lobbyImage} alt="Lobby View" fill className="object-cover" />
+                 <Image priority src={blog.lobbyImage} alt="Lobby View" fill className="object-cover" />
               </div>
               <div className="max-w-md mt-8 mb-auto">
                  <h3 className="text-sm font-bold uppercase tracking-widest text-[#000000]/60 mb-4">Facade Narrative</h3>
@@ -267,13 +267,13 @@ export default function MagazineSpread({
                  </p>
               </div>
               <div className="relative w-full h-[500px]">
-                 <Image src={blog.nocturnalNightImage} alt="Night View" fill className="object-cover" />
+                 <Image priority src={blog.nocturnalNightImage} alt="Night View" fill className="object-cover" />
               </div>
            </div>
 
            <div className="w-full lg:w-1/2 p-12 md:p-24 flex flex-col justify-between bg-[#fcfcfc]">
               <div className="relative w-full h-[350px] mb-12 border border-black/5 shadow-sm">
-                 <Image src={blog.nocturnalDayImage} alt="Day View" fill className="object-cover" />
+                 <Image priority src={blog.nocturnalDayImage} alt="Day View" fill className="object-cover" />
               </div>
               <div className="border-t-4 border-black pt-10 mb-auto mt-8 max-w-lg">
                  <h2 className="text-xl font-bold mb-6 text-[#000000] uppercase tracking-tight">Strategic Planning</h2>
@@ -297,13 +297,13 @@ export default function MagazineSpread({
                  </p>
               </div>
               <div className="relative w-full aspect-square bg-[#fafafa] flex items-center justify-center p-8">
-                 <Image src={blog.diagramBlueprintImage || "/images/placeholder.png"} alt="Blueprint" fill className="object-contain opacity-80 p-4" />
+                 <Image priority src={blog.diagramBlueprintImage || "/images/placeholder.png"} alt="Blueprint" fill className="object-contain opacity-80 p-4" />
               </div>
            </div>
 
            <div className="w-full lg:w-1/2 p-12 md:p-24 flex flex-col justify-between bg-[#fafafa]">
               <div className="relative w-full h-[500px] bg-white shadow-sm overflow-hidden group mb-12">
-                 <Image src={blog.conclusionImage} alt="Final Detail" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
+                 <Image priority src={blog.conclusionImage} alt="Final Detail" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
               </div>
               <div className="max-w-lg mt-auto">
                  <h2 className="text-xl font-bold mb-4 text-[#000000] uppercase tracking-tight">Architectural Identity</h2>
@@ -332,7 +332,7 @@ export default function MagazineSpread({
                       </p>
                    </div>
                    <div className="w-full sm:flex-grow h-[300px] sm:h-auto aspect-auto sm:aspect-[3/5] relative bg-neutral-100 overflow-hidden">
-                      <Image 
+                      <Image priority 
                          src={blog.technicalDetails.finishes.facade.images[0] || "/images/placeholder.png"} 
                          alt="Facade Finish" fill className="object-cover" 
                       />
@@ -350,16 +350,16 @@ export default function MagazineSpread({
                    </div>
                    <div className="flex gap-2 sm:gap-4 w-full h-[300px] sm:h-[400px]">
                       <div className="relative w-[55%] sm:flex-grow h-full bg-neutral-100">
-                         <Image src={blog.technicalDetails.finishes.wall.images[0] || "/images/placeholder.png"} alt="Wall Finish 1" fill className="object-cover" />
+                         <Image priority src={blog.technicalDetails.finishes.wall.images[0] || "/images/placeholder.png"} alt="Wall Finish 1" fill className="object-cover" />
                          <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">02</span>
                       </div>
                       <div className="flex flex-col gap-2 sm:gap-4 w-[45%] h-full">
                          <div className="relative flex-grow bg-neutral-100">
-                            <Image src={blog.technicalDetails.finishes.wall.images[1] || "/images/placeholder.png"} alt="Wall Finish 2" fill className="object-cover" />
+                            <Image priority src={blog.technicalDetails.finishes.wall.images[1] || "/images/placeholder.png"} alt="Wall Finish 2" fill className="object-cover" />
                             <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">03</span>
                          </div>
                          <div className="relative flex-grow bg-neutral-100">
-                            <Image src={blog.technicalDetails.finishes.wall.images[2] || "/images/placeholder.png"} alt="Wall Finish 3" fill className="object-cover" />
+                            <Image priority src={blog.technicalDetails.finishes.wall.images[2] || "/images/placeholder.png"} alt="Wall Finish 3" fill className="object-cover" />
                             <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">04</span>
                          </div>
                       </div>
@@ -376,11 +376,11 @@ export default function MagazineSpread({
                    </div>
                    <div className="flex gap-2 sm:gap-4 w-full h-[200px] sm:h-[300px]">
                       <div className="relative w-1/2 sm:flex-grow h-full bg-neutral-100">
-                         <Image src={blog.technicalDetails.finishes.flooring.images[0] || "/images/placeholder.png"} alt="Floor Finish 1" fill className="object-cover" />
+                         <Image priority src={blog.technicalDetails.finishes.flooring.images[0] || "/images/placeholder.png"} alt="Floor Finish 1" fill className="object-cover" />
                          <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">05</span>
                       </div>
                       <div className="relative w-1/2 sm:flex-grow h-full bg-neutral-100">
-                         <Image src={blog.technicalDetails.finishes.flooring.images[1] || "/images/placeholder.png"} alt="Floor Finish 2" fill className="object-cover" />
+                         <Image priority src={blog.technicalDetails.finishes.flooring.images[1] || "/images/placeholder.png"} alt="Floor Finish 2" fill className="object-cover" />
                          <span className="absolute bottom-2 left-2 text-[10px] italic font-bold opacity-40 text-white drop-shadow-md">06</span>
                       </div>
                    </div>
@@ -432,7 +432,7 @@ export default function MagazineSpread({
 
         {/* SPREAD 8: Conclusion */}
         <section className="w-full max-w-[1440px] shadow-[0_0_40px_rgba(0,0,0,0.1)] relative overflow-hidden flex items-end justify-end mb-24 min-h-[450px] md:min-h-[600px] aspect-[16/9] lg:aspect-[21/9] border border-black/5">
-           <Image src={blog.conclusionImage} alt="Conclusion" fill className="object-cover object-center opacity-95" />
+           <Image priority src={blog.conclusionImage} alt="Conclusion" fill className="object-cover object-center opacity-95" />
            <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-20 w-[90%] md:w-fit max-w-[420px] bg-[#fcfcfc]/95 backdrop-blur-md border-t-4 border-black p-6 text-justify shadow-2xl">
               <h2 className="text-base md:text-lg font-bold mb-4 text-[#000000] uppercase tracking-tight">{blog.conclusionTitle || "Final Vision"}</h2>
               <p className="text-[12px] leading-relaxed opacity-80 font-medium mb-3 whitespace-pre-wrap">{blog.conclusionP1}</p>

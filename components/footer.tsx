@@ -16,7 +16,7 @@ export function Footer() {
           
           {/* Column 1: Brand & Description */}
           <div className="lg:col-span-6 flex flex-col lg:pr-12 border-b md:border-b-0 border-white/10 pb-10 md:pb-0">
-            <Image 
+            <Image priority 
               src="/images/logo.png" 
               alt="Team 3 Associates" 
               width={320} 

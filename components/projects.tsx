@@ -128,7 +128,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
 
             {/* Inner Image - Rounded corners added (rounded-2xl) */}
             <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-white/50">
-              <Image src={project.interiorImage} alt={project.name} fill className="object-cover" />
+              <Image priority src={project.interiorImage} alt={project.name} fill className="object-cover" />
             </div>
 
             <div>

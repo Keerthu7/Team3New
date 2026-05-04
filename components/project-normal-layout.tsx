@@ -116,7 +116,7 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                   key={index} 
                   className={`relative overflow-hidden rounded-sm bg-white shadow-lg border border-neutral-100 group transition-all duration-500 hover:shadow-2xl ${spanClasses[span]} h-[300px] md:h-[400px] ${span === 12 ? 'h-[400px] md:h-[500px]' : ''}`}
                 >
-                  <Image 
+                  <Image priority 
                     src={img} 
                     alt={`${project.formalTitle} detail ${index + 1}`} 
                     fill 
@@ -242,7 +242,7 @@ function PaletteItem({ image, label, desc }: any) {
   return (
     <div className="space-y-4">
       <div className="relative aspect-[4/3] bg-neutral-50 rounded-sm overflow-hidden group border border-neutral-100 transition-all duration-700">
-        <Image src={image || "/images/placeholder.png"} alt={label} fill className="object-cover" />
+        <Image priority src={image || "/images/placeholder.png"} alt={label} fill className="object-cover" />
         <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
       </div>
       <div className="space-y-1.5">

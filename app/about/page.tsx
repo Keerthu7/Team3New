@@ -149,7 +149,7 @@ export default function Page() {
                 <div className="w-full md:w-[35%] flex-shrink-0">
                   {/* Fixed h-[350px] md:h-full w-full applied here */}
                   <div className="relative h-[350px] md:h-full w-full overflow-hidden shadow-[20px_20px_0_rgba(45,86,121,0.05)] transition-all duration-700 group-hover:shadow-[10px_10px_0_rgba(45,86,121,0.1)] rounded-sm">
-                    <Image
+                    <Image priority
                       src={member.img}
                       alt={member.name}
                       fill
@@ -263,7 +263,7 @@ export default function Page() {
             ].map((blog, idx) => (
               <div key={idx} className="flex flex-col w-full text-left bg-transparent">
                 <div className="relative w-full aspect-[4/3] overflow-hidden mb-4">
-                  <Image
+                  <Image priority
                     src={blog.img}
                     alt={blog.title}
                     fill

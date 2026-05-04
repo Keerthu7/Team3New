@@ -44,7 +44,7 @@ export function OurClients() {
                 key={`row1-${index}`} 
                 className="relative w-28 h-12 md:w-36 md:h-16 flex-shrink-0 group cursor-default"
               >
-                <Image 
+                <Image priority 
                   src={logo.src} 
                   alt={logo.name} 
                   fill
@@ -73,7 +73,7 @@ export function OurClients() {
                 key={`row2-${index}`} 
                 className="relative w-28 h-12 md:w-36 md:h-16 flex-shrink-0 group cursor-default"
               >
-                <Image 
+                <Image priority 
                   src={logo.src} 
                   alt={logo.name} 
                   fill
