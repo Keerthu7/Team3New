@@ -152,23 +152,13 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                   <div className="lg:col-span-4">
                      <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">01 / Project team</span>
                   </div>
-                  <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
-                     <div className="space-y-4">
-                        {project.technicalDetails.photoCredits.map((p: any, idx: number) => (
-                          <div key={idx} className="flex gap-4 items-baseline">
-                            <span className="w-32 text-xs font-bold text-[#72777f] tracking-widest flex-shrink-0">Photo / {p.label}</span>
-                            <span className="text-sm font-bold text-[#181c23] tracking-tight">{p.value}</span>
-                          </div>
-                        ))}
-                     </div>
-                     <div className="space-y-4">
-                        {project.technicalDetails.contributors.map((c: any, idx: number) => (
-                          <div key={idx} className="flex gap-4 items-baseline">
-                            <span className="w-32 text-xs font-bold text-[#72777f] tracking-widest flex-shrink-0">{c.label}</span>
-                            <span className="text-sm font-bold text-[#181c23] tracking-tight">{c.value}</span>
-                          </div>
-                        ))}
-                     </div>
+                  <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
+                     {[...(project.technicalDetails?.photoCredits || []).map((p: any) => ({ ...p, label: `Photo / ${p.label}` })), ...(project.technicalDetails?.contributors || [])].map((c: any, idx: number) => (
+                       <div key={idx} className="flex flex-col gap-2 transition-transform hover:translate-x-1">
+                         <span className="text-xs font-bold text-[#72777f] tracking-widest">{c.label}</span>
+                         <span className="text-base font-bold text-[#181c23] tracking-tight leading-tight">{c.value}</span>
+                       </div>
+                     ))}
                   </div>
                </div>
 
