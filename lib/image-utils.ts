@@ -12,29 +12,60 @@ export async function convertToWebP(file: File, quality: number = 0.8): Promise<
             const img = new Image();
             img.src = event.target?.result as string;
             img.onload = () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                const ctx = canvas.getContext('2d');
-                if (!ctx) {
-                    reject(new Error('Failed to get canvas context'));
+                let width = img.width;
+                let height = img.height;
+                const MAX_WIDTH = 1920;
+                const MAX_HEIGHT = 1920;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height = Math.round(height * (MAX_WIDTH / width));
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width = Math.round(width * (MAX_HEIGHT / height));
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                if (!width || !height) {
+                    console.warn('Invalid image dimensions, falling back to original file.');
+                    resolve(file);
                     return;
                 }
-                ctx.drawImage(img, 0, 0);
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                if (!ctx) {
+                    console.warn('Failed to get canvas context, falling back to original file.');
+                    resolve(file);
+                    return;
+                }
+                ctx.drawImage(img, 0, 0, width, height);
                 canvas.toBlob(
                     (blob) => {
                         if (blob) {
                             resolve(blob);
                         } else {
-                            reject(new Error('Canvas toBlob failed'));
+                            console.warn('Canvas toBlob failed, falling back to original file.');
+                            resolve(file);
                         }
                     },
                     'image/webp',
                     quality
                 );
             };
-            img.onerror = () => reject(new Error('Failed to load image'));
+            img.onerror = () => {
+                console.warn('Failed to load image, falling back to original file.');
+                resolve(file);
+            };
         };
-        reader.onerror = () => reject(new Error('FileReader failed'));
+        reader.onerror = () => {
+            console.warn('FileReader failed, falling back to original file.');
+            resolve(file);
+        };
     });
 }
