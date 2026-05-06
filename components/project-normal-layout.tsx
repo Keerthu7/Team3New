@@ -116,11 +116,15 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                   key={index} 
                   className={`relative overflow-hidden rounded-sm bg-white shadow-lg border border-neutral-100 group transition-all duration-500 hover:shadow-2xl ${spanClasses[span]} h-[300px] md:h-[400px] ${span === 12 ? 'h-[400px] md:h-[500px]' : ''}`}
                 >
-                  <Image priority 
+                  <Image
                     src={img} 
                     alt={`${project.formalTitle} detail ${index + 1}`} 
                     fill 
+                    priority={index < 2}
+                    loading={index < 2 ? 'eager' : 'lazy'}
                     className="object-cover transition-all duration-1000 group-hover:scale-110"
+                    sizes={span === 12 ? '(max-width: 768px) 100vw, 90vw' : span === 8 ? '(max-width: 768px) 100vw, 60vw' : '(max-width: 768px) 100vw, 45vw'}
+                    quality={85}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-700"></div>
                   
@@ -242,7 +246,16 @@ function PaletteItem({ image, label, desc }: any) {
   return (
     <div className="space-y-4">
       <div className="relative aspect-[4/3] bg-neutral-50 rounded-sm overflow-hidden group border border-neutral-100 transition-all duration-700">
-        <Image priority src={image || "/images/placeholder.png"} alt={label} fill className="object-cover" />
+        <Image
+          priority={false}
+          loading="lazy"
+          src={image || "/images/placeholder.png"}
+          alt={label}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 45vw, 20vw"
+          quality={80}
+        />
         <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
       </div>
       <div className="space-y-1.5">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -41,9 +42,21 @@ const menuItems = [
 
 export function AdminSidebar() {
     const pathname = usePathname();
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const toggleSidebar = () => setIsOpen(!isOpen);
+
+    const handleLogout = async () => {
+        setIsLoggingOut(true);
+        try {
+            await fetch("/api/auth/logout", { method: "POST" });
+        } finally {
+            router.push("/admin/login");
+            router.refresh();
+        }
+    };
 
     return (
         <>
@@ -118,11 +131,12 @@ export function AdminSidebar() {
                                 <span>Preview Site</span>
                             </Link>
                             <button
-                                onClick={() => alert("Logout implemented on backend")}
-                                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#ba1a1a] hover:text-[#93000a] hover:bg-[#ffdad6] transition-all text-sm font-medium group"
+                                onClick={handleLogout}
+                                disabled={isLoggingOut}
+                                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#ba1a1a] hover:text-[#93000a] hover:bg-[#ffdad6] transition-all text-sm font-medium group disabled:opacity-60 disabled:cursor-not-allowed"
                             >
-                                <LogOut size={18} className="group-hover:rotate-12 transition-transform" />
-                                <span>Sign Out</span>
+                                <LogOut size={18} className={`transition-transform ${isLoggingOut ? 'animate-spin' : 'group-hover:rotate-12'}`} />
+                                <span>{isLoggingOut ? "Signing out..." : "Sign Out"}</span>
                             </button>
                         </nav>
                     </div>

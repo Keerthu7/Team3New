@@ -1,10 +1,11 @@
 /**
  * Converts a File or Blob to WebP format in the browser.
  * @param file The original image file
- * @param quality Quality from 0 to 1 (default 0.8)
+ * @param quality Quality from 0 to 1 (default 0.82)
+ * @param maxDim Maximum width or height in pixels (default 1600 for hero, 800 for thumbnails)
  * @returns A Promise that resolves to a WebP Blob
  */
-export async function convertToWebP(file: File, quality: number = 0.8): Promise<Blob> {
+export async function convertToWebP(file: File, quality: number = 0.82, maxDim: number = 1600): Promise<Blob> {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -14,18 +15,17 @@ export async function convertToWebP(file: File, quality: number = 0.8): Promise<
             img.onload = () => {
                 let width = img.width;
                 let height = img.height;
-                const MAX_WIDTH = 1920;
-                const MAX_HEIGHT = 1920;
 
+                // Scale down proportionally if exceeds maxDim
                 if (width > height) {
-                    if (width > MAX_WIDTH) {
-                        height = Math.round(height * (MAX_WIDTH / width));
-                        width = MAX_WIDTH;
+                    if (width > maxDim) {
+                        height = Math.round(height * (maxDim / width));
+                        width = maxDim;
                     }
                 } else {
-                    if (height > MAX_HEIGHT) {
-                        width = Math.round(width * (MAX_HEIGHT / height));
-                        height = MAX_HEIGHT;
+                    if (height > maxDim) {
+                        width = Math.round(width * (maxDim / height));
+                        height = maxDim;
                     }
                 }
 
@@ -69,3 +69,4 @@ export async function convertToWebP(file: File, quality: number = 0.8): Promise<
         };
     });
 }
+

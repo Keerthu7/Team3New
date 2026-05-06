@@ -44,9 +44,11 @@ export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
             src={images[currentIndex]}
             alt={`Slide ${currentIndex + 1}`}
             fill
-            priority={true} 
+            priority={currentIndex === 0}
+            loading={currentIndex === 0 ? 'eager' : 'lazy'}
             className="w-full h-full object-cover"
             sizes="100vw"
+            quality={85}
           />
         </motion.div>
       </AnimatePresence>
