@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface ProjectHeroSliderProps {
   images: string[];
@@ -10,58 +9,66 @@ interface ProjectHeroSliderProps {
 
 export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loaded, setLoaded] = useState<boolean[]>([]);
 
+  // Initialise loaded state array
   useEffect(() => {
-    // Safety check added
+    setLoaded(new Array(images.length).fill(false));
+  }, [images.length]);
+
+  // Auto-advance only after the next image is loaded
+  useEffect(() => {
     if (!images || images.length <= 1) return;
-    
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 2500); 
-
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
     return () => clearInterval(timer);
-  }, [images]); // Dependency updated to watch the images array
+  }, [images]);
 
-  // If no images are provided, return null to avoid crashes
-  if (!images || images.length === 0) {
-    return null; 
-  }
+  if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-white">
-      <AnimatePresence initial={false}>
-        <motion.div
-          key={currentIndex}
-          initial={{ x: "100%" }}
-          animate={{ x: 0 }}
-          exit={{ x: "-100%" }}
-          transition={{ 
-            x: { type: "tween", duration: 0.6, ease: "linear" }
-          }}
+    <div className="relative w-full h-full overflow-hidden bg-neutral-900">
+      {/* Render ALL images stacked — only visible one has opacity-100 */}
+      {images.map((src, index) => (
+        <div
+          key={src}
           className="absolute inset-0 w-full h-full"
+          style={{
+            opacity: index === currentIndex ? 1 : 0,
+            transition: "opacity 600ms ease-in-out",
+            zIndex: index === currentIndex ? 1 : 0,
+          }}
         >
           <Image
-            src={images[currentIndex]}
-            alt={`Slide ${currentIndex + 1}`}
+            src={src}
+            alt={`Slide ${index + 1}`}
             fill
-            priority={currentIndex === 0}
-            loading={currentIndex === 0 ? 'eager' : 'lazy'}
+            priority={index === 0}
+            loading={index === 0 ? "eager" : "eager"} // preload all
             className="w-full h-full object-cover"
             sizes="100vw"
             quality={85}
+            onLoad={() =>
+              setLoaded((prev) => {
+                const next = [...prev];
+                next[index] = true;
+                return next;
+              })
+            }
           />
-        </motion.div>
-      </AnimatePresence>
+        </div>
+      ))}
 
-      {/* Subtle Slide Indicators */}
+      {/* Slide Indicators */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-30">
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
             className={`h-1 rounded-full transition-all duration-500 ${
-              index === currentIndex 
-                ? "w-8 bg-white" 
+              index === currentIndex
+                ? "w-8 bg-white"
                 : "w-2 bg-white/40 hover:bg-white/60"
             }`}
             aria-label={`Go to slide ${index + 1}`}
@@ -69,8 +76,8 @@ export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
         ))}
       </div>
 
-      {/* Gradient Overlay for better contrast on indicators */}
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+      {/* Bottom gradient */}
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-20" />
     </div>
   );
-}
+}
