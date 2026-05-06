@@ -301,8 +301,8 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Materiality Title</label>
                                                 <input value={formData.materialityTitle} onChange={e => setFormData({...formData, materialityTitle: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
                                             </div>
-                                            <Image priorityUpload label="Facade Detail" defaultImage={formData.facadeDetailImage} onUpload={(url) => setFormData((prev: any) => ({...prev, facadeDetailImage: url}))} />
-                                            <Image priorityUpload label="Lobby Image" defaultImage={formData.lobbyImage} onUpload={(url) => setFormData((prev: any) => ({...prev, lobbyImage: url}))} />
+                                            <ImageUpload label="Facade Detail" defaultImage={formData.facadeDetailImage} onUpload={(url) => setFormData((prev: any) => ({...prev, facadeDetailImage: url}))} />
+                                            <ImageUpload label="Lobby Image" defaultImage={formData.lobbyImage} onUpload={(url) => setFormData((prev: any) => ({...prev, lobbyImage: url}))} />
                                             <div className="space-y-2">
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Nocturnal Title</label>
                                                 <input value={formData.nocturnalTitle} onChange={e => setFormData({...formData, nocturnalTitle: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />

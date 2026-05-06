@@ -48,7 +48,7 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
                     <img src={preview} alt="Preview" className="w-full h-full object-cover absolute inset-0 z-0" />
                 ) : (
                     <>
-                        <Image priorityIcon size={32} className="text-[#a0cafb] mb-3" />
+                        <ImageIcon size={32} className="text-[#a0cafb] mb-3" />
                         <span className="text-[10px] font-bold uppercase tracking-widest text-[#28557F]">Upload Image</span>
                     </>
                 )}
@@ -198,7 +198,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                 {project.image ? (
                                     <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                                 ) : (
-                                    <div className="absolute inset-0 flex items-center justify-center text-[#a0cafb]"><Image priorityIcon size={40} /></div>
+                                    <div className="absolute inset-0 flex items-center justify-center text-[#a0cafb]"><ImageIcon size={40} /></div>
                                 )}
                                 <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <button onClick={() => handleEdit(project)} className="h-8 w-8 rounded-lg bg-white/90 shadow text-[#42474e] flex items-center justify-center hover:bg-[#28557F] hover:text-white transition-colors">
@@ -302,7 +302,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                     <div>
                                         <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">2</span> Media & Gallery</h3>
                                         <div className="space-y-6">
-                                            <Image priorityUpload label="Main Thumbnail / Hero Image" defaultImage={formData.image} onUpload={(url) => setFormData((prev: any) => ({...prev, image: url}))} />
+                                            <ImageUpload label="Main Thumbnail / Hero Image" defaultImage={formData.image} onUpload={(url) => setFormData((prev: any) => ({...prev, image: url}))} />
                                             <div className="space-y-2">
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f] flex justify-between">
                                                     Gallery Images
@@ -311,7 +311,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                                     {formData.gallery.map((url: string, index: number) => (
                                                         <div key={index} className="relative group space-y-2">
-                                                            <Image priorityUpload label={`Image ${index + 1}`} defaultImage={url} onUpload={(newUrl) => { setFormData((prev: any) => { const g = [...prev.gallery]; g[index] = newUrl; return {...prev, gallery: g}; }); }} />
+                                                            <ImageUpload label={`Image ${index + 1}`} defaultImage={url} onUpload={(newUrl) => { setFormData((prev: any) => { const g = [...prev.gallery]; g[index] = newUrl; return {...prev, gallery: g}; }); }} />
                                                             <input value={formData.galleryCaptions?.[index] || ""} onChange={(e) => { const c = [...(formData.galleryCaptions || [])]; while(c.length <= index) c.push(""); c[index] = e.target.value; setFormData({...formData, galleryCaptions: c}); }} placeholder="Caption" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-9 px-3 text-[10px] focus:border-[#28557F] outline-none" />
                                                             <button type="button" onClick={() => { const g = [...formData.gallery]; g.splice(index, 1); const c = [...(formData.galleryCaptions || [])]; c.splice(index, 1); setFormData({...formData, gallery: g, galleryCaptions: c}); }} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-lg"><X size={12} /></button>
                                                         </div>
@@ -382,7 +382,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
 
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                                 <div className="space-y-4">
-                                                    <Image priorityUpload 
+                                                    <ImageUpload 
                                                         label="Facade Finish" 
                                                         defaultImage={formData.technicalDetails?.finishes?.facade?.images?.[0]} 
                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, technicalDetails: {...prev.technicalDetails, finishes: {...prev.technicalDetails.finishes, facade: {...prev.technicalDetails.finishes.facade, images: [url]}}}}))} 
@@ -390,7 +390,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                                     <input value={formData.technicalDetails?.finishes?.facade?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, facade: {...formData.technicalDetails.finishes.facade, desc: e.target.value}}}})} placeholder="Facade Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs font-medium" />
                                                 </div>
                                                 <div className="space-y-4">
-                                                    <Image priorityUpload 
+                                                    <ImageUpload 
                                                         label="Wall Finish" 
                                                         defaultImage={formData.technicalDetails?.finishes?.wall?.images?.[0]} 
                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, technicalDetails: {...prev.technicalDetails, finishes: {...prev.technicalDetails.finishes, wall: {...prev.technicalDetails.finishes.wall, images: [url]}}}}))} 
@@ -398,7 +398,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                                     <input value={formData.technicalDetails?.finishes?.wall?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, wall: {...formData.technicalDetails.finishes.wall, desc: e.target.value}}}})} placeholder="Wall Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs font-medium" />
                                                 </div>
                                                 <div className="space-y-4">
-                                                    <Image priorityUpload 
+                                                    <ImageUpload 
                                                         label="Floor Finish" 
                                                         defaultImage={formData.technicalDetails?.finishes?.flooring?.images?.[0]} 
                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, technicalDetails: {...prev.technicalDetails, finishes: {...prev.technicalDetails.finishes, flooring: {...prev.technicalDetails.finishes.flooring, images: [url]}}}}))} 
