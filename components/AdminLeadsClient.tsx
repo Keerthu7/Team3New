@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Download, Mail, Zap, UserCheck, Calendar, Phone, Clock, CheckCircle2, Loader2, RefreshCcw } from "lucide-react";
+import { Search, Download, Mail, Zap, UserCheck, Calendar, Phone, Clock, CheckCircle2, Loader2, RefreshCcw, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function AdminLeadsClient({ initialLeads }: { initialLeads: any[] }) {
@@ -44,6 +44,21 @@ export default function AdminLeadsClient({ initialLeads }: { initialLeads: any[]
             console.error("Failed to update status:", error);
         } finally {
             setOpenDropdown(null);
+        }
+    };
+
+    const deleteLead = async (id: string) => {
+        if (!window.confirm("Are you sure you want to delete this message? This action cannot be undone.")) return;
+        
+        try {
+            const res = await fetch(`/api/leads?id=${id}`, {
+                method: "DELETE",
+            });
+            if (res.ok) {
+                setLeads(leads.filter(l => l._id !== id));
+            }
+        } catch (error) {
+            console.error("Failed to delete lead:", error);
         }
     };
 
@@ -200,7 +215,7 @@ export default function AdminLeadsClient({ initialLeads }: { initialLeads: any[]
                                             </div>
                                         </div>
                                         
-                                        <div className="flex items-center gap-3 relative">
+                                         <div className="flex items-center gap-3 relative">
                                             <button 
                                                 onClick={() => setOpenDropdown(openDropdown === lead._id ? null : lead._id)}
                                                 className="h-10 px-6 rounded-xl font-bold text-[10px] uppercase tracking-widest border border-[#dfe2ed] text-[#42474e] hover:bg-[#181c23] hover:text-white transition-all duration-300"
@@ -208,8 +223,16 @@ export default function AdminLeadsClient({ initialLeads }: { initialLeads: any[]
                                                 Update Status
                                             </button>
                                             
+                                            <button 
+                                                onClick={() => deleteLead(lead._id)}
+                                                className="h-10 w-10 flex items-center justify-center rounded-xl border border-[#dfe2ed] text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300"
+                                                title="Delete Message"
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                            
                                             {openDropdown === lead._id && (
-                                                <div className="absolute top-12 right-0 bg-white border border-[#dfe2ed] rounded-2xl shadow-xl w-48 p-2 z-10">
+                                                <div className="absolute top-12 right-12 bg-white border border-[#dfe2ed] rounded-2xl shadow-xl w-48 p-2 z-10">
                                                     <button onClick={() => updateLeadStatus(lead._id, "In Progress")} className="w-full text-left px-3 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest text-[#181c23] hover:bg-[#f0f3fe] hover:text-[#28557F] flex items-center transition-colors">
                                                         <Clock size={12} className="mr-2" /> Mark In Progress
                                                     </button>

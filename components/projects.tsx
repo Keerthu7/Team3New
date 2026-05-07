@@ -53,6 +53,8 @@ const projectData = [
   },
 ];
 
+import { LoadingImage } from "./loading-image";
+
 function ProjectItem({ project, index }: { project: typeof projectData[0], index: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   
@@ -76,7 +78,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
         {/* Background Image Layer */}
         <motion.div style={{ scale: bgScale }} className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black/20 z-10" />
-          <Image
+          <LoadingImage
             src={project.image}
             alt={project.name}
             fill
@@ -128,7 +130,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
 
             {/* Inner Image - Rounded corners added (rounded-2xl) */}
             <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-white/50">
-              <Image priority src={project.interiorImage} alt={project.name} fill className="object-cover" />
+              <LoadingImage priority src={project.interiorImage} alt={project.name} fill className="object-cover" />
             </div>
 
             <div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
+import { LoadingImage } from "./loading-image";
 
 interface ProjectHeroSliderProps {
   images: string[];
@@ -9,14 +9,8 @@ interface ProjectHeroSliderProps {
 
 export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loaded, setLoaded] = useState<boolean[]>([]);
 
-  // Initialise loaded state array
-  useEffect(() => {
-    setLoaded(new Array(images.length).fill(false));
-  }, [images.length]);
-
-  // Auto-advance only after the next image is loaded
+  // Auto-advance
   useEffect(() => {
     if (!images || images.length <= 1) return;
     const timer = setInterval(() => {
@@ -40,22 +34,14 @@ export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
             zIndex: index === currentIndex ? 1 : 0,
           }}
         >
-          <Image
+          <LoadingImage
             src={src}
             alt={`Slide ${index + 1}`}
             fill
             priority={index === 0}
-            loading={index === 0 ? "eager" : "eager"} // preload all
             className="w-full h-full object-cover"
             sizes="100vw"
             quality={85}
-            onLoad={() =>
-              setLoaded((prev) => {
-                const next = [...prev];
-                next[index] = true;
-                return next;
-              })
-            }
           />
         </div>
       ))}

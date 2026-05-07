@@ -100,7 +100,7 @@ export function Footer() {
       {/* Bottom White Section */}
       <div className="w-full bg-white py-6 shadow-sm border-t border-gray-100 flex items-center justify-center">
         <p className="text-[15px] text-[#1a1a1a] font-medium tracking-wide">
-          © {currentYear} HYNOX. All rights reserved.
+          © {currentYear} <Link href="https://www.hynox.in/" target="_blank" rel="noopener noreferrer" className="hover:text-[#28557F] transition-colors">HYNOX</Link>. All rights reserved.
         </p>
       </div>
     </footer>
