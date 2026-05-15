@@ -74,10 +74,10 @@ export function Testimonials() {
 
   return (
     <section id="reviews" className="pt-24 pb-24 bg-white relative overflow-hidden">
-      <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-20">
+      <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
         
         {/* Left Side: Static Header & Rating */}
-        <div className="w-full lg:w-1/3 flex flex-col gap-8 z-10 bg-white pr-8 pl-4 lg:pl-16">
+        <div className="w-full lg:w-[40%] flex flex-col gap-8 z-10 bg-white pr-8 pl-4 lg:pl-8">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-1.5">
               {[...Array(5)].map((_, i) => (
@@ -105,7 +105,7 @@ export function Testimonials() {
         </div>
 
         {/* Right Side: Horizontal Marquee */}
-        <div className="w-full lg:w-2/3 overflow-hidden">
+        <div className="w-full lg:w-[60%] overflow-hidden">
           <div className="flex whitespace-nowrap">
             <motion.div
               initial={{ x: 0 }}

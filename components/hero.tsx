@@ -12,16 +12,16 @@ export function Hero() {
           src="/images/hero.png"
           alt="Modern Architectural House"
           fill
-          className="object-cover"
+          className="object-cover brightness-110 contrast-[1.02]"
           priority
           sizes="100vw"
         />
-        {/* Subtle Cinematic Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30 z-10" />
+        {/* Subtle Cinematic Overlay (Lightened) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10" />
       </div>
 
-      {/* Floating Header Space Overlay */}
-      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/50 to-transparent pointer-events-none z-20" />
+      {/* Floating Header Space Overlay (Lightened) */}
+      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/20 to-transparent pointer-events-none z-20" />
       
       {/* Text and Buttons have been completely removed */}
     </section>
