@@ -73,8 +73,8 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
-    <div ref={containerRef} className="relative h-[350vh] w-full bg-white">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+    <div ref={containerRef} className="relative h-[250vh] md:h-[350vh] w-full bg-white">
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
         {/* Background Image Layer */}
         <motion.div style={{ scale: bgScale }} className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black/20 z-10" />
@@ -84,6 +84,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
             fill
             className="object-cover"
             priority={index === 0}
+            sizes="100vw"
           />
         </motion.div>
 
@@ -130,7 +131,13 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
 
             {/* Inner Image - Rounded corners added (rounded-2xl) */}
             <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-white/50">
-              <LoadingImage priority src={project.interiorImage} alt={project.name} fill className="object-cover" />
+              <LoadingImage 
+                src={project.interiorImage} 
+                alt={project.name} 
+                fill 
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 400px"
+              />
             </div>
 
             <div>

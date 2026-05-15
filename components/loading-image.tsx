@@ -15,7 +15,7 @@ export function LoadingImage({ containerClassName, ...props }: LoadingImageProps
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 3000);
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 

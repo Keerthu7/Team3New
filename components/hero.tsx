@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export function Hero() {
   return (
-    <section className="relative w-full h-screen overflow-hidden flex items-end pb-24 md:pb-32">
+    <section className="relative w-full h-[100dvh] overflow-hidden flex items-end pb-24 md:pb-32">
       {/* Hero Image */}
       <div className="absolute inset-0">
         <Image
@@ -14,6 +14,7 @@ export function Hero() {
           fill
           className="object-cover"
           priority
+          sizes="100vw"
         />
         {/* Subtle Cinematic Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30 z-10" />

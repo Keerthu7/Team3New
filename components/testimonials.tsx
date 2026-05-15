@@ -73,11 +73,11 @@ export function Testimonials() {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section id="reviews" className="pt-8 pb-24 bg-white relative overflow-hidden">
+    <section id="reviews" className="pt-24 pb-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
         
         {/* Left Side: Static Header & Rating */}
-        <div className="w-full lg:w-1/3 flex flex-col gap-8 z-10 bg-white pr-8">
+        <div className="w-full lg:w-1/3 flex flex-col gap-8 z-10 bg-white pr-8 pl-12 lg:pl-32">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-1.5">
               {[...Array(5)].map((_, i) => (
@@ -137,11 +137,11 @@ export function Testimonials() {
                   
                   <div className="mt-auto flex items-center gap-4">
                     <div className="relative w-14 h-14 shrink-0 rounded-xl flex items-center justify-center bg-white shadow-sm border border-gray-100 overflow-hidden">
-                      <Image priority 
+                      <Image 
                         src={testimonial.logo} 
                         alt={`${testimonial.name} Logo`}
                         fill 
-                        className="object-contain p-2" 
+                        className={`object-contain p-2 ${testimonial.name === "KMCH" ? "scale-[0.7]" : ""}`} 
                         sizes="56px"
                       />
                     </div>

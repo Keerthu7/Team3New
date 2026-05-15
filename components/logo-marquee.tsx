@@ -33,11 +33,11 @@ export function LogoMarquee() {
               // 'grayscale' matrum 'opacity-50' eduthachu. Original color-la theriyum!
               className="relative w-28 h-12 md:w-40 md:h-16 cursor-default flex-shrink-0 hover:scale-105 transition-transform duration-300"
             >
-              <Image priority 
+              <Image 
                 src={logo.src} 
                 alt={logo.name} 
                 fill
-                className="object-contain" 
+                className={`object-contain group-hover:scale-105 transition-transform duration-300 ${logo.name.includes("KMCH") ? "scale-[0.7]" : ""}`} 
                 sizes="(max-width: 768px) 112px, 160px"
               />
             </div>
