@@ -6,8 +6,8 @@ import Image from "next/image";
 export function Hero() {
   return (
     <section className="relative w-full h-[100dvh] overflow-hidden flex items-end pb-24 md:pb-32">
-      {/* Hero Image */}
-      <div className="absolute inset-0">
+      {/* Hero Image - Desktop */}
+      <div className="absolute inset-0 hidden md:block">
         <Image
           src="/images/hero.png"
           alt="Modern Architectural House"
@@ -18,6 +18,20 @@ export function Hero() {
         />
         {/* Subtle Cinematic Overlay (Lightened) */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10" />
+      </div>
+
+      {/* Hero Image - Mobile */}
+      <div className="absolute inset-0 block md:hidden">
+        <Image
+          src="/images/hero-mobile.png"
+          alt="Modern Architectural House Mobile"
+          fill
+          className="object-cover brightness-110 contrast-[1.02]"
+          priority
+          sizes="100vw"
+        />
+        {/* Subtle Cinematic Overlay (Lightened) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10" />
       </div>
 
       {/* Floating Header Space Overlay (Lightened) */}
