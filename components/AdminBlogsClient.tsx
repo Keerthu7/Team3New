@@ -289,7 +289,16 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Patient Journey P1</label>
                                                 <textarea value={formData.patientJourneyDesc1} onChange={e => setFormData({...formData, patientJourneyDesc1: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
                                             </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Logistics P2 (Hidden by default)</label>
+                                                <textarea value={formData.logisticsParagraph2} onChange={e => setFormData({...formData, logisticsParagraph2: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Patient Journey P2 (Next to image)</label>
+                                                <textarea value={formData.patientJourneyDesc2} onChange={e => setFormData({...formData, patientJourneyDesc2: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
+                                            </div>
                                             <ImageUpload label="Logistics Left Image" defaultImage={formData.logisticsLeftImage} onUpload={(url) => setFormData((prev: any) => ({...prev, logisticsLeftImage: url}))} />
+                                            <ImageUpload label="Logistics Right Image" defaultImage={formData.logisticsRightImage} onUpload={(url) => setFormData((prev: any) => ({...prev, logisticsRightImage: url}))} />
                                             <ImageUpload label="Healing Interior Image" defaultImage={formData.healingInteriorImage} onUpload={(url) => setFormData((prev: any) => ({...prev, healingInteriorImage: url}))} />
                                         </div>
                                     </div>

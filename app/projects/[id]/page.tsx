@@ -4,6 +4,13 @@ import ProjectNormalLayout from "@/components/project-normal-layout";
 import connectToDatabase from '@/lib/db';
 import Project from '@/models/Project';
 
+export async function generateStaticParams() {
+  return fallbackProjects.map((project) => ({
+    id: project.slug || String(project.id),
+  }));
+}
+
+
 async function getProject(idOrSlug: string) {
   try {
     await connectToDatabase();

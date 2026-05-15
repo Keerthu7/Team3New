@@ -5,6 +5,14 @@ import { blogs } from "@/data/blog-data";
 import { notFound } from "next/navigation";
 import connectToDatabase from "@/lib/db";
 import BlogModel from "@/models/Blog";
+import { blogs as fallbackBlogs } from "@/data/blog-data";
+
+export async function generateStaticParams() {
+  return fallbackBlogs.map((blog) => ({
+    slug: blog.slug,
+  }));
+}
+
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

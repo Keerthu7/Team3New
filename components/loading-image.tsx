@@ -11,8 +11,16 @@ interface LoadingImageProps extends ImageProps {
 export function LoadingImage({ containerClassName, ...props }: LoadingImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Safety timeout to ensure image is shown even if onLoad doesn't fire
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className={`relative overflow-hidden w-full h-full ${containerClassName || ""}`}>
+    <div className={`relative overflow-hidden w-full h-full min-h-[150px] md:min-h-[200px] ${containerClassName || ""}`}>
       {/* Loading Placeholder */}
       <AnimatePresence>
         {!isLoaded && (
@@ -66,7 +74,7 @@ export function LoadingImage({ containerClassName, ...props }: LoadingImageProps
       {/* Actual Image */}
       <Image
         {...props}
-        onLoadingComplete={() => setIsLoaded(true)}
+        onLoad={() => setIsLoaded(true)}
         className={`${props.className || ""} transition-opacity duration-700 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}

@@ -20,7 +20,7 @@ async function getBlogs() {
   }
   
   // Return empty array or static data if DB fails
-  return [];
+  return fallbackBlogs;
 }
 
 export default async function BlogPage() {
@@ -31,7 +31,7 @@ export default async function BlogPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-44 pb-6 px-6 md:px-12 max-w-7xl mx-auto">
+      <section className="pt-28 md:pt-44 pb-6 px-6 md:px-12 max-w-7xl mx-auto">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1A1A1A] mb-3 tracking-tight">
           Our Journals
         </h1>
@@ -41,8 +41,8 @@ export default async function BlogPage() {
       </section>
 
       {/* Blog Grid */}
-      <section className="px-6 md:px-12 max-w-7xl mx-auto pb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+      <section className="px-6 md:px-12 max-w-7xl mx-auto pb-20 md:pb-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12">
           {blogs.map((blog: any, index: number) => (
             <Link 
               key={blog.slug || blog._id} 

@@ -12,8 +12,8 @@ const projectData = [
     location: "Coimbatore",
     description: "A modern, sustainable architecture featuring sleek design, open spaces, and seamless indoor-outdoor living integration safely anchored by premium engineering.",
     date: "21, DEC 2025",
-    image: "/images/interiors/jagan_int.png",
-    interiorImage: "/images/project1.png",
+    image:"/images/project1.png",
+    interiorImage: "/images/interiors/jagan_int.png",
   },
   {
     id: 2,
@@ -21,8 +21,8 @@ const projectData = [
     location: "Coimbatore",
     description: "Luxury reimagined through a minimalist lens. This residence combines glass and stone to create a timeless sanctuary for urban living.",
     date: "15, JAN 2026",
-    image: "/images/interiors/ramesh_int.png",
-    interiorImage: "/images/project2.png",
+    image:"/images/project2.png",
+    interiorImage:  "/images/interiors/ramesh_int.png" ,
   },
   {
     id: 3,
@@ -30,8 +30,8 @@ const projectData = [
     location: "Coimbatore",
     description: "Cutting-edge healthcare infrastructure designed for efficiency and patient comfort. A synthesis of advanced technology and human-centric design.",
     date: "10, FEB 2026",
-    image: "/images/generated/kmch_exterior_1775710540921.png",
-    interiorImage: "/images/generated/kmch_lobby_1775710525290.png",
+    image: "/images/project3.png",
+    interiorImage: "/images/interiors/kmch_int.png",
   },
   {
     id: 4,
@@ -39,8 +39,8 @@ const projectData = [
     location: "Coimbatore",
     description: "A commercial landmark that redefines the skyline. Integrated workspace solutions with a focus on sustainability and structural excellence.",
     date: "05, MAR 2026",
-    image: "/images/generated/siva_skyscraper_1775710572488.png",
-    interiorImage: "/images/generated/siva_atrium_1775710557057.png",
+    image: "/images/project4.png",
+    interiorImage: "/images/interiors/siva_int.png",
   },
   {
     id: 5,
@@ -48,8 +48,8 @@ const projectData = [
     location: "Coimbatore",
     description: "Multi-functional spaces designed for retail and premium offices. A bold architectural statement in the heart of the city's trade hub.",
     date: "20, APR 2026",
-    image: "/images/interiors/drg_int.png",
-    interiorImage: "/images/project5.png",
+    image:  "/images/project5.png",
+    interiorImage: "/images/interiors/drg_int.png",
   },
 ];
 

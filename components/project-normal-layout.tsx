@@ -24,10 +24,10 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
         {/* Floating Back Button */}
         <button 
           onClick={() => router.back()}
-          className="absolute top-8 left-8 flex items-center gap-2 py-2.5 px-5 bg-white/90 backdrop-blur-md rounded-full shadow-xl hover:bg-white transition-all z-50 group border border-neutral-200"
+          className="absolute top-4 left-4 md:top-8 md:left-8 flex items-center gap-2 py-1.5 px-3 md:py-2.5 md:px-5 bg-white/90 backdrop-blur-md rounded-full shadow-xl hover:bg-white transition-all z-50 group border border-neutral-200"
         >
-          <ChevronLeft size={18} className="text-[#28557F] transition-transform group-hover:-translate-x-1" />
-          <span className="text-[11px] font-bold tracking-[0.2em] text-[#28557F] uppercase">Back</span>
+          <ChevronLeft size={16} className="text-[#28557F] md:size-[18px] transition-transform group-hover:-translate-x-1" />
+          <span className="text-[9px] md:text-[11px] font-bold tracking-[0.2em] text-[#28557F] uppercase">Back</span>
         </button>
 
         {/* Hero Bottom Gradient */}
@@ -35,7 +35,7 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
       </section>
 
       {/* 2. PROJECT HEADER & OVERVIEW */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 pt-12 md:pt-16 pb-4 md:pb-6">
+      <section className="max-w-7xl mx-auto px-6 md:px-12 pt-8 md:pt-16 pb-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           
           {/* Left Column: Title & Intro (Wider) */}
@@ -61,7 +61,7 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
 
           {/* Right Column: Specifications Card (Narrower) */}
           <div className="lg:col-span-4">
-            <div className="bg-neutral-50 rounded-2xl p-6 md:p-8 border border-neutral-100 shadow-sm sticky top-32">
+            <div className="bg-neutral-50 rounded-2xl p-4 md:p-8 border border-neutral-100 shadow-sm sticky top-32">
               <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#28557F] mb-8 pb-1">
                 Specifications
               </h3>
@@ -79,9 +79,9 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
       </section>
 
       {/* 3. VISUAL GALLERY (Custom Mosaic Grid) */}
-      <section className="bg-white pt-6 md:pt-8 pb-0 px-4 md:px-8">
+      <section className="bg-white pt-4 md:pt-8 pb-0 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 md:mb-24">
+          <div className="text-center mb-8 md:mb-24">
             <p className="text-[10px] font-bold text-[#28557F] tracking-[0.5em] uppercase mb-4 opacity-40 font-sans">Visual Documentation</p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900 uppercase">Project Gallery</h2>
           </div>
@@ -142,7 +142,7 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
 
       {/* 4. TECHNICAL SPECIFICATIONS & CREDITS (Minimalist Technical Sheet) */}
       {project.technicalDetails && (
-        <section className="bg-white pt-16 pb-24 md:pb-32 px-6 md:px-12 font-poppins">
+        <section className="bg-white pt-10 pb-16 md:pb-32 px-6 md:px-12 font-poppins">
           <div className="max-w-6xl mx-auto">
             
             {/* Minimal Header */}
