@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus, Search, Edit2, Trash2, X, Image as ImageIcon, Loader2, Save, Upload } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { uploadImage } from "@/lib/image-utils";
@@ -9,6 +9,10 @@ import { uploadImage } from "@/lib/image-utils";
 function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUpload: (url: string) => void, defaultImage?: string }) {
     const [uploading, setUploading] = useState(false);
     const [preview, setPreview] = useState(defaultImage || "");
+
+    useEffect(() => {
+        setPreview(defaultImage || "");
+    }, [defaultImage]);
 
     const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -27,13 +31,15 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
         }
     };
 
+    const showLoading = uploading || (preview && preview.startsWith("uploading_"));
+
     return (
         <div className="space-y-2">
             <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">{label}</label>
             <div className="relative border-2 border-dashed border-[#dfe2ed] rounded-2xl p-4 flex flex-col items-center justify-center bg-[#f9f9ff] hover:bg-[#f0f3fe] hover:border-[#a0cafb] transition-all cursor-pointer min-h-[140px] overflow-hidden">
                 <input type="file" accept="image/*" onChange={handleFile} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
                 
-                {uploading ? (
+                {showLoading ? (
                     <Loader2 className="animate-spin text-[#28557F]" size={30} />
                 ) : preview ? (
                     <img src={preview} alt="Preview" className="w-full h-full object-cover absolute inset-0 z-0" />
@@ -48,183 +54,6 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
     );
 }
 
-// State-of-the-art Multi-Image Drag-and-Drop Uploader
-function MultiImageUpload({
-    gallery,
-    galleryCaptions,
-    onUploadSuccess,
-    onRemoveImage,
-    onUpdateCaption
-}: {
-    gallery: string[];
-    galleryCaptions: string[];
-    onUploadSuccess: (urls: string[]) => void;
-    onRemoveImage: (index: number) => void;
-    onUpdateCaption: (index: number, val: string) => void;
-}) {
-    const [uploadingQueue, setUploadingQueue] = useState<{ id: string; name: string; preview: string; error?: boolean }[]>([]);
-    const [isDragActive, setIsDragActive] = useState(false);
-
-    const handleFiles = async (files: FileList) => {
-        const fileArray = Array.from(files);
-        const newQueueItems = fileArray.map(file => ({
-            id: Math.random().toString(36).substring(7),
-            name: file.name,
-            preview: URL.createObjectURL(file)
-        }));
-
-        setUploadingQueue(prev => [...prev, ...newQueueItems]);
-
-        const uploadedUrls: (string | null)[] = new Array(fileArray.length).fill(null);
-
-        // Upload in parallel
-        await Promise.all(
-            fileArray.map(async (file, idx) => {
-                const queueId = newQueueItems[idx].id;
-                try {
-                    const uploadedUrl = await uploadImage(file);
-                    uploadedUrls[idx] = uploadedUrl;
-                    setUploadingQueue(prev => prev.filter(item => item.id !== queueId));
-                } catch (error: any) {
-                    console.error("Failed to upload image from queue:", file.name, error);
-                    setUploadingQueue(prev => 
-                        prev.map(item => item.id === queueId ? { ...item, error: true } : item)
-                    );
-                }
-            })
-        );
-
-        const successUrls = uploadedUrls.filter((url): url is string => url !== null);
-        if (successUrls.length > 0) {
-            onUploadSuccess(successUrls);
-        }
-    };
-
-    const onDragOver = (e: React.DragEvent) => {
-        e.preventDefault();
-        setIsDragActive(true);
-    };
-
-    const onDragLeave = () => {
-        setIsDragActive(false);
-    };
-
-    const onDrop = (e: React.DragEvent) => {
-        e.preventDefault();
-        setIsDragActive(false);
-        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            handleFiles(e.dataTransfer.files);
-        }
-    };
-
-    const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-            handleFiles(e.target.files);
-        }
-    };
-
-    const clearQueueItem = (id: string) => {
-        setUploadingQueue(prev => prev.filter(item => item.id !== id));
-    };
-
-    return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between">
-                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Gallery Images</label>
-                <span className="text-[10px] font-bold bg-[#f0f3fe] text-[#28557F] px-2.5 py-1 rounded-full uppercase tracking-wider">
-                    {gallery.length} Images Uploaded
-                </span>
-            </div>
-            
-            {/* Drag & Drop Area */}
-            <div
-                onDragOver={onDragOver}
-                onDragLeave={onDragLeave}
-                onDrop={onDrop}
-                className={`relative border-2 border-dashed rounded-2xl p-8 flex flex-col items-center justify-center min-h-[160px] cursor-pointer transition-all duration-300 ${
-                    isDragActive 
-                        ? "border-[#28557F] bg-[#f0f3fe] scale-[1.01]" 
-                        : "border-[#dfe2ed] bg-[#f9f9ff] hover:bg-[#f0f3fe] hover:border-[#a0cafb]"
-                }`}
-            >
-                <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={onFileSelect}
-                    className="absolute inset-0 opacity-0 cursor-pointer z-10"
-                />
-                <div className="text-center space-y-2 pointer-events-none">
-                    <div className="mx-auto w-12 h-12 rounded-2xl bg-[#e5f1ff] flex items-center justify-center text-[#28557F] mb-2 shadow-sm">
-                        <Upload size={22} className={isDragActive ? "animate-bounce" : "transition-transform group-hover:scale-110"} />
-                    </div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-[#28557F]">
-                        Drag & drop images here or click to browse
-                    </p>
-                    <p className="text-[10px] text-[#72777f] font-semibold">
-                        Supports bulk file selection. Auto-optimized to WebP.
-                    </p>
-                </div>
-            </div>
-
-            {/* Gallery Grid */}
-            {(gallery.length > 0 || uploadingQueue.length > 0) && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                    {/* Uploading queue */}
-                    {uploadingQueue.map(item => (
-                        <div key={item.id} className="relative group aspect-[4/3] rounded-2xl overflow-hidden border border-[#dfe2ed] bg-[#fdfdff] flex items-center justify-center shadow-sm">
-                            <img src={item.preview} alt="Queue preview" className="w-full h-full object-cover absolute inset-0 opacity-50 filter blur-[1px]" />
-                            {item.error ? (
-                                <div className="absolute inset-0 flex flex-col items-center justify-center p-2 bg-white/90 text-center z-20">
-                                    <span className="text-[10px] font-bold text-red-600 uppercase mb-1">Failed</span>
-                                    <button
-                                        type="button"
-                                        onClick={() => clearQueueItem(item.id)}
-                                        className="text-[9px] bg-red-500 hover:bg-red-600 text-white font-bold px-2 py-0.5 rounded-lg uppercase tracking-wider shadow"
-                                    >
-                                        Dismiss
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#f0f3fe]/40 backdrop-blur-sm z-20">
-                                    <Loader2 className="animate-spin text-[#28557F] mb-2" size={24} />
-                                    <span className="text-[9px] font-bold uppercase text-[#28557F] tracking-widest bg-white/80 px-2 py-0.5 rounded-full shadow-sm">
-                                        Uploading...
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-                    ))}
-
-                    {/* Uploaded images */}
-                    {gallery.map((url, index) => (
-                        <div key={url + index} className="relative group space-y-2">
-                            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#dfe2ed] bg-[#f9f9ff] hover:border-[#28557F] hover:shadow-md transition-all duration-300">
-                                <img src={url} alt={`Gallery ${index + 1}`} className="w-full h-full object-cover" />
-                                <button
-                                    type="button"
-                                    onClick={() => onRemoveImage(index)}
-                                    className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-xl p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-md hover:scale-105"
-                                >
-                                    <X size={12} />
-                                </button>
-                                <span className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm text-white text-[9px] font-bold px-2.5 py-0.5 rounded-lg uppercase tracking-widest">
-                                    Image {index + 1}
-                                </span>
-                            </div>
-                            <input
-                                value={galleryCaptions?.[index] || ""}
-                                onChange={(e) => onUpdateCaption(index, e.target.value)}
-                                placeholder="Caption..."
-                                className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-10 px-3 text-xs focus:border-[#28557F] focus:bg-white outline-none transition-all font-semibold shadow-sm"
-                            />
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-}
 
 
 const emptyProject = {
@@ -292,6 +121,60 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
             await fetch(`/api/projects/${id}`, { method: 'DELETE' });
             fetchProjects();
         }
+    };
+
+    const handleBulkFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files) return;
+        const fileArray = Array.from(files);
+        if (fileArray.length === 0) return;
+
+        // Generate unique temporary IDs for the uploading slots
+        const tempIds = fileArray.map(() => `uploading_${Math.random().toString(36).substring(7)}`);
+
+        // Update the form state to add the uploading slots
+        setFormData((prev: any) => {
+            const currentGallery = [...(prev.gallery || [])];
+            const currentCaptions = [...(prev.galleryCaptions || [])];
+            currentGallery.push(...tempIds);
+            currentCaptions.push(...new Array(tempIds.length).fill(""));
+            return {
+                ...prev,
+                gallery: currentGallery,
+                galleryCaptions: currentCaptions
+            };
+        });
+
+        // Start uploading in parallel
+        fileArray.forEach((file, idx) => {
+            const tempId = tempIds[idx];
+            uploadImage(file)
+                .then(uploadedUrl => {
+                    setFormData((prev: any) => {
+                        const currentGallery = [...(prev.gallery || [])];
+                        const targetIndex = currentGallery.indexOf(tempId);
+                        if (targetIndex !== -1) {
+                            currentGallery[targetIndex] = uploadedUrl;
+                        }
+                        return { ...prev, gallery: currentGallery };
+                    });
+                })
+                .catch(error => {
+                    console.error("Upload failed for file:", file.name, error);
+                    alert(`Failed to upload ${file.name}: ${error.message}`);
+                    // Remove the failed slot
+                    setFormData((prev: any) => {
+                        const currentGallery = [...(prev.gallery || [])];
+                        const currentCaptions = [...(prev.galleryCaptions || [])];
+                        const targetIndex = currentGallery.indexOf(tempId);
+                        if (targetIndex !== -1) {
+                            currentGallery.splice(targetIndex, 1);
+                            currentCaptions.splice(targetIndex, 1);
+                        }
+                        return { ...prev, gallery: currentGallery, galleryCaptions: currentCaptions };
+                    });
+                });
+        });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -473,28 +356,73 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                         <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">2</span> Media & Gallery</h3>
                                         <div className="space-y-6">
                                             <ImageUpload label="Main Thumbnail / Hero Image" defaultImage={formData.image} onUpload={(url) => setFormData((prev: any) => ({...prev, image: url}))} />
-                                            <MultiImageUpload
-                                                gallery={formData.gallery || []}
-                                                galleryCaptions={formData.galleryCaptions || []}
-                                                onUploadSuccess={(urls) => setFormData((prev: any) => ({
-                                                    ...prev,
-                                                    gallery: [...(prev.gallery || []), ...urls],
-                                                    galleryCaptions: [...(prev.galleryCaptions || []), ...new Array(urls.length).fill("")]
-                                                }))}
-                                                onRemoveImage={(index) => setFormData((prev: any) => {
-                                                    const g = [...(prev.gallery || [])];
-                                                    g.splice(index, 1);
-                                                    const c = [...(prev.galleryCaptions || [])];
-                                                    c.splice(index, 1);
-                                                    return { ...prev, gallery: g, galleryCaptions: c };
-                                                })}
-                                                onUpdateCaption={(index, val) => setFormData((prev: any) => {
-                                                    const c = [...(prev.galleryCaptions || [])];
-                                                    while(c.length <= index) c.push("");
-                                                    c[index] = val;
-                                                    return { ...prev, galleryCaptions: c };
-                                                })}
-                                            />
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f] flex justify-between">
+                                                    Gallery Images
+                                                    <div className="relative">
+                                                        <button 
+                                                            type="button" 
+                                                            onClick={() => document.getElementById('gallery-bulk-file-input')?.click()} 
+                                                            className="text-[#28557F] flex items-center font-bold text-xs"
+                                                        >
+                                                            <Plus size={12} className="mr-1"/> Add Image
+                                                        </button>
+                                                        <input
+                                                            id="gallery-bulk-file-input"
+                                                            type="file"
+                                                            multiple
+                                                            accept="image/*"
+                                                            onChange={handleBulkFiles}
+                                                            className="hidden"
+                                                        />
+                                                    </div>
+                                                </label>
+                                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                                    {(formData.gallery || []).map((url: string, index: number) => (
+                                                        <div key={index} className="relative group space-y-2">
+                                                            <ImageUpload 
+                                                                label={`Image ${index + 1}`} 
+                                                                defaultImage={url} 
+                                                                onUpload={(newUrl) => { 
+                                                                    setFormData((prev: any) => { 
+                                                                        const g = [...prev.gallery]; 
+                                                                        g[index] = newUrl; 
+                                                                        return {...prev, gallery: g}; 
+                                                                    }); 
+                                                                }} 
+                                                            />
+                                                            <input 
+                                                                value={formData.galleryCaptions?.[index] || ""} 
+                                                                onChange={(e) => { 
+                                                                    setFormData((prev: any) => {
+                                                                        const c = [...(prev.galleryCaptions || [])]; 
+                                                                        while(c.length <= index) c.push(""); 
+                                                                        c[index] = e.target.value; 
+                                                                        return { ...prev, galleryCaptions: c };
+                                                                    });
+                                                                }} 
+                                                                placeholder="Caption" 
+                                                                className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-9 px-3 text-[10px] focus:border-[#28557F] outline-none" 
+                                                            />
+                                                            <button 
+                                                                type="button" 
+                                                                onClick={() => { 
+                                                                    setFormData((prev: any) => {
+                                                                        const g = [...prev.gallery]; 
+                                                                        g.splice(index, 1); 
+                                                                        const c = [...(prev.galleryCaptions || [])]; 
+                                                                        c.splice(index, 1); 
+                                                                        return { ...prev, gallery: g, galleryCaptions: c };
+                                                                    });
+                                                                }} 
+                                                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-lg z-20"
+                                                            >
+                                                                <X size={12} />
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 

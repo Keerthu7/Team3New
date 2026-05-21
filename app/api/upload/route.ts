@@ -16,12 +16,12 @@ export async function POST(request: Request): Promise<NextResponse> {
     const nameToUse = filename || file.name || 'image.webp';
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    // 1. If Vercel Blob environment variable is set, upload to Vercel Blob on the server
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
-      console.log('Vercel Blob token detected. Uploading server-side:', nameToUse);
+    // 1. If running on Vercel OR Vercel Blob environment variable is set, upload to Vercel Blob
+    if (process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL === '1') {
+      console.log('Vercel environment or Blob token detected. Uploading to Vercel Blob:', nameToUse);
       const blob = await put(nameToUse, buffer, {
         access: 'public',
-        token: process.env.BLOB_READ_WRITE_TOKEN,
+        ...(process.env.BLOB_READ_WRITE_TOKEN ? { token: process.env.BLOB_READ_WRITE_TOKEN } : {}),
       });
       return NextResponse.json({ url: blob.url });
     }
