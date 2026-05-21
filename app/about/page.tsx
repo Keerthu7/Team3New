@@ -85,14 +85,12 @@ export default function Page() {
 
             <motion.div variants={fadeInUp} className="text-white/90 space-y-8">
               <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
-                Team 3 Associates is a premier architecture and design firm dedicated to transforming spaces into functional works of art. Founded on the principles of innovation, precision, and client satisfaction, we bring together a multidisciplinary team of architects, interior designers, and structural engineers to deliver comprehensive design solutions.
+                From starting out as a family business four years ago, T3A has metamorphosed into a full-service organization specializing in Architecture, Engineering, Interior Design, Landscaping Design, and Project Management & Consulting. Already a force to reckon with, T3A continues to deliver diverse Residential, Commercial, and Institutional projects successfully. 
               </p>
               <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
-                Our expertise spans across residential, commercial, and institutional projects, where we seamlessly blend aesthetics with structural integrity. From initial concept to final execution, we work closely with our clients to understand their vision and translate it into spaces that inspire and endure.
+                Well into its 4th year, T3A has established itself as an upcoming design firm with expertise in a diverse array of building designs, from individual residences to master planning of Institutions. Our firm is a conscious collaboration of like-minded designers, technicians, and other experts who pool in their knowledge together to design environments that improve the quality of life.
               </p>
-              <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
-                With a commitment to sustainable practices and cutting-edge technology, we create designs that not only meet today's needs but anticipate tomorrow's challenges. Every project we undertake is a testament to our dedication to quality, innovation, and the art of creating meaningful spaces.
-              </p>
+             
             </motion.div>
           </div>
         </motion.div>

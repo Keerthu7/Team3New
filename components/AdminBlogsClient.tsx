@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { Plus, Search, Edit2, Trash2, X, Image as ImageIcon, Loader2, Save } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { upload } from "@vercel/blob/client";
-import { convertToWebP } from "@/lib/image-utils";
+import { uploadImage } from "@/lib/image-utils";
 
 // Helper component for uploading images
 function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUpload: (url: string) => void, defaultImage?: string }) {
@@ -17,17 +16,9 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
 
         setUploading(true);
         try {
-            const webpBlob = await convertToWebP(file);
-            const fileName = file.name.split('.').slice(0, -1).join('.') || 'image';
-            const uniqueName = `${Date.now()}_${fileName}.webp`;
-
-            const newBlob = await upload(uniqueName, webpBlob, {
-                access: 'public',
-                handleUploadUrl: '/api/upload',
-            });
-            
-            setPreview(newBlob.url);
-            onUpload(newBlob.url);
+            const uploadedUrl = await uploadImage(file);
+            setPreview(uploadedUrl);
+            onUpload(uploadedUrl);
         } catch (error: any) {
             console.error("Upload failed", error);
             alert("Upload Error: " + error.message);
@@ -35,6 +26,7 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
             setUploading(false);
         }
     };
+
 
     return (
         <div className="space-y-2">

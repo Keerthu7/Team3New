@@ -70,3 +70,40 @@ export async function convertToWebP(file: File, quality: number = 0.82, maxDim: 
     });
 }
 
+/**
+ * Converts a file to WebP and uploads it to the backend endpoint.
+ * Supports progress/success feedback.
+ * @param file The original image file to upload
+ * @param quality WebP conversion quality (default 0.82)
+ * @param maxDim Maximum dimension of the image (default 1600)
+ * @returns The final URL of the uploaded image
+ */
+export async function uploadImage(
+    file: File,
+    quality: number = 0.82,
+    maxDim: number = 1600
+): Promise<string> {
+    const webpBlob = await convertToWebP(file, quality, maxDim);
+    
+    // Create a clean filename
+    const originalName = file.name || 'image.jpg';
+    const baseName = originalName.split('.').slice(0, -1).join('.') || 'image';
+    const cleanName = `${Date.now()}_${baseName}.webp`;
+
+    const formData = new FormData();
+    formData.append('file', webpBlob);
+    formData.append('filename', cleanName);
+
+    const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to upload image to server');
+    }
+
+    const data = await response.json();
+    return data.url;
+}
