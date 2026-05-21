@@ -15,6 +15,35 @@ interface ProjectNormalLayoutProps {
 export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProps) {
   const router = useRouter();
 
+  // Helper variables to determine if technical data section and subsections are actually filled
+  const hasTeam = !!(project.technicalDetails && (
+    (project.technicalDetails.contributors && project.technicalDetails.contributors.some((c: any) => c.label?.trim() !== "" || c.value?.trim() !== "")) ||
+    (project.technicalDetails.photoCredits && project.technicalDetails.photoCredits.some((p: any) => p.label?.trim() !== "" || p.value?.trim() !== ""))
+  ));
+
+  const hasMaterials = !!(project.technicalDetails && 
+    project.technicalDetails.materials && 
+    project.technicalDetails.materials.some((m: any) => m.label?.trim() !== "" || m.value?.trim() !== "")
+  );
+
+  const finishes = project.technicalDetails?.finishes;
+  const hasFacade = !!(finishes?.facade && (
+    (finishes.facade.images && finishes.facade.images[0]) || 
+    (finishes.facade.desc && finishes.facade.desc.trim() !== "")
+  ));
+  const hasWall = !!(finishes?.wall && (
+    (finishes.wall.images && finishes.wall.images[0]) || 
+    (finishes.wall.desc && finishes.wall.desc.trim() !== "")
+  ));
+  const hasFlooring = !!(finishes?.flooring && (
+    (finishes.flooring.images && finishes.flooring.images[0]) || 
+    (finishes.flooring.desc && finishes.flooring.desc.trim() !== "")
+  ));
+  
+  const hasPalette = hasFacade || hasWall || hasFlooring;
+
+  const hasTechnicalData = !!(project.technicalDetails && (hasTeam || hasMaterials || hasPalette));
+
   return (
     <div className="bg-white min-h-screen font-sans text-[#1a1a1a]">
       {/* 1. HERO SLIDER SECTION (5 Images) */}
@@ -141,7 +170,7 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
       </section>
 
       {/* 4. TECHNICAL SPECIFICATIONS & CREDITS (Minimalist Technical Sheet) */}
-      {project.technicalDetails && (
+      {hasTechnicalData && (
         <section className="bg-white pt-10 pb-16 md:pb-32 px-6 md:px-12 font-poppins">
           <div className="max-w-6xl mx-auto">
             
@@ -152,60 +181,76 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
 
             <div className="space-y-20">
                {/* 01 / DOCUMENTATION & CONTRIBUTORS */}
-               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-                  <div className="lg:col-span-4">
-                     <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">01 / Project team</span>
-                  </div>
-                  <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
-                     {[...(project.technicalDetails?.photoCredits || []).map((p: any) => ({ ...p, label: `Photo / ${p.label}` })), ...(project.technicalDetails?.contributors || [])].map((c: any, idx: number) => (
-                       <div key={idx} className="flex flex-col gap-2 transition-transform hover:translate-x-1">
-                         <span className="text-xs font-bold text-[#72777f] tracking-widest">{c.label}</span>
-                         <span className="text-base font-bold text-[#181c23] tracking-tight leading-tight">{c.value}</span>
-                       </div>
-                     ))}
-                  </div>
-               </div>
+               {hasTeam && (
+                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+                    <div className="lg:col-span-4">
+                       <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">01 / Project team</span>
+                    </div>
+                    <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
+                       {[...(project.technicalDetails?.photoCredits || []).map((p: any) => ({ ...p, label: `Photo / ${p.label}` })), ...(project.technicalDetails?.contributors || [])]
+                         .filter((c: any) => c.label?.trim() !== "" || c.value?.trim() !== "")
+                         .map((c: any, idx: number) => (
+                           <div key={idx} className="flex flex-col gap-2 transition-transform hover:translate-x-1">
+                             <span className="text-xs font-bold text-[#72777f] tracking-widest">{c.label}</span>
+                             <span className="text-base font-bold text-[#181c23] tracking-tight leading-tight">{c.value}</span>
+                           </div>
+                         ))}
+                    </div>
+                 </div>
+               )}
 
                {/* 02 / MATERIAL APPLICATIONS */}
-               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-                  <div className="lg:col-span-4">
-                     <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">02 / Materials</span>
-                  </div>
-                  <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
-                     {project.technicalDetails.materials.map((m: any, idx: number) => (
-                       <div key={idx} className="flex flex-col gap-2 focus-within:translate-x-1 transition-transform">
-                         <span className="text-xs font-bold text-[#72777f] tracking-widest">{m.label}</span>
-                         <span className="text-base font-bold text-[#181c23] tracking-tight leading-tight">{m.value}</span>
-                       </div>
-                     ))}
-                  </div>
-               </div>
+               {hasMaterials && (
+                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+                    <div className="lg:col-span-4">
+                       <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">02 / Materials</span>
+                    </div>
+                    <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
+                       {(project.technicalDetails?.materials || [])
+                         .filter((m: any) => m.label?.trim() !== "" || m.value?.trim() !== "")
+                         .map((m: any, idx: number) => (
+                           <div key={idx} className="flex flex-col gap-2 focus-within:translate-x-1 transition-transform">
+                             <span className="text-xs font-bold text-[#72777f] tracking-widest">{m.label}</span>
+                             <span className="text-base font-bold text-[#181c23] tracking-tight leading-tight">{m.value}</span>
+                           </div>
+                         ))}
+                    </div>
+                 </div>
+               )}
 
                {/* 03 / VISUAL PALETTE */}
-               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-                  <div className="lg:col-span-4">
-                     <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">03 / Palette archive</span>
-                  </div>
-                  <div className="lg:col-span-8">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <PaletteItem 
-                           image={project.technicalDetails.finishes.facade.images[0]} 
-                           label="Facade Finish" 
-                           desc={project.technicalDetails.finishes.facade.desc} 
-                        />
-                        <PaletteItem 
-                           image={project.technicalDetails.finishes.wall.images[0]} 
-                           label="Wall Finish" 
-                           desc={project.technicalDetails.finishes.wall.desc} 
-                        />
-                        <PaletteItem 
-                           image={project.technicalDetails.finishes.flooring.images[0]} 
-                           label="Floor Finish" 
-                           desc={project.technicalDetails.finishes.flooring.desc} 
-                        />
-                      </div>
-                  </div>
-               </div>
+               {hasPalette && (
+                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+                    <div className="lg:col-span-4">
+                       <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">03 / Palette archive</span>
+                    </div>
+                    <div className="lg:col-span-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                          {hasFacade && (
+                            <PaletteItem 
+                               image={project.technicalDetails?.finishes?.facade?.images?.[0]} 
+                               label="Facade Finish" 
+                               desc={project.technicalDetails?.finishes?.facade?.desc} 
+                            />
+                          )}
+                          {hasWall && (
+                            <PaletteItem 
+                               image={project.technicalDetails?.finishes?.wall?.images?.[0]} 
+                               label="Wall Finish" 
+                               desc={project.technicalDetails?.finishes?.wall?.desc} 
+                            />
+                          )}
+                          {hasFlooring && (
+                            <PaletteItem 
+                               image={project.technicalDetails?.finishes?.flooring?.images?.[0]} 
+                               label="Floor Finish" 
+                               desc={project.technicalDetails?.finishes?.flooring?.desc} 
+                            />
+                          )}
+                        </div>
+                    </div>
+                 </div>
+               )}
             </div>
 
           </div>
