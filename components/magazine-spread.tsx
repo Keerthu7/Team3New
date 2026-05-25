@@ -27,7 +27,7 @@ export default function MagazineSpread({
                 {heroElement}
               </div>
            ) : (
-              <LoadingImage src={blog.heroImage} alt="Hero" fill className="object-cover" priority sizes="(max-width: 1024px) 100vw, 55vw" />
+              <LoadingImage src={blog.heroImage} alt="Hero" fill className="object-cover" priority sizes="(max-width: 1024px) 100vw, 55vw" quality={95} />
            )}
 
            {/* Monograph Entry Overlay / Gradient Blend */}
@@ -54,7 +54,7 @@ export default function MagazineSpread({
                       {heroElement}
                    </div>
                 ) : (
-                   <LoadingImage src={blog.heroImage} alt="Hero" fill className="object-cover" priority sizes="100vw" />
+                   <LoadingImage src={blog.heroImage} alt="Hero" fill className="object-cover" priority sizes="100vw" quality={95} />
                 )}
              </div>
 
@@ -172,22 +172,22 @@ export default function MagazineSpread({
 
         {/* SPREAD 2: The Proposal & Functions */}
         <section className="w-full max-w-[1440px] bg-white shadow-[0_0_60px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row min-h-0 lg:min-h-[900px] overflow-hidden">
-           <div className="w-full lg:w-1/2 p-4 md:p-20 relative flex border-b lg:border-b-0 lg:border-r border-black/10">
-              <div className="relative w-full h-[300px] md:h-[400px] lg:h-full lg:min-h-[500px]">
-                <LoadingImage src={blog.spread2BigImage} alt="Spread 2" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-              </div>
-           </div>
-           <div className="w-full lg:w-1/2 p-4 md:p-24 relative flex flex-col">
-              <div className="flex-grow flex flex-col justify-center max-w-lg mb-12">
-                 <h2 className="text-2xl font-bold mb-6 text-[#000000] uppercase tracking-tight">The Proposal</h2>
-                 <p className="text-[15px] max-w-lg leading-relaxed opacity-80 mb-6 font-medium whitespace-pre-wrap text-justify">
-                    {blog.spread2Intro}
-                 </p>
-              </div>
-              <div className="relative w-full h-[250px] md:h-[300px] lg:h-[40%] grayscale hover:grayscale-0 transition-all duration-700">
-                 <LoadingImage src={blog.spread2SmallImage} alt="Detail" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 25vw" />
-              </div>
-           </div>
+            {/* Left Side: The Proposal Text and Small Image */}
+            <div className="w-full lg:w-1/2 p-4 md:p-24 relative flex flex-col border-b lg:border-b-0 lg:border-r border-black/10">
+               <div className="flex-grow flex flex-col justify-center max-w-lg mb-12">
+                  <h2 className="text-2xl font-bold mb-6 text-[#000000] uppercase tracking-tight">The Proposal</h2>
+                  <p className="text-[15px] max-w-lg leading-relaxed opacity-80 mb-6 font-medium whitespace-pre-wrap text-justify">
+                     {blog.spread2Intro}
+                  </p>
+               </div>
+               <div className="relative w-full h-[250px] md:h-[300px] lg:h-[40%] grayscale hover:grayscale-0 transition-all duration-700">
+                  <LoadingImage src={blog.spread2SmallImage} alt="Detail" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 25vw" quality={95} />
+               </div>
+            </div>
+            {/* Right Side: Big Image (Edge-to-Edge) */}
+            <div className="w-full lg:w-1/2 relative h-[300px] md:h-[400px] lg:h-auto">
+               <LoadingImage src={blog.spread2BigImage} alt="Spread 2" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
+            </div>
         </section>
 
         {/* NEW SPREAD 3: The Patient Journey (Expanded) */}
@@ -206,14 +206,14 @@ export default function MagazineSpread({
                  {/* Visual context image BELOW both paragraphs */}
                  <div className="pt-8 flex justify-start">
                     <div className="w-full md:w-[450px] aspect-[16/10] relative shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
-                       <LoadingImage src={blog.facadeDetailImage || blog.logisticsLeftImage} alt="Detail view" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                       <LoadingImage src={blog.facadeDetailImage || blog.logisticsLeftImage} alt="Detail view" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
                     </div>
                  </div>
               </div>
            </div>
            <div className="w-full lg:w-1/2 p-4 md:p-24 relative flex flex-col justify-between">
               <div className="relative w-full h-[300px] md:h-[400px] lg:h-[55%] mb-12 shadow-md">
-                 <LoadingImage src={blog.healingInteriorImage} alt="Healing Spaces" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                 <LoadingImage src={blog.healingInteriorImage} alt="Healing Spaces" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
               </div>
               <div className="p-8 border-l-4 border-black mb-auto mt-8">
                  <h3 className="text-lg font-bold text-[#000000] mb-4 uppercase">Architectural Wellness</h3>
@@ -226,25 +226,25 @@ export default function MagazineSpread({
 
         {/* SPREAD 4: Context & Smart Planning */}
         <section className="w-full max-w-[1440px] bg-white shadow-[0_0_60px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row min-h-0 lg:min-h-[900px] overflow-hidden">
-           <div className="w-full lg:w-1/2 p-8 md:p-24 relative flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-black/10 mb-8 lg:mb-0">
-              <div className="max-w-xl mx-auto mt-auto mb-16">
-                 <h2 className="text-2xl font-bold mb-6 text-[#000000] uppercase tracking-tight">{blog.logisticsTitle || "Complexity & Smart Planning"}</h2>
-                 <p className="text-[15px] leading-relaxed opacity-80 mb-6 font-medium whitespace-pre-wrap text-justify">
-                    {blog.logisticsParagraph1}
-                 </p>
-                 <p className="text-[15px] leading-relaxed opacity-80 mb-10 font-medium pb-10 border-b border-black/10 whitespace-pre-wrap text-justify">
-                    {blog.logisticsParagraph2}
-                 </p>
-              </div>
-              <div className="relative w-full h-[300px] md:h-[400px] lg:aspect-[4/3] shadow-sm max-w-md mx-auto mt-auto group overflow-hidden">
-                 <LoadingImage src={blog.logisticsLeftImage} alt="Context 1" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" sizes="(max-width: 1024px) 100vw, 50vw" />
-              </div>
-           </div>
-           <div className="w-full lg:w-1/2 p-4 md:p-20 relative flex">
-             <div className="relative w-full h-[400px] md:h-[500px] lg:h-full">
-                 <LoadingImage src={blog.logisticsRightImage} alt="Context 2" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-             </div>
-           </div>
+            {/* Left Side: Big Image (Edge-to-Edge) */}
+            <div className="w-full lg:w-1/2 relative h-[400px] md:h-[500px] lg:h-auto border-b lg:border-b-0 lg:border-r border-black/10">
+               <LoadingImage src={blog.logisticsRightImage} alt="Context 2" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
+            </div>
+            {/* Right Side: Context & Smart Planning Text and Small Image */}
+            <div className="w-full lg:w-1/2 p-8 md:p-24 relative flex flex-col justify-between mb-8 lg:mb-0">
+               <div className="max-w-xl mx-auto mt-auto mb-16">
+                  <h2 className="text-2xl font-bold mb-6 text-[#000000] uppercase tracking-tight">{blog.logisticsTitle || "Complexity & Smart Planning"}</h2>
+                  <p className="text-[15px] leading-relaxed opacity-80 mb-6 font-medium whitespace-pre-wrap text-justify">
+                     {blog.logisticsParagraph1}
+                  </p>
+                  <p className="text-[15px] leading-relaxed opacity-80 mb-10 font-medium pb-10 border-b border-black/10 whitespace-pre-wrap text-justify">
+                     {blog.logisticsParagraph2}
+                  </p>
+               </div>
+               <div className="relative w-full h-[300px] md:h-[400px] lg:aspect-[4/3] shadow-sm max-w-md mx-auto mt-auto group overflow-hidden">
+                  <LoadingImage src={blog.logisticsLeftImage} alt="Context 1" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
+               </div>
+            </div>
         </section>
 
         {/* NEW SPREAD 5: Urban Materiality & Visual Detail */}
@@ -255,12 +255,12 @@ export default function MagazineSpread({
                  {blog.materialityDescription}
               </p>
               <div className="relative w-full h-[300px] md:h-[400px] shadow-2xl">
-                 <LoadingImage src={blog.facadeDetailImage} alt="Materiality Detail" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                 <LoadingImage src={blog.facadeDetailImage} alt="Materiality Detail" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
               </div>
            </div>
            <div className="w-full lg:w-1/2 p-4 md:p-24 relative flex flex-col justify-between border-r border-black/10">
               <div className="relative w-full h-[300px] md:h-[400px] lg:h-[65%] mb-12">
-                 <LoadingImage src={blog.lobbyImage} alt="Lobby View" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                 <LoadingImage src={blog.lobbyImage} alt="Lobby View" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
               </div>
               <div className="max-w-md mt-8 mb-auto">
                  <h3 className="text-sm font-bold uppercase tracking-widest text-[#000000]/60 mb-4">Facade Narrative</h3>
@@ -281,13 +281,13 @@ export default function MagazineSpread({
                  </p>
               </div>
               <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px]">
-                 <LoadingImage src={blog.nocturnalNightImage} alt="Night View" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                 <LoadingImage src={blog.nocturnalNightImage} alt="Night View" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
               </div>
            </div>
 
            <div className="w-full lg:w-1/2 p-4 md:p-24 flex flex-col justify-between bg-[#fcfcfc]">
               <div className="relative w-full h-[250px] md:h-[300px] lg:h-[350px] mb-12 border border-black/5 shadow-sm">
-                 <LoadingImage src={blog.nocturnalDayImage} alt="Day View" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                 <LoadingImage src={blog.nocturnalDayImage} alt="Day View" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
               </div>
               <div className="border-t-4 border-black pt-10 mb-auto mt-8 max-w-lg">
                  <h2 className="text-xl font-bold mb-6 text-[#000000] uppercase tracking-tight">Strategic Planning</h2>
@@ -311,13 +311,13 @@ export default function MagazineSpread({
                  </p>
               </div>
                  <div className="relative w-full h-[300px] md:h-[400px] lg:aspect-square bg-[#fafafa] flex items-center justify-center p-8">
-                 <LoadingImage src={blog.diagramBlueprintImage || "/images/placeholder.png"} alt="Blueprint" fill className="object-contain opacity-80 p-4" sizes="(max-width: 1024px) 100vw, 50vw" />
+                 <LoadingImage src={blog.diagramBlueprintImage || "/images/placeholder.png"} alt="Blueprint" fill className="object-contain opacity-80 p-4" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
               </div>
            </div>
 
            <div className="w-full lg:w-1/2 p-8 md:p-24 flex flex-col justify-between bg-[#fafafa]">
               <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] bg-white shadow-sm overflow-hidden group mb-12">
-                 <LoadingImage src={blog.conclusionImage} alt="Final Detail" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" sizes="(max-width: 1024px) 100vw, 50vw" />
+                 <LoadingImage src={blog.conclusionImage} alt="Final Detail" fill className="object-cover group-hover:scale-105 transition-transform duration-1000" sizes="(max-width: 1024px) 100vw, 50vw" quality={95} />
               </div>
               <div className="max-w-lg mt-auto">
                  <h2 className="text-xl font-bold mb-4 text-[#000000] uppercase tracking-tight">Architectural Identity</h2>
@@ -447,7 +447,7 @@ export default function MagazineSpread({
 
         {/* SPREAD 8: Conclusion */}
         <section className="w-full max-w-[1440px] shadow-[0_0_40px_rgba(0,0,0,0.1)] relative overflow-hidden flex items-end justify-end mb-12 md:mb-24 min-h-[350px] md:min-h-[600px] aspect-[16/9] lg:aspect-[21/9] border border-black/5">
-           <LoadingImage src={blog.conclusionImage} alt="Conclusion" fill className="object-cover object-center opacity-95" sizes="100vw" />
+           <LoadingImage src={blog.conclusionImage} alt="Conclusion" fill className="object-cover object-center opacity-95" sizes="100vw" quality={95} />
            <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-20 w-[90%] md:w-fit max-w-[420px] bg-[#fcfcfc]/95 backdrop-blur-md border-t-4 border-black p-6 text-justify shadow-2xl">
               <h2 className="text-base md:text-lg font-bold mb-4 text-[#000000] uppercase tracking-tight">{blog.conclusionTitle || "Final Vision"}</h2>
               <p className="text-[12px] leading-relaxed opacity-80 font-medium mb-3 whitespace-pre-wrap">{blog.conclusionP1}</p>

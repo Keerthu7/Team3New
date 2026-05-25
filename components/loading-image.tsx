@@ -9,30 +9,38 @@ interface LoadingImageProps extends ImageProps {
 }
 
 export function LoadingImage({ containerClassName, ...props }: LoadingImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
   const imageRef = React.useRef<HTMLImageElement>(null);
 
-  // Check if image is already cached/complete in the browser on mount
+  // Minimum duration to show the elegant Team3 logo loading animation (e.g. 800ms)
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setMinTimeElapsed(true);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Check if image is already complete in browser cache on mount
   React.useEffect(() => {
     if (imageRef.current) {
       if (imageRef.current.complete && imageRef.current.naturalWidth > 0) {
-        setIsLoaded(true);
+        setIsImageLoaded(true);
       }
     }
   }, []);
 
-  // Safety fallback timeout to ensure the image displays eventually
+  // Safety fallback timeout: if image takes > 6s, force display anyway
   React.useEffect(() => {
-    if (isLoaded) return;
+    if (isImageLoaded) return;
     const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 1000);
+      setIsImageLoaded(true);
+    }, 6000);
     return () => clearTimeout(timer);
-  }, [isLoaded]);
+  }, [isImageLoaded]);
 
-  // Priority (above-the-fold) LCP images bypass state delays & transitions completely
-  const isPriority = props.priority === true;
-  const showPlaceholder = !isLoaded && !isPriority;
+  // The placeholder is shown until BOTH the image is loaded (or cached) AND the minimum transition time has elapsed.
+  const showPlaceholder = !isImageLoaded || !minTimeElapsed;
 
   return (
     <div className={`relative overflow-hidden w-full h-full min-h-[150px] md:min-h-[200px] ${containerClassName || ""}`}>
@@ -56,13 +64,14 @@ export function LoadingImage({ containerClassName, ...props }: LoadingImageProps
               }}
               className="flex flex-col items-center gap-2"
             >
-              {/* Elegant micro-logo indicator */}
+              {/* Elegant Team3 Logo Indicator */}
               <div className="relative w-20 h-6 md:w-24 md:h-8">
                 <Image
                   src="/images/logo.png"
                   alt="Team3 Logo"
                   fill
                   className="object-contain grayscale brightness-90 dark:brightness-100"
+                  priority
                 />
               </div>
               {/* Subtle loading dots */}
@@ -92,7 +101,7 @@ export function LoadingImage({ containerClassName, ...props }: LoadingImageProps
       <Image
         ref={imageRef}
         {...props}
-        onLoad={() => setIsLoaded(true)}
+        onLoad={() => setIsImageLoaded(true)}
         className={`${props.className || ""} transition-opacity duration-300 ${
           showPlaceholder ? "opacity-0" : "opacity-100"
         }`}

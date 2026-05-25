@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { ProjectHeroSlider } from "./project-hero-slider";
 
 import { Project } from "@/lib/projects-data";
+import { LoadingImage } from "./loading-image";
 
 interface ProjectNormalLayoutProps {
   project: Project;
@@ -145,7 +146,7 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                   key={index} 
                   className={`relative overflow-hidden rounded-sm bg-white shadow-lg border border-neutral-100 group transition-all duration-500 hover:shadow-2xl ${spanClasses[span]} h-[300px] md:h-[400px] ${span === 12 ? 'h-[400px] md:h-[500px]' : ''}`}
                 >
-                  <Image
+                  <LoadingImage
                     src={img} 
                     alt={`${project.formalTitle} detail ${index + 1}`} 
                     fill 
@@ -291,7 +292,7 @@ function PaletteItem({ image, label, desc }: any) {
   return (
     <div className="space-y-4">
       <div className="relative aspect-[4/3] bg-neutral-50 rounded-sm overflow-hidden group border border-neutral-100 transition-all duration-700">
-        <Image
+        <LoadingImage
           priority={false}
           loading="lazy"
           src={image || "/images/placeholder.png"}
