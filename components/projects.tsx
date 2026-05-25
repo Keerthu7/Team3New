@@ -58,7 +58,7 @@ const projectData = [
   },
 ];
 
-import { LoadingImage } from "./loading-image";
+
 
 function ProjectItem({ project, index }: { project: typeof projectData[0], index: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -86,7 +86,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
           
           {/* Desktop Image */}
           <div className="hidden md:block absolute inset-0">
-            <LoadingImage
+            <Image
               src={project.image}
               alt={project.name}
               fill
@@ -98,7 +98,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
 
           {/* Mobile Image */}
           <div className="block md:hidden absolute inset-0">
-            <LoadingImage
+            <Image
               src={(project as any).mobileImage || project.image}
               alt={`${project.name} Mobile`}
               fill
@@ -152,7 +152,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
 
             {/* Inner Image - Rounded corners added (rounded-2xl) */}
             <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-white/50">
-              <LoadingImage 
+              <Image 
                 src={project.interiorImage} 
                 alt={project.name} 
                 fill 

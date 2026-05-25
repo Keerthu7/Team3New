@@ -42,10 +42,48 @@ export function LoadingImage({ containerClassName, ...props }: LoadingImageProps
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-10 bg-slate-100 animate-pulse flex items-center justify-center"
+            className="absolute inset-0 z-10 flex items-center justify-center bg-[#f8f9fa] dark:bg-[#181c23]"
           >
-            {/* Elegant, ultra-lightweight logo shape outline shimmer placeholder */}
-            <div className="w-12 h-12 bg-slate-200/50 rounded-full animate-pulse" />
+            <motion.div
+              animate={{
+                scale: [0.97, 1.03, 0.97],
+                opacity: [0.7, 1, 0.7],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="flex flex-col items-center gap-2"
+            >
+              {/* Elegant micro-logo indicator */}
+              <div className="relative w-20 h-6 md:w-24 md:h-8">
+                <Image
+                  src="/images/logo.png"
+                  alt="Team3 Logo"
+                  fill
+                  className="object-contain grayscale brightness-90 dark:brightness-100"
+                />
+              </div>
+              {/* Subtle loading dots */}
+              <div className="flex gap-1">
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    animate={{
+                      scale: [1, 1.4, 1],
+                      opacity: [0.3, 0.9, 0.3],
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      delay: i * 0.15,
+                    }}
+                    className="w-1 h-1 bg-[#28557F] rounded-full"
+                  />
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
