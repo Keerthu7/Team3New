@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion"; // Framer motion import panniruken
 
-import { LoadingImage } from "./loading-image";
+
 
 export function OurClients() {
   const logos = [
@@ -46,7 +46,7 @@ export function OurClients() {
                 key={`row1-${index}`} 
                 className="relative w-28 h-12 md:w-36 md:h-16 flex-shrink-0 group cursor-default"
               >
-                <LoadingImage 
+                <Image 
                   src={logo.src} 
                   alt={logo.name} 
                   fill
@@ -75,7 +75,7 @@ export function OurClients() {
                 key={`row2-${index}`} 
                 className="relative w-28 h-12 md:w-36 md:h-16 flex-shrink-0 group cursor-default"
               >
-                <LoadingImage 
+                <Image 
                   src={logo.src} 
                   alt={logo.name} 
                   fill

@@ -10,73 +10,53 @@ interface LoadingImageProps extends ImageProps {
 
 export function LoadingImage({ containerClassName, ...props }: LoadingImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const imageRef = React.useRef<HTMLImageElement>(null);
 
-  // Safety timeout to ensure image is shown even if onLoad doesn't fire
+  // Check if image is already cached/complete in the browser on mount
   React.useEffect(() => {
+    if (imageRef.current) {
+      if (imageRef.current.complete && imageRef.current.naturalWidth > 0) {
+        setIsLoaded(true);
+      }
+    }
+  }, []);
+
+  // Safety fallback timeout to ensure the image displays eventually
+  React.useEffect(() => {
+    if (isLoaded) return;
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 1500);
+    }, 1000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isLoaded]);
+
+  // Priority (above-the-fold) LCP images bypass state delays & transitions completely
+  const isPriority = props.priority === true;
+  const showPlaceholder = !isLoaded && !isPriority;
 
   return (
     <div className={`relative overflow-hidden w-full h-full min-h-[150px] md:min-h-[200px] ${containerClassName || ""}`}>
       {/* Loading Placeholder */}
       <AnimatePresence>
-        {!isLoaded && (
+        {showPlaceholder && (
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-10 flex items-center justify-center bg-[#f8f9fa]"
+            className="absolute inset-0 z-10 bg-slate-100 animate-pulse flex items-center justify-center"
           >
-            <motion.div
-              animate={{
-                scale: [0.9, 1.05, 0.9],
-                opacity: [0.4, 0.7, 0.4],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="flex flex-col items-center gap-3"
-            >
-              <div className="relative w-24 h-8 md:w-32 md:h-10">
-                <Image
-                  src="/images/logo.png"
-                  alt="Loading..."
-                  fill
-                  className="object-contain grayscale brightness-50"
-                />
-              </div>
-              <div className="flex gap-1.5">
-                {[0, 1, 2].map((i) => (
-                  <motion.div
-                    key={i}
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.3, 1, 0.3],
-                    }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      delay: i * 0.2,
-                    }}
-                    className="w-1 h-1 bg-[#28557F] rounded-full"
-                  />
-                ))}
-              </div>
-            </motion.div>
+            {/* Elegant, ultra-lightweight logo shape outline shimmer placeholder */}
+            <div className="w-12 h-12 bg-slate-200/50 rounded-full animate-pulse" />
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Actual Image */}
       <Image
+        ref={imageRef}
         {...props}
         onLoad={() => setIsLoaded(true)}
-        className={`${props.className || ""} transition-opacity duration-700 ${
-          isLoaded ? "opacity-100" : "opacity-0"
+        className={`${props.className || ""} transition-opacity duration-300 ${
+          showPlaceholder ? "opacity-0" : "opacity-100"
         }`}
       />
     </div>
