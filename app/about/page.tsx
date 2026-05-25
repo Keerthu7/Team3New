@@ -90,7 +90,6 @@ export default function Page() {
               <p className="text-base md:text-lg font-normal leading-relaxed tracking-wide">
                 Well into its 4th year, T3A has established itself as an upcoming design firm with expertise in a diverse array of building designs, from individual residences to master planning of Institutions. Our firm is a conscious collaboration of like-minded designers, technicians, and other experts who pool in their knowledge together to design environments that improve the quality of life.
               </p>
-             
             </motion.div>
           </div>
         </motion.div>
@@ -142,17 +141,19 @@ export default function Page() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-stretch gap-8 md:gap-16 lg:gap-24 group`}
+                // மாற்றம் 1: items-stretch ஐ items-center ஆக மாற்றியுள்ளேன்
+                className={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-16 lg:gap-24 group`}
               >
                 <div className="w-full md:w-[35%] flex-shrink-0">
-                  {/* Fixed h-[350px] md:h-full w-full applied here */}
-                  <div className="relative h-[350px] md:h-full w-full overflow-hidden shadow-[20px_20px_0_rgba(45,86,121,0.05)] transition-all duration-700 group-hover:shadow-[10px_10px_0_rgba(45,86,121,0.1)] rounded-sm">
+                  {/* மாற்றம் 2: md:h-full ஐ நீக்கிவிட்டு நிலையான உயரம் (md:h-[400px]) கொடுத்துள்ளேன் */}
+                  <div className="relative h-[350px] md:h-[400px] w-full overflow-hidden shadow-[20px_20px_0_rgba(45,86,121,0.05)] transition-all duration-700 group-hover:shadow-[10px_10px_0_rgba(45,86,121,0.1)] rounded-sm">
                     <Image priority
                       src={member.img}
                       alt={member.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 35vw, 400px"
-                      className="object-cover transition-transform duration-700 hover:scale-105"
+                      // மாற்றம் 3: object-cover ஐ object-contain ஆக மாற்றியுள்ளேன்
+                      className="object-contain transition-transform duration-700 hover:scale-105"
                     />
                   </div>
                 </div>
@@ -284,7 +285,6 @@ export default function Page() {
             ))}
           </motion.div>
 
-          {/* Centered Button from mockup */}
           <motion.div variants={fadeInUp} className="mt-16">
             <Link href="/blog" className="inline-flex drop-shadow-[0_8px_12px_rgba(0,0,0,0.15)] bg-[#28557F] text-white px-10 py-3 rounded-full text-lg font-medium hover:bg-[#1c3f60] transition-all hover:-translate-y-0.5">
               Know More
