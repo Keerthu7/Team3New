@@ -26,7 +26,7 @@ export function Hero() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % desktopImages.length);
-    }, 1000); // 1 second
+    }, 2000); // 2 seconds
     return () => clearInterval(timer);
   }, []);
 
