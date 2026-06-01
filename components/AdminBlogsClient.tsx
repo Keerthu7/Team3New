@@ -243,9 +243,8 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                                 <ImageUpload label="Desktop Grid Thumbnail" defaultImage={formData.thumbnail} dimensions="Desktop Card: 362 x 453 px" onUpload={(url) => setFormData((prev: any) => ({...prev, thumbnail: url}))} />
                                                 <ImageUpload label="Mobile Grid Thumbnail" defaultImage={formData.mobileThumbnail} dimensions="Mobile Card: 342 x 428 px" onUpload={(url) => setFormData((prev: any) => ({...prev, mobileThumbnail: url}))} />
                                             </div>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 col-span-1 md:col-span-2">
-                                                <ImageUpload label="Desktop Hero Magazine Image" defaultImage={formData.heroImage} dimensions="Desktop Hero: 750 x 700 px" onUpload={(url) => setFormData((prev: any) => ({...prev, heroImage: url}))} />
-                                                <ImageUpload label="Mobile Hero Magazine Image" defaultImage={formData.mobileHeroImage} dimensions="Mobile Hero: 390 x 300 px" onUpload={(url) => setFormData((prev: any) => ({...prev, mobileHeroImage: url}))} />
+                                            <div className="col-span-1 md:col-span-2">
+                                                <ImageUpload label="Hero Magazine Image" defaultImage={formData.heroImage} dimensions="Cover Header: 750 x 700 px" onUpload={(url) => setFormData((prev: any) => ({...prev, heroImage: url}))} />
                                             </div>
                                         </div>
                                     </div>

@@ -79,13 +79,13 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
 
   return (
     <div ref={containerRef} className="relative h-[250vh] md:h-[350vh] w-full bg-white">
-      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-[#0a0d14] md:bg-transparent">
         {/* Background Image Layer */}
         <motion.div style={{ scale: bgScale }} className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black/20 z-10" />
           
           {/* Desktop Image */}
           <div className="hidden md:block absolute inset-0">
+            <div className="absolute inset-0 bg-black/20 z-10" />
             <Image
               src={project.image}
               alt={project.name}
@@ -96,15 +96,16 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
             />
           </div>
 
-          {/* Mobile Image */}
-          <div className="block md:hidden absolute inset-0">
+          {/* Mobile Image with beautiful aspect-ratio framing */}
+          <div className="block md:hidden absolute top-24 left-6 right-6 aspect-[16/10] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10">
+            <div className="absolute inset-0 bg-black/10 z-10" />
             <Image
-              src={(project as any).mobileImage || project.image}
+              src={project.image}
               alt={`${project.name} Mobile`}
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority={index === 0}
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw"
             />
           </div>
         </motion.div>
@@ -112,9 +113,9 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
         {/* Stage 1: Branding Overlay */}
         <motion.div 
           style={{ opacity: stage1Opacity, y: stage1Y }}
-          className="absolute inset-0 flex flex-col justify-end p-8 md:p-12 z-20 pointer-events-none"
+          className="absolute inset-0 flex flex-col justify-end p-8 md:p-12 z-20 pointer-events-none pb-12 md:pb-12"
         >
-          <div className="max-w-2xl drop-shadow-xl">
+          <div className="max-w-2xl drop-shadow-xl mb-12 md:mb-0">
             <h3 className="text-3xl md:text-5xl font-semibold text-white uppercase tracking-tighter leading-[0.85] mb-4">
               {project.name}
             </h3>
@@ -129,11 +130,11 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
         {/* Stage 2: Detailed Card */}
         <motion.div 
           style={{ opacity: cardOpacity, scale: cardScale, y: cardY }}
-          className="absolute inset-0 flex items-start justify-end p-6 md:p-12 z-30 pointer-events-none"
+          className="absolute inset-0 flex items-end md:items-start justify-center md:justify-end p-6 md:p-12 z-30 pointer-events-none pb-12 md:pb-0"
         >
           {/* MATHUNA EDAM 1: Card Background Transparent & Rounded Corners */}
           {/* bg-white/30 backdrop-blur-xl rounded-3xl */}
-          <div className="bg-white/30 backdrop-blur-xl rounded-3xl p-5 md:p-6 max-w-sm w-full shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-white/40 pointer-events-auto flex flex-col gap-5 mt-24">
+          <div className="bg-white/30 backdrop-blur-xl rounded-3xl p-5 md:p-6 max-w-sm w-full shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-white/40 pointer-events-auto flex flex-col gap-5 md:mt-24">
             
             <div className="flex items-center justify-between">
               {/* Architecture Tag - Rounded pill shape */}
