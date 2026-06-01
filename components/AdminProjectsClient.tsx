@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { uploadImage } from "@/lib/image-utils";
 
 // Helper component for uploading images
-function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUpload: (url: string) => void, defaultImage?: string }) {
+function ImageUpload({ label, onUpload, defaultImage, dimensions }: { label: string, onUpload: (url: string) => void, defaultImage?: string, dimensions?: string }) {
     const [uploading, setUploading] = useState(false);
     const [preview, setPreview] = useState(defaultImage || "");
 
@@ -42,11 +42,21 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
                 {showLoading ? (
                     <Loader2 className="animate-spin text-[#28557F]" size={30} />
                 ) : preview ? (
-                    <img src={preview} alt="Preview" className="w-full h-full object-cover absolute inset-0 z-0" />
+                    <>
+                        <img src={preview} alt="Preview" className="w-full h-full object-cover absolute inset-0 z-0" />
+                        {dimensions && (
+                            <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded z-20">
+                                {dimensions}
+                            </div>
+                        )}
+                    </>
                 ) : (
                     <>
                         <ImageIcon size={32} className="text-[#a0cafb] mb-3" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#28557F]">Upload Image</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#28557F] text-center">Upload Image</span>
+                        {dimensions && (
+                            <span className="text-[9px] text-gray-400 mt-1 font-semibold text-center leading-tight max-w-[90%]">{dimensions}</span>
+                        )}
                     </>
                 )}
             </div>
@@ -58,7 +68,7 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
 
 const emptyProject = {
     title: "", formalTitle: "", category: "", filterType: "Residential", subtitle: "", 
-    image: "", gallery: [], location: "", year: "", area: "", scopeOfWork: "", overview: "", 
+    image: "", mobileImage: "", gallery: [], location: "", year: "", area: "", scopeOfWork: "", overview: "", 
     designTypes: [], galleryCaptions: [],
     technicalDetails: {
         finishes: {
@@ -355,7 +365,20 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                     <div>
                                         <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">2</span> Media & Gallery</h3>
                                         <div className="space-y-6">
-                                            <ImageUpload label="Main Thumbnail / Hero Image" defaultImage={formData.image} onUpload={(url) => setFormData((prev: any) => ({...prev, image: url}))} />
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <ImageUpload 
+                                                    label="Main Thumbnail / Hero Image (Desktop)" 
+                                                    defaultImage={formData.image} 
+                                                    dimensions="Desktop: 1440 x 900 px / List: 613 x 368 px"
+                                                    onUpload={(url) => setFormData((prev: any) => ({...prev, image: url}))} 
+                                                />
+                                                <ImageUpload 
+                                                    label="Main Thumbnail / Hero Image (Mobile)" 
+                                                    defaultImage={formData.mobileImage} 
+                                                    dimensions="Mobile: 390 x 844 px / List: 358 x 215 px"
+                                                    onUpload={(url) => setFormData((prev: any) => ({...prev, mobileImage: url}))} 
+                                                />
+                                            </div>
                                             <div className="space-y-2">
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f] flex justify-between">
                                                     Gallery Images
@@ -383,6 +406,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                                             <ImageUpload 
                                                                 label={`Image ${index + 1}`} 
                                                                 defaultImage={url} 
+                                                                dimensions="Full: 1216 x 500 px / Wide: 800 x 400 px / Half: 596 x 400 px"
                                                                 onUpload={(newUrl) => { 
                                                                     setFormData((prev: any) => { 
                                                                         const g = [...prev.gallery]; 
@@ -490,6 +514,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                                     <ImageUpload 
                                                         label="Facade Finish" 
                                                         defaultImage={formData.technicalDetails?.finishes?.facade?.images?.[0]} 
+                                                        dimensions="340 x 255 px (Aspect 4:3)"
                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, technicalDetails: {...prev.technicalDetails, finishes: {...prev.technicalDetails.finishes, facade: {...prev.technicalDetails.finishes.facade, images: [url]}}}}))} 
                                                     />
                                                     <input value={formData.technicalDetails?.finishes?.facade?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, facade: {...formData.technicalDetails.finishes.facade, desc: e.target.value}}}})} placeholder="Facade Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs font-medium" />
@@ -498,6 +523,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                                     <ImageUpload 
                                                         label="Wall Finish" 
                                                         defaultImage={formData.technicalDetails?.finishes?.wall?.images?.[0]} 
+                                                        dimensions="340 x 255 px (Aspect 4:3)"
                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, technicalDetails: {...prev.technicalDetails, finishes: {...prev.technicalDetails.finishes, wall: {...prev.technicalDetails.finishes.wall, images: [url]}}}}))} 
                                                     />
                                                     <input value={formData.technicalDetails?.finishes?.wall?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, wall: {...formData.technicalDetails.finishes.wall, desc: e.target.value}}}})} placeholder="Wall Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs font-medium" />
@@ -506,6 +532,7 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                                     <ImageUpload 
                                                         label="Floor Finish" 
                                                         defaultImage={formData.technicalDetails?.finishes?.flooring?.images?.[0]} 
+                                                        dimensions="340 x 255 px (Aspect 4:3)"
                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, technicalDetails: {...prev.technicalDetails, finishes: {...prev.technicalDetails.finishes, flooring: {...prev.technicalDetails.finishes.flooring, images: [url]}}}}))} 
                                                     />
                                                     <input value={formData.technicalDetails?.finishes?.flooring?.desc} onChange={e => setFormData({...formData, technicalDetails: {...formData.technicalDetails, finishes: {...formData.technicalDetails.finishes, flooring: {...formData.technicalDetails.finishes.flooring, desc: e.target.value}}}})} placeholder="Floor Description..." className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-11 px-4 text-xs font-medium" />

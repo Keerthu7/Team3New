@@ -9,6 +9,7 @@ export interface IProject extends Document {
   filterType: string;
   subtitle: string;
   image: string;
+  mobileImage?: string;
   gallery: string[];
   location: string;
   year: string;
@@ -39,6 +40,7 @@ const ProjectSchema: Schema = new Schema({
   filterType: { type: String, required: true },
   subtitle: { type: String, required: true },
   image: { type: String, required: true },
+  mobileImage: { type: String },
   gallery: [{ type: String }],
   location: { type: String, required: true },
   year: { type: String, required: true },
@@ -61,4 +63,4 @@ const ProjectSchema: Schema = new Schema({
 });
 
 // Check if the model exists before compiling it to prevent OverwriteModelError in Next.js
-export default mongoose.models.Project || mongoose.model<IProject>('Project', ProjectSchema);
+export default mongoose.models.Project || mongoose.model<IProject>('Project', ProjectSchema, 'Projects');
