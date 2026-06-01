@@ -90,4 +90,4 @@ const BlogSchema: Schema = new Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-export default mongoose.models.Blog || mongoose.model<IBlog>('Blog', BlogSchema, 'Blogs');
+export default mongoose.models.Blog || mongoose.model<IBlog>('Blog', BlogSchema);

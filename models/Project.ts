@@ -63,4 +63,4 @@ const ProjectSchema: Schema = new Schema({
 });
 
 // Check if the model exists before compiling it to prevent OverwriteModelError in Next.js
-export default mongoose.models.Project || mongoose.model<IProject>('Project', ProjectSchema, 'Projects');
+export default mongoose.models.Project || mongoose.model<IProject>('Project', ProjectSchema);
