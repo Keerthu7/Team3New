@@ -90,16 +90,31 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
               href={`/projects/${project.slug || project._id || project.id}`}
               className="relative group overflow-hidden shadow-sm cursor-pointer block w-full max-w-[613.43px] h-auto aspect-[613.43/367.91] md:h-[367.91px] rounded-[14.75px]"
             >
-              {/* Background Image - Optimized with next/image */}
-              <Image
-                src={isError ? "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" : project.image}
-                alt={project.title}
-                fill
-                priority={index < 4} // Load first 4 images immediately
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 613px"
-                onError={() => handleImageError(projectId)}
-              />
+              {/* Desktop Background Image */}
+              <div className="hidden md:block absolute inset-0">
+                <Image
+                  src={isError ? "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" : project.image}
+                  alt={project.title}
+                  fill
+                  priority={index < 4}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 613px"
+                  onError={() => handleImageError(projectId)}
+                />
+              </div>
+
+              {/* Mobile Background Image */}
+              <div className="block md:hidden absolute inset-0">
+                <Image
+                  src={isError ? "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" : (project.mobileImage || project.image)}
+                  alt={`${project.title} Mobile`}
+                  fill
+                  priority={index < 4}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="100vw"
+                  onError={() => handleImageError(projectId)}
+                />
+              </div>
 
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
