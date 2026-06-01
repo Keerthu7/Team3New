@@ -8,9 +8,12 @@ export interface IProject extends Document {
   category: string;
   filterType: string;
   subtitle: string;
-  image: string;
-  mobileImage?: string;
-  gallery: string[];
+  image: string; // Desktop Thumbnail
+  desktopHeroImage?: string; // Desktop Hero Image
+  mobileImage?: string; // Mobile Thumbnail
+  mobileHeroImage?: string; // Mobile Hero Image
+  gallery: string[]; // Desktop Gallery
+  mobileGallery?: string[]; // Mobile Gallery
   location: string;
   year: string;
   area: string;
@@ -27,7 +30,8 @@ export interface IProject extends Document {
     contributors: { label: string; value: string }[];
     photoCredits: { label: string; value: string }[];
   };
-  galleryCaptions: string[];
+  galleryCaptions: string[]; // Desktop Gallery Captions
+  mobileGalleryCaptions?: string[]; // Mobile Gallery Captions
   createdAt: Date;
 }
 
@@ -39,9 +43,12 @@ const ProjectSchema: Schema = new Schema({
   category: { type: String, required: true },
   filterType: { type: String, required: true },
   subtitle: { type: String, required: true },
-  image: { type: String, required: true },
-  mobileImage: { type: String },
-  gallery: [{ type: String }],
+  image: { type: String, required: true }, // Desktop Thumbnail
+  desktopHeroImage: { type: String }, // Desktop Hero Image
+  mobileImage: { type: String }, // Mobile Thumbnail
+  mobileHeroImage: { type: String }, // Mobile Hero Image
+  gallery: [{ type: String }], // Desktop Gallery
+  mobileGallery: [{ type: String }], // Mobile Gallery
   location: { type: String, required: true },
   year: { type: String, required: true },
   area: { type: String, required: true },
@@ -58,7 +65,8 @@ const ProjectSchema: Schema = new Schema({
     contributors: [{ label: String, value: String }],
     photoCredits: [{ label: String, value: String }]
   },
-  galleryCaptions: [{ type: String }],
+  galleryCaptions: [{ type: String }], // Desktop Gallery Captions
+  mobileGalleryCaptions: [{ type: String }], // Mobile Gallery Captions
   createdAt: { type: Date, default: Date.now }
 });
 

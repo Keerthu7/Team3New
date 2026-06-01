@@ -49,7 +49,15 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
     <div className="bg-white min-h-screen font-sans text-[#1a1a1a]">
       {/* 1. HERO SLIDER SECTION (5 Images) */}
       <section className="relative w-full h-[70vh] md:h-[85vh] overflow-hidden bg-neutral-900">
-        <ProjectHeroSlider images={project.gallery.slice(0, 5)} />
+        {/* Desktop Slider */}
+        <div className="hidden md:block w-full h-full">
+          <ProjectHeroSlider images={(project.desktopHeroImage ? [project.desktopHeroImage, ...project.gallery.slice(0, 4)] : project.gallery.slice(0, 5))} />
+        </div>
+
+        {/* Mobile Slider */}
+        <div className="block md:hidden w-full h-full">
+          <ProjectHeroSlider images={(project.mobileHeroImage ? [project.mobileHeroImage, ...(project.mobileGallery || project.gallery).slice(0, 4)] : (project.mobileGallery || project.gallery).slice(0, 5))} />
+        </div>
         
         {/* Floating Back Button */}
         <button 

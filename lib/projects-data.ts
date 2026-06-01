@@ -7,7 +7,11 @@ export interface Project {
   filterType: string;
   subtitle: string;
   image: string;
+  desktopHeroImage?: string;
+  mobileImage?: string;
+  mobileHeroImage?: string;
   gallery: string[];
+  mobileGallery?: string[];
   location: string;
   year: string;
   area: string;
@@ -25,6 +29,7 @@ export interface Project {
     photoCredits: { label: string; value: string }[];
   };
   galleryCaptions: string[];
+  mobileGalleryCaptions?: string[];
 }
 
 export const projects: Project[] = [

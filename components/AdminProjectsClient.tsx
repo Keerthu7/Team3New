@@ -68,8 +68,9 @@ function ImageUpload({ label, onUpload, defaultImage, dimensions }: { label: str
 
 const emptyProject = {
     title: "", formalTitle: "", category: "", filterType: "Residential", subtitle: "", 
-    image: "", mobileImage: "", gallery: [], location: "", year: "", area: "", scopeOfWork: "", overview: "", 
-    designTypes: [], galleryCaptions: [],
+    image: "", desktopHeroImage: "", mobileImage: "", mobileHeroImage: "", 
+    gallery: [], mobileGallery: [], location: "", year: "", area: "", scopeOfWork: "", overview: "", 
+    designTypes: [], galleryCaptions: [], mobileGalleryCaptions: [],
     technicalDetails: {
         finishes: {
             facade: { desc: "", images: [] },
@@ -182,6 +183,56 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                             currentCaptions.splice(targetIndex, 1);
                         }
                         return { ...prev, gallery: currentGallery, galleryCaptions: currentCaptions };
+                    });
+                });
+        });
+    };
+
+    const handleMobileBulkFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files) return;
+        const fileArray = Array.from(files);
+        if (fileArray.length === 0) return;
+
+        const tempIds = fileArray.map(() => `uploading_${Math.random().toString(36).substring(7)}`);
+
+        setFormData((prev: any) => {
+            const currentGallery = [...(prev.mobileGallery || [])];
+            const currentCaptions = [...(prev.mobileGalleryCaptions || [])];
+            currentGallery.push(...tempIds);
+            currentCaptions.push(...new Array(tempIds.length).fill(""));
+            return {
+                ...prev,
+                mobileGallery: currentGallery,
+                mobileGalleryCaptions: currentCaptions
+            };
+        });
+
+        fileArray.forEach((file, idx) => {
+            const tempId = tempIds[idx];
+            uploadImage(file)
+                .then(uploadedUrl => {
+                    setFormData((prev: any) => {
+                        const currentGallery = [...(prev.mobileGallery || [])];
+                        const targetIndex = currentGallery.indexOf(tempId);
+                        if (targetIndex !== -1) {
+                            currentGallery[targetIndex] = uploadedUrl;
+                        }
+                        return { ...prev, mobileGallery: currentGallery };
+                    });
+                })
+                .catch(error => {
+                    console.error("Upload failed for mobile file:", file.name, error);
+                    alert(`Failed to upload ${file.name}: ${error.message}`);
+                    setFormData((prev: any) => {
+                        const currentGallery = [...(prev.mobileGallery || [])];
+                        const currentCaptions = [...(prev.mobileGalleryCaptions || [])];
+                        const targetIndex = currentGallery.indexOf(tempId);
+                        if (targetIndex !== -1) {
+                            currentGallery.splice(targetIndex, 1);
+                            currentCaptions.splice(targetIndex, 1);
+                        }
+                        return { ...prev, mobileGallery: currentGallery, mobileGalleryCaptions: currentCaptions };
                     });
                 });
         });
@@ -363,91 +414,200 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
                                         </div>
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">2</span> Media & Gallery</h3>
-                                        <div className="space-y-6">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                <ImageUpload 
-                                                    label="Main Thumbnail / Hero Image (Desktop)" 
-                                                    defaultImage={formData.image} 
-                                                    dimensions="Desktop: 1440 x 900 px / List: 613 x 368 px"
-                                                    onUpload={(url) => setFormData((prev: any) => ({...prev, image: url}))} 
-                                                />
-                                                <ImageUpload 
-                                                    label="Main Thumbnail / Hero Image (Mobile)" 
-                                                    defaultImage={formData.mobileImage} 
-                                                    dimensions="Mobile: 390 x 844 px / List: 358 x 215 px"
-                                                    onUpload={(url) => setFormData((prev: any) => ({...prev, mobileImage: url}))} 
-                                                />
-                                            </div>
-                                            <div className="space-y-2">
-                                                <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f] flex justify-between">
-                                                    Gallery Images
-                                                    <div className="relative">
-                                                        <button 
-                                                            type="button" 
-                                                            onClick={() => document.getElementById('gallery-bulk-file-input')?.click()} 
-                                                            className="text-[#28557F] flex items-center font-bold text-xs"
-                                                        >
-                                                            <Plus size={12} className="mr-1"/> Add Image
-                                                        </button>
-                                                        <input
-                                                            id="gallery-bulk-file-input"
-                                                            type="file"
-                                                            multiple
-                                                            accept="image/*"
-                                                            onChange={handleBulkFiles}
-                                                            className="hidden"
-                                                        />
-                                                    </div>
-                                                </label>
-                                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                                    {(formData.gallery || []).map((url: string, index: number) => (
-                                                        <div key={index} className="relative group space-y-2">
-                                                            <ImageUpload 
-                                                                label={`Image ${index + 1}`} 
-                                                                defaultImage={url} 
-                                                                dimensions="Full: 1216 x 500 px / Wide: 800 x 400 px / Half: 596 x 400 px"
-                                                                onUpload={(newUrl) => { 
-                                                                    setFormData((prev: any) => { 
-                                                                        const g = [...prev.gallery]; 
-                                                                        g[index] = newUrl; 
-                                                                        return {...prev, gallery: g}; 
-                                                                    }); 
-                                                                }} 
-                                                            />
-                                                            <input 
-                                                                value={formData.galleryCaptions?.[index] || ""} 
-                                                                onChange={(e) => { 
-                                                                    setFormData((prev: any) => {
-                                                                        const c = [...(prev.galleryCaptions || [])]; 
-                                                                        while(c.length <= index) c.push(""); 
-                                                                        c[index] = e.target.value; 
-                                                                        return { ...prev, galleryCaptions: c };
-                                                                    });
-                                                                }} 
-                                                                placeholder="Caption" 
-                                                                className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-9 px-3 text-[10px] focus:border-[#28557F] outline-none" 
-                                                            />
-                                                            <button 
-                                                                type="button" 
-                                                                onClick={() => { 
-                                                                    setFormData((prev: any) => {
-                                                                        const g = [...prev.gallery]; 
-                                                                        g.splice(index, 1); 
-                                                                        const c = [...(prev.galleryCaptions || [])]; 
-                                                                        c.splice(index, 1); 
-                                                                        return { ...prev, gallery: g, galleryCaptions: c };
-                                                                    });
-                                                                }} 
-                                                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-lg z-20"
-                                                            >
-                                                                <X size={12} />
-                                                            </button>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div>
+                                         <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">2</span> Media & Gallery</h3>
+                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                                             
+                                             {/* LEFT COLUMN: DESKTOP MEDIA */}
+                                             <div className="space-y-6 border-r border-[#dfe2ed] pr-0 lg:pr-10">
+                                                 <h4 className="text-xs font-bold text-[#28557F] uppercase tracking-widest border-b border-[#dfe2ed]/50 pb-2">💻 Desktop Media</h4>
+                                                 
+                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                     <ImageUpload 
+                                                         label="Desktop Thumbnail Image" 
+                                                         defaultImage={formData.image} 
+                                                         dimensions="List Card: 613 x 368 px"
+                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, image: url}))} 
+                                                     />
+                                                     <ImageUpload 
+                                                         label="Desktop Hero Slider / Main Image" 
+                                                         defaultImage={formData.desktopHeroImage} 
+                                                         dimensions="Cover Hero: 1440 x 900 px"
+                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, desktopHeroImage: url}))} 
+                                                     />
+                                                 </div>
+
+                                                 <div className="space-y-3">
+                                                     <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f] flex justify-between items-center">
+                                                         Desktop Gallery Slider Images
+                                                         <div className="relative">
+                                                             <button 
+                                                                 type="button" 
+                                                                 onClick={() => document.getElementById('gallery-bulk-file-input')?.click()} 
+                                                                 className="text-[#28557F] hover:text-[#1d3d5d] flex items-center font-bold text-xs bg-[#f0f3fe] py-1 px-3 rounded-lg border border-[#a0cafb]/50"
+                                                             >
+                                                                 <Plus size={12} className="mr-1"/> Add Image
+                                                             </button>
+                                                             <input
+                                                                 id="gallery-bulk-file-input"
+                                                                 type="file"
+                                                                 multiple
+                                                                 accept="image/*"
+                                                                 onChange={handleBulkFiles}
+                                                                 className="hidden"
+                                                             />
+                                                         </div>
+                                                     </label>
+
+                                                     <div className="grid grid-cols-2 gap-4 max-h-[300px] overflow-y-auto p-1 border rounded-2xl bg-neutral-50/50">
+                                                         {(formData.gallery || []).length === 0 ? (
+                                                             <div className="col-span-2 text-center py-8 text-[11px] font-bold uppercase tracking-wider text-gray-400">No desktop gallery images yet</div>
+                                                         ) : (
+                                                             (formData.gallery || []).map((url: string, index: number) => (
+                                                                 <div key={index} className="relative group space-y-2 bg-white p-2.5 rounded-xl border border-gray-100 shadow-sm">
+                                                                     <ImageUpload 
+                                                                         label={`Desktop Image ${index + 1}`} 
+                                                                         defaultImage={url} 
+                                                                         dimensions="Full: 1216 x 500 px / Half: 596 x 400 px"
+                                                                         onUpload={(newUrl) => { 
+                                                                             setFormData((prev: any) => { 
+                                                                                 const g = [...prev.gallery]; 
+                                                                                 g[index] = newUrl; 
+                                                                                 return {...prev, gallery: g}; 
+                                                                             }); 
+                                                                         }} 
+                                                                     />
+                                                                     <input 
+                                                                         value={formData.galleryCaptions?.[index] || ""} 
+                                                                         onChange={(e) => { 
+                                                                             setFormData((prev: any) => {
+                                                                                 const c = [...(prev.galleryCaptions || [])]; 
+                                                                                 while(c.length <= index) c.push(""); 
+                                                                                 c[index] = e.target.value; 
+                                                                                 return { ...prev, galleryCaptions: c };
+                                                                             });
+                                                                         }} 
+                                                                         placeholder="Enter Caption" 
+                                                                         className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-9 px-3 text-[10px] focus:border-[#28557F] outline-none" 
+                                                                     />
+                                                                     <button 
+                                                                         type="button" 
+                                                                         onClick={() => { 
+                                                                             setFormData((prev: any) => {
+                                                                                 const g = [...prev.gallery]; 
+                                                                                 g.splice(index, 1); 
+                                                                                 const c = [...(prev.galleryCaptions || [])]; 
+                                                                                 c.splice(index, 1); 
+                                                                                 return { ...prev, gallery: g, galleryCaptions: c };
+                                                                             });
+                                                                         }} 
+                                                                         className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-lg z-20"
+                                                                     >
+                                                                         <X size={12} />
+                                                                     </button>
+                                                                 </div>
+                                                             ))
+                                                         )}
+                                                     </div>
+                                                 </div>
+                                             </div>
+
+                                             {/* RIGHT COLUMN: MOBILE MEDIA */}
+                                             <div className="space-y-6">
+                                                 <h4 className="text-xs font-bold text-[#28557F] uppercase tracking-widest border-b border-[#dfe2ed]/50 pb-2">📱 Mobile Media</h4>
+                                                 
+                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                     <ImageUpload 
+                                                         label="Mobile Thumbnail Image" 
+                                                         defaultImage={formData.mobileImage} 
+                                                         dimensions="List Card: 358 x 215 px"
+                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, mobileImage: url}))} 
+                                                     />
+                                                     <ImageUpload 
+                                                         label="Mobile Hero Slider / Main Image" 
+                                                         defaultImage={formData.mobileHeroImage} 
+                                                         dimensions="Cover Hero: 390 x 844 px"
+                                                         onUpload={(url) => setFormData((prev: any) => ({...prev, mobileHeroImage: url}))} 
+                                                     />
+                                                 </div>
+
+                                                 <div className="space-y-3">
+                                                     <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f] flex justify-between items-center">
+                                                         Mobile Gallery Slider Images
+                                                         <div className="relative">
+                                                             <button 
+                                                                 type="button" 
+                                                                 onClick={() => document.getElementById('mobile-gallery-bulk-file-input')?.click()} 
+                                                                 className="text-[#28557F] hover:text-[#1d3d5d] flex items-center font-bold text-xs bg-[#f0f3fe] py-1 px-3 rounded-lg border border-[#a0cafb]/50"
+                                                             >
+                                                                 <Plus size={12} className="mr-1"/> Add Image
+                                                             </button>
+                                                             <input
+                                                                 id="mobile-gallery-bulk-file-input"
+                                                                 type="file"
+                                                                 multiple
+                                                                 accept="image/*"
+                                                                 onChange={handleMobileBulkFiles}
+                                                                 className="hidden"
+                                                             />
+                                                         </div>
+                                                     </label>
+
+                                                     <div className="grid grid-cols-2 gap-4 max-h-[300px] overflow-y-auto p-1 border rounded-2xl bg-neutral-50/50">
+                                                         {(formData.mobileGallery || []).length === 0 ? (
+                                                             <div className="col-span-2 text-center py-8 text-[11px] font-bold uppercase tracking-wider text-gray-400">No mobile gallery images yet</div>
+                                                         ) : (
+                                                             (formData.mobileGallery || []).map((url: string, index: number) => (
+                                                                 <div key={index} className="relative group space-y-2 bg-white p-2.5 rounded-xl border border-gray-100 shadow-sm">
+                                                                     <ImageUpload 
+                                                                         label={`Mobile Image ${index + 1}`} 
+                                                                         defaultImage={url} 
+                                                                         dimensions="Full: 358 x 400 px / Wide: 390 x 300 px"
+                                                                         onUpload={(newUrl) => { 
+                                                                             setFormData((prev: any) => { 
+                                                                                 const g = [...prev.mobileGallery]; 
+                                                                                 g[index] = newUrl; 
+                                                                                 return {...prev, mobileGallery: g}; 
+                                                                             }); 
+                                                                         }} 
+                                                                     />
+                                                                     <input 
+                                                                         value={formData.mobileGalleryCaptions?.[index] || ""} 
+                                                                         onChange={(e) => { 
+                                                                             setFormData((prev: any) => {
+                                                                                 const c = [...(prev.mobileGalleryCaptions || [])]; 
+                                                                                 while(c.length <= index) c.push(""); 
+                                                                                 c[index] = e.target.value; 
+                                                                                 return { ...prev, mobileGalleryCaptions: c };
+                                                                             });
+                                                                         }} 
+                                                                         placeholder="Enter Caption" 
+                                                                         className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-lg h-9 px-3 text-[10px] focus:border-[#28557F] outline-none" 
+                                                                     />
+                                                                     <button 
+                                                                         type="button" 
+                                                                         onClick={() => { 
+                                                                             setFormData((prev: any) => {
+                                                                                 const g = [...prev.mobileGallery]; 
+                                                                                 g.splice(index, 1); 
+                                                                                 const c = [...(prev.mobileGalleryCaptions || [])]; 
+                                                                                 c.splice(index, 1); 
+                                                                                 return { ...prev, mobileGallery: g, mobileGalleryCaptions: c };
+                                                                             });
+                                                                         }} 
+                                                                         className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-lg z-20"
+                                                                     >
+                                                                         <X size={12} />
+                                                                     </button>
+                                                                 </div>
+                                                             ))
+                                                         )}
+                                                     </div>
+                                                 </div>
+                                             </div>
+
+                                         </div>
+                                     </div>
                                     </div>
 
                                     {/* Section 3: Technical Details */}
