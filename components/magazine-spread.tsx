@@ -27,7 +27,16 @@ export default function MagazineSpread({
                 {heroElement}
               </div>
            ) : (
-              <LoadingImage src={blog.heroImage} alt="Hero" fill className="object-cover" priority sizes="(max-width: 1024px) 100vw, 55vw" quality={95} />
+              <>
+                {/* Desktop Hero Image */}
+                <div className="hidden md:block absolute inset-0">
+                  <LoadingImage src={blog.heroImage} alt="Hero" fill className="object-cover" priority sizes="(max-width: 1024px) 100vw, 55vw" quality={95} />
+                </div>
+                {/* Mobile Hero Image */}
+                <div className="block md:hidden absolute inset-0">
+                  <LoadingImage src={blog.mobileHeroImage || blog.heroImage} alt="Hero Mobile" fill className="object-cover" priority sizes="100vw" quality={95} />
+                </div>
+              </>
            )}
 
            {/* Monograph Entry Overlay / Gradient Blend */}
@@ -54,7 +63,16 @@ export default function MagazineSpread({
                       {heroElement}
                    </div>
                 ) : (
-                   <LoadingImage src={blog.heroImage} alt="Hero" fill className="object-cover" priority sizes="100vw" quality={95} />
+                   <>
+                      {/* Desktop Hero Image */}
+                      <div className="hidden md:block absolute inset-0">
+                         <LoadingImage src={blog.heroImage} alt="Hero" fill className="object-cover" priority sizes="100vw" quality={95} />
+                      </div>
+                      {/* Mobile Hero Image */}
+                      <div className="block md:hidden absolute inset-0">
+                         <LoadingImage src={blog.mobileHeroImage || blog.heroImage} alt="Hero Mobile" fill className="object-cover" priority sizes="100vw" quality={95} />
+                      </div>
+                   </>
                 )}
              </div>
 

@@ -50,14 +50,28 @@ export default async function BlogPage() {
               className="group flex flex-col bg-white rounded-lg overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
             >
               <div className="relative aspect-[4/5] overflow-hidden">
-                <Image 
-                  src={blog.thumbnail || blog.heroImage} 
-                  alt={blog.title}
-                  fill
-                  priority={index < 3} // Optimize first few blog posts
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
-                />
+                {/* Desktop Thumbnail */}
+                <div className="hidden md:block absolute inset-0">
+                  <Image 
+                    src={blog.thumbnail || blog.heroImage} 
+                    alt={blog.title}
+                    fill
+                    priority={index < 3} // Optimize first few blog posts
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 1200px) 33vw, 400px"
+                  />
+                </div>
+                {/* Mobile Thumbnail */}
+                <div className="block md:hidden absolute inset-0">
+                  <Image 
+                    src={blog.mobileThumbnail || blog.thumbnail || blog.heroImage} 
+                    alt={`${blog.title} Mobile`}
+                    fill
+                    priority={index < 3} // Optimize first few blog posts
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="100vw"
+                  />
+                </div>
               </div>
               <div className="p-6 md:p-8 flex flex-col items-start">
                 <h3 className="text-[16px] md:text-[18px] font-bold text-[#28557F] uppercase tracking-wider mb-2">

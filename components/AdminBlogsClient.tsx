@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { uploadImage } from "@/lib/image-utils";
 
 // Helper component for uploading images
-function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUpload: (url: string) => void, defaultImage?: string }) {
+function ImageUpload({ label, onUpload, defaultImage, dimensions }: { label: string, onUpload: (url: string) => void, defaultImage?: string, dimensions?: string }) {
     const [uploading, setUploading] = useState(false);
     const [preview, setPreview] = useState(defaultImage || "");
 
@@ -37,11 +37,21 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
                 {uploading ? (
                     <Loader2 className="animate-spin text-[#28557F]" size={30} />
                 ) : preview ? (
-                    <img src={preview} alt="Preview" className="w-full h-full object-cover absolute inset-0 z-0" />
+                    <>
+                        <img src={preview} alt="Preview" className="w-full h-full object-cover absolute inset-0 z-0" />
+                        {dimensions && (
+                            <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded z-20">
+                                {dimensions}
+                            </div>
+                        )}
+                    </>
                 ) : (
                     <>
                         <ImageIcon size={32} className="text-[#a0cafb] mb-3" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#28557F]">Upload</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#28557F] text-center">Upload Image</span>
+                        {dimensions && (
+                            <span className="text-[9px] text-gray-400 mt-1 font-semibold text-center leading-tight max-w-[90%]">{dimensions}</span>
+                        )}
                     </>
                 )}
             </div>
@@ -50,7 +60,7 @@ function ImageUpload({ label, onUpload, defaultImage }: { label: string, onUploa
 }
 
 const emptyBlog = {
-  title: "", subtitle: "", thumbnail: "", heroImage: "", introDescription: "",
+  title: "", subtitle: "", thumbnail: "", mobileThumbnail: "", heroImage: "", mobileHeroImage: "", introDescription: "",
   projectDetails: { location: "", architect: "", area: "", completion: "", scope: "" },
   spread2BigImage: "", spread2Intro: "", spread2SmallImage: "",
   patientJourneyTitle: "", patientJourneyDesc1: "", patientJourneyDesc2: "", healingInteriorImage: "",
@@ -229,8 +239,14 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Introduction Paragraph</label>
                                                 <textarea value={formData.introDescription} onChange={e => setFormData({...formData, introDescription: e.target.value})} required rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 focus:outline-none focus:border-[#28557F] font-medium text-sm transition-colors" />
                                             </div>
-                                            <ImageUpload label="Grid Thumbnail" defaultImage={formData.thumbnail} onUpload={(url) => setFormData((prev: any) => ({...prev, thumbnail: url}))} />
-                                            <ImageUpload label="Hero Magazine Image" defaultImage={formData.heroImage} onUpload={(url) => setFormData((prev: any) => ({...prev, heroImage: url}))} />
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 col-span-1 md:col-span-2 border-t pt-4 mt-2">
+                                                <ImageUpload label="Desktop Grid Thumbnail" defaultImage={formData.thumbnail} dimensions="Desktop Card: 362 x 453 px" onUpload={(url) => setFormData((prev: any) => ({...prev, thumbnail: url}))} />
+                                                <ImageUpload label="Mobile Grid Thumbnail" defaultImage={formData.mobileThumbnail} dimensions="Mobile Card: 342 x 428 px" onUpload={(url) => setFormData((prev: any) => ({...prev, mobileThumbnail: url}))} />
+                                            </div>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 col-span-1 md:col-span-2">
+                                                <ImageUpload label="Desktop Hero Magazine Image" defaultImage={formData.heroImage} dimensions="Desktop Hero: 750 x 700 px" onUpload={(url) => setFormData((prev: any) => ({...prev, heroImage: url}))} />
+                                                <ImageUpload label="Mobile Hero Magazine Image" defaultImage={formData.mobileHeroImage} dimensions="Mobile Hero: 390 x 300 px" onUpload={(url) => setFormData((prev: any) => ({...prev, mobileHeroImage: url}))} />
+                                            </div>
                                         </div>
                                     </div>
                                     <div>
@@ -253,15 +269,15 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                     <div>
                                         <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">3</span> Interior Spread (Spread 2)</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            <ImageUpload label="Spread 2 Big Image" defaultImage={formData.spread2BigImage} onUpload={(url) => setFormData((prev: any) => ({...prev, spread2BigImage: url}))} />
-                                            <ImageUpload label="Spread 2 Small Image" defaultImage={formData.spread2SmallImage} onUpload={(url) => setFormData((prev: any) => ({...prev, spread2SmallImage: url}))} />
+                                            <ImageUpload label="Spread 2 Big Image" defaultImage={formData.spread2BigImage} dimensions="Big Spread: 720 x 900 px" onUpload={(url) => setFormData((prev: any) => ({...prev, spread2BigImage: url}))} />
+                                            <ImageUpload label="Spread 2 Small Image" defaultImage={formData.spread2SmallImage} dimensions="Small Spread: 350 x 360 px" onUpload={(url) => setFormData((prev: any) => ({...prev, spread2SmallImage: url}))} />
                                             <div className="col-span-1 md:col-span-2 space-y-2">
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Spread Intro Paragraph</label>
                                                 <textarea value={formData.spread2Intro} onChange={e => setFormData({...formData, spread2Intro: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 focus:outline-none focus:border-[#28557F] font-medium text-sm transition-colors" />
                                             </div>
                                         </div>
                                     </div>
-
+ 
                                     <div>
                                         <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">4</span> Narrative & Logistics</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -289,12 +305,12 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Patient Journey P2 (Next to image)</label>
                                                 <textarea value={formData.patientJourneyDesc2} onChange={e => setFormData({...formData, patientJourneyDesc2: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
                                             </div>
-                                            <ImageUpload label="Logistics Left Image" defaultImage={formData.logisticsLeftImage} onUpload={(url) => setFormData((prev: any) => ({...prev, logisticsLeftImage: url}))} />
-                                            <ImageUpload label="Logistics Right Image" defaultImage={formData.logisticsRightImage} onUpload={(url) => setFormData((prev: any) => ({...prev, logisticsRightImage: url}))} />
-                                            <ImageUpload label="Healing Interior Image" defaultImage={formData.healingInteriorImage} onUpload={(url) => setFormData((prev: any) => ({...prev, healingInteriorImage: url}))} />
+                                            <ImageUpload label="Logistics Left Image" defaultImage={formData.logisticsLeftImage} dimensions="Square Box: 350 x 360 px" onUpload={(url) => setFormData((prev: any) => ({...prev, logisticsLeftImage: url}))} />
+                                            <ImageUpload label="Logistics Right Image" defaultImage={formData.logisticsRightImage} dimensions="Square Box: 350 x 360 px" onUpload={(url) => setFormData((prev: any) => ({...prev, logisticsRightImage: url}))} />
+                                            <ImageUpload label="Healing Interior Image" defaultImage={formData.healingInteriorImage} dimensions="Narrative Box: 720 x 900 px" onUpload={(url) => setFormData((prev: any) => ({...prev, healingInteriorImage: url}))} />
                                         </div>
                                     </div>
-
+ 
                                     <div>
                                         <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">5</span> Ambiance & Materiality</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -302,8 +318,8 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Materiality Title</label>
                                                 <input value={formData.materialityTitle} onChange={e => setFormData({...formData, materialityTitle: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
                                             </div>
-                                            <ImageUpload label="Facade Detail" defaultImage={formData.facadeDetailImage} onUpload={(url) => setFormData((prev: any) => ({...prev, facadeDetailImage: url}))} />
-                                            <ImageUpload label="Lobby Image" defaultImage={formData.lobbyImage} onUpload={(url) => setFormData((prev: any) => ({...prev, lobbyImage: url}))} />
+                                            <ImageUpload label="Facade Detail" defaultImage={formData.facadeDetailImage} dimensions="Square Box: 350 x 360 px" onUpload={(url) => setFormData((prev: any) => ({...prev, facadeDetailImage: url}))} />
+                                            <ImageUpload label="Lobby Image" defaultImage={formData.lobbyImage} dimensions="Square Box: 350 x 360 px" onUpload={(url) => setFormData((prev: any) => ({...prev, lobbyImage: url}))} />
                                             <div className="space-y-2">
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Nocturnal Title</label>
                                                 <input value={formData.nocturnalTitle} onChange={e => setFormData({...formData, nocturnalTitle: e.target.value})} type="text" className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl h-12 px-4 text-sm" />
@@ -312,11 +328,11 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Nocturnal Description</label>
                                                 <textarea value={formData.nocturnalDescription} onChange={e => setFormData({...formData, nocturnalDescription: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
                                             </div>
-                                            <ImageUpload label="Night Image" defaultImage={formData.nocturnalNightImage} onUpload={(url) => setFormData((prev: any) => ({...prev, nocturnalNightImage: url}))} />
-                                            <ImageUpload label="Day Image" defaultImage={formData.nocturnalDayImage} onUpload={(url) => setFormData((prev: any) => ({...prev, nocturnalDayImage: url}))} />
+                                            <ImageUpload label="Night Image" defaultImage={formData.nocturnalNightImage} dimensions="Square Box: 350 x 360 px" onUpload={(url) => setFormData((prev: any) => ({...prev, nocturnalNightImage: url}))} />
+                                            <ImageUpload label="Day Image" defaultImage={formData.nocturnalDayImage} dimensions="Square Box: 350 x 360 px" onUpload={(url) => setFormData((prev: any) => ({...prev, nocturnalDayImage: url}))} />
                                         </div>
                                     </div>
-
+ 
                                     <div>
                                         <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">6</span> Diagrams & Vision</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -328,13 +344,13 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Blueprint Description</label>
                                                 <textarea value={formData.diagramRightDesc} onChange={e => setFormData({...formData, diagramRightDesc: e.target.value})} rows={3} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
                                             </div>
-                                            <ImageUpload label="Blueprint Image" defaultImage={formData.diagramBlueprintImage} onUpload={(url) => setFormData((prev: any) => ({...prev, diagramBlueprintImage: url}))} />
+                                            <ImageUpload label="Blueprint Image" defaultImage={formData.diagramBlueprintImage} dimensions="Diagram Box: 500 x 500 px" onUpload={(url) => setFormData((prev: any) => ({...prev, diagramBlueprintImage: url}))} />
                                             <div className="bg-[#f0f3fe] p-6 rounded-2xl border border-[#d0e4ff] flex items-center justify-center text-center">
                                                 <p className="text-xs font-bold text-[#28557F] uppercase tracking-widest">Section 6 Details & Layout</p>
                                             </div>
                                         </div>
                                     </div>
-
+ 
                                     <div>
                                         <h3 className="text-lg font-bold text-[#28557F] mb-6 flex items-center border-b pb-2"><span className="bg-[#28557F] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mr-3">7</span> Conclusion</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -350,7 +366,7 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-[#72777f]">Ending Paragraph 2</label>
                                                 <textarea value={formData.conclusionP3} onChange={e => setFormData({...formData, conclusionP3: e.target.value})} rows={4} className="w-full bg-[#f9f9ff] border border-[#dfe2ed] rounded-xl p-4 text-xs" />
                                             </div>
-                                            <ImageUpload label="Conclusion Image" defaultImage={formData.conclusionImage} onUpload={(url) => setFormData((prev: any) => ({...prev, conclusionImage: url}))} />
+                                            <ImageUpload label="Conclusion Image" defaultImage={formData.conclusionImage} dimensions="Ending Box: 720 x 900 px" onUpload={(url) => setFormData((prev: any) => ({...prev, conclusionImage: url}))} />
                                         </div>
                                     </div>
                                 </form>

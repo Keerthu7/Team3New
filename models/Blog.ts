@@ -4,8 +4,10 @@ export interface IBlog extends Document {
   slug: string;
   title: string;
   subtitle: string;
-  thumbnail: string;
-  heroImage: string;
+  thumbnail: string; // Desktop Thumbnail
+  mobileThumbnail?: string; // Mobile Thumbnail
+  heroImage: string; // Desktop Hero Image
+  mobileHeroImage?: string; // Mobile Hero Image
   introDescription: string;
   projectDetails: {
     location: string;
@@ -49,8 +51,10 @@ const BlogSchema: Schema = new Schema({
   slug: { type: String, required: true, unique: true },
   title: { type: String, required: true },
   subtitle: { type: String, required: true },
-  thumbnail: { type: String, required: true },
-  heroImage: { type: String, required: true },
+  thumbnail: { type: String, required: true }, // Desktop Thumbnail
+  mobileThumbnail: { type: String }, // Mobile Thumbnail
+  heroImage: { type: String, required: true }, // Desktop Hero Image
+  mobileHeroImage: { type: String }, // Mobile Hero Image
   introDescription: { type: String, required: true },
   projectDetails: {
     location: { type: String },
