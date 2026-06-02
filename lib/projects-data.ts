@@ -94,7 +94,7 @@ export const projects: Project[] = [
     category: "Residential Architecture",
     filterType: "Residential",
     subtitle: "A four-story luxury apartment and duplex penthouse.",
-    image: "/images/interiors/ramesh_int.png",
+    image: "/images/interiors/ramesh_int.jpg",
     gallery: [
       "/images/ramesh/3 (1).jpg",
       "/images/ramesh/1 (1).jpg",
@@ -204,10 +204,10 @@ export const projects: Project[] = [
     category: "Commercial Architecture",
     filterType: "Commercial",
     subtitle: "A dynamic commercial hub where form follows function.",
-    image: "/images/interiors/siva_int.png",
+    image: "/images/interiors/siva_int.jpg",
     gallery: [
-      "/images/sivatrade EXT/1 view 1.jpg",
-      "/images/sivatrade EXT/2 view.jpg",
+      "/images/projects/siva-trade/hero.png",
+      "/images/projects/siva-trade/interior.png",
       "/images/sivatrade inter/1 lobby 1.jpg",
       "/images/sivatrade inter/11 ff double ht 1.jpg",
       "/images/sivatrade inter/17 conference 1.jpg",
@@ -227,9 +227,9 @@ export const projects: Project[] = [
     designTypes: ["Commercial", "Architectural", "Interior"],
     technicalDetails: {
       finishes: {
-        facade: { desc: "Rhythmic Glass curtain walls & Solid volumes", images: ["/images/sivatrade EXT/1 view 1.jpg"] },
+        facade: { desc: "Rhythmic Glass curtain walls & Solid volumes", images: ["/images/projects/siva-trade/hero.png"] },
         wall: { desc: "Polished Stone & Brushed Metal paneling", images: ["/images/sivatrade inter/1 lobby 1.jpg", "/images/sivatrade inter/11 ff double ht 1.jpg"] },
-        flooring: { desc: "Vitrified Tiles & Anti-skid industrial flooring", images: ["/images/sivatrade inter/17 conference 1.jpg", "/images/sivatrade EXT/2 view.jpg"] },
+        flooring: { desc: "Vitrified Tiles & Anti-skid industrial flooring", images: ["/images/sivatrade inter/17 conference 1.jpg", "/images/projects/siva-trade/interior.png"] },
       },
       materials: [
         { label: "Glass", value: "Schueco Aluminum Systems" },
