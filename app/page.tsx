@@ -13,8 +13,21 @@ export const dynamic = 'force-dynamic';
 async function getLandingProjects() {
   try {
     await connectToDatabase();
-    const dbProjects = await Project.find({}).sort({ createdAt: -1 }).limit(5);
-    return JSON.parse(JSON.stringify(dbProjects));
+    const landingSlugs = [
+      "mr-jagan-residence",
+      "siva-trade-centre",
+      "kmch-diagnostic-center",
+      "mr-ramesh-residence",
+      "drg-commercial-complex"
+    ];
+    const dbProjects = await Project.find({ slug: { $in: landingSlugs } });
+    
+    // Sort projects strictly by the order of landingSlugs
+    const sortedProjects = landingSlugs
+      .map(slug => dbProjects.find(p => p.slug === slug))
+      .filter(Boolean);
+
+    return JSON.parse(JSON.stringify(sortedProjects));
   } catch (err) {
     console.error("Landing page projects fetch failed:", err);
     return [];
