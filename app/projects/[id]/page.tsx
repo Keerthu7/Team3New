@@ -1,15 +1,21 @@
 import React from "react";
-import { projects as fallbackProjects } from "@/lib/projects-data";
 import ProjectNormalLayout from "@/components/project-normal-layout";
 import connectToDatabase from '@/lib/db';
 import Project from '@/models/Project';
 
-export async function generateStaticParams() {
-  return fallbackProjects.map((project) => ({
-    id: project.slug || String(project.id),
-  }));
-}
+export const dynamic = 'force-dynamic';
 
+export async function generateStaticParams() {
+  try {
+    await connectToDatabase();
+    const dbProjects = await Project.find({}, { slug: 1, id: 1 });
+    return dbProjects.map((project) => ({
+      id: project.slug || String(project.id),
+    }));
+  } catch (err) {
+    return [];
+  }
+}
 
 async function getProject(idOrSlug: string) {
   try {
@@ -31,18 +37,11 @@ async function getProject(idOrSlug: string) {
     if (!project && !isNaN(Number(idOrSlug))) {
         project = await Project.findOne({ id: Number(idOrSlug) });
     }
-
-    if (!project) {
-        // Search fallback data
-        const fallback = fallbackProjects.find(p => p.slug === idOrSlug || p.id === Number(idOrSlug));
-        return fallback ? JSON.parse(JSON.stringify(fallback)) : null;
-    }
     
-    return JSON.parse(JSON.stringify(project));
+    return project ? JSON.parse(JSON.stringify(project)) : null;
   } catch (error: any) {
-    console.error("Project fetch failed, using fallback:", error.message);
-    const fallback = fallbackProjects.find(p => p.slug === idOrSlug || p.id === Number(idOrSlug));
-    return fallback ? JSON.parse(JSON.stringify(fallback)) : null;
+    console.error("Project fetch failed:", error.message);
+    return null;
   }
 }
 

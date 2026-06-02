@@ -5,22 +5,18 @@ import Link from "next/link";
 import Image from "next/image";
 import connectToDatabase from "@/lib/db";
 import BlogModel from "@/models/Blog";
-import { blogs as fallbackBlogs } from "@/data/blog-data";
+
+export const dynamic = 'force-dynamic';
 
 async function getBlogs() {
   try {
     await connectToDatabase();
     const mongoBlogs = await BlogModel.find({}).sort({ createdAt: -1 });
-    
-    if (mongoBlogs && mongoBlogs.length > 0) {
-        return JSON.parse(JSON.stringify(mongoBlogs));
-    }
+    return JSON.parse(JSON.stringify(mongoBlogs || []));
   } catch (err) {
-    console.error("MongoDB fetch failed for blogs, using static fallback:", err);
+    console.error("MongoDB fetch failed for blogs:", err);
+    return [];
   }
-  
-  // Return empty array or static data if DB fails
-  return fallbackBlogs;
 }
 
 export default async function BlogPage() {

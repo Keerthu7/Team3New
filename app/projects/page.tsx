@@ -4,7 +4,8 @@ import { Footer } from "@/components/footer";
 import ProjectsClient from "@/components/ProjectsClient";
 import connectToDatabase from '@/lib/db';
 import Project from '@/models/Project';
-import { projects as fallbackProjects } from '@/lib/projects-data';
+
+export const dynamic = 'force-dynamic';
 
 // This makes the component a Server Component by default in Next.js 13+
 // We fetch data directly here for instant loading
@@ -12,17 +13,10 @@ async function getProjects() {
   try {
     await connectToDatabase();
     const projects = await Project.find({}).sort({ createdAt: -1 });
-    
-    // If DB is genuinely empty (seed hasn't run), return fallback for now
-    if (projects.length === 0) {
-        return JSON.parse(JSON.stringify(fallbackProjects));
-    }
-    
     return JSON.parse(JSON.stringify(projects));
   } catch (error: any) {
-    console.error("MongoDB fetch failed, using fallback data:", error.message);
-    // Graceful fallback if database connection fails
-    return JSON.parse(JSON.stringify(fallbackProjects));
+    console.error("MongoDB fetch failed for projects:", error.message);
+    return [];
   }
 }
 

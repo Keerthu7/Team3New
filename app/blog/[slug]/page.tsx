@@ -1,16 +1,22 @@
 import MagazineSpread from "@/components/magazine-spread";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { blogs } from "@/data/blog-data";
 import { notFound } from "next/navigation";
 import connectToDatabase from "@/lib/db";
 import BlogModel from "@/models/Blog";
-import { blogs as fallbackBlogs } from "@/data/blog-data";
+
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
-  return fallbackBlogs.map((blog) => ({
-    slug: blog.slug,
-  }));
+  try {
+    await connectToDatabase();
+    const dbBlogs = await BlogModel.find({}, { slug: 1 });
+    return dbBlogs.map((blog) => ({
+      slug: blog.slug,
+    }));
+  } catch (err) {
+    return [];
+  }
 }
 
 
@@ -27,13 +33,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           blog = JSON.parse(JSON.stringify(mongoBlog));
       }
   } catch (err) {
-      console.error("MongoDB fetch failed, using fallback:", err);
+      console.error("MongoDB fetch failed:", err);
   }
   
-  if (!blog) {
-      blog = blogs.find((b) => b.slug === slug);
-  }
-
   if (!blog) {
     notFound();
   }

@@ -142,9 +142,8 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
           <div className="w-full h-[1px] bg-[#dfe2ed]/60 mb-12"></div>
           
           {/* Section Heading */}
-          <h3 className="text-xl md:text-2xl font-bold text-[#181c23] mb-10 tracking-tight uppercase relative inline-block">
+          <h3 className="text-xl md:text-2xl font-bold text-[#181c23] mb-10 tracking-tight uppercase">
             Other Projects
-            <span className="absolute -bottom-2 left-0 w-8 h-1 bg-[#28557F]"></span>
           </h3>
           
           {/* Secondary Grid */}

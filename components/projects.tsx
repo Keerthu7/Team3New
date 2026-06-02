@@ -188,13 +188,32 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
   );
 }
 
-export function ProjectShowcase() {
+export function ProjectShowcase({ initialProjects }: { initialProjects?: any[] }) {
+  const projectsToRender = initialProjects && initialProjects.length > 0 ? initialProjects : [];
+
+  if (projectsToRender.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <section id="projects" className="w-full bg-white">
-        {projectData.map((project, index) => (
-          <ProjectItem key={project.id} project={project} index={index} />
-        ))}
+        {projectsToRender.map((project, index) => {
+          const normalizedProject = {
+            id: project.slug || String(project.id || project._id),
+            name: project.title,
+            location: project.location,
+            description: project.subtitle || project.overview,
+            date: project.year,
+            image: project.image,
+            mobileImage: project.mobileImage || project.image,
+            interiorImage: (project.gallery && project.gallery[0]) || project.image
+          };
+
+          return (
+            <ProjectItem key={normalizedProject.id} project={normalizedProject as any} index={index} />
+          );
+        })}
       </section>
     </>
   );
