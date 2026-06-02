@@ -60,7 +60,7 @@ const projectData = [
 
 
 
-function ProjectItem({ project, index }: { project: typeof projectData[0], index: number }) {
+function ProjectItem({ project, index }: { project: any, index: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -77,6 +77,9 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
 
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
+  // Crop from bottom (align to top) for Siva Trade (project4) and Ramesh (project2) background images
+  const alignClass = project.image.includes("project4") || project.image.includes("project2") ? "object-top" : "object-center";
+
   return (
     <div ref={containerRef} className="relative h-[250vh] md:h-[350vh] w-full bg-white">
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
@@ -90,7 +93,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
               src={project.image}
               alt={project.name}
               fill
-              className="object-cover"
+              className={`object-cover ${alignClass}`}
               priority={index === 0}
               sizes="100vw"
             />
@@ -102,7 +105,7 @@ function ProjectItem({ project, index }: { project: typeof projectData[0], index
               src={(project as any).mobileImage || project.image}
               alt={`${project.name} Mobile`}
               fill
-              className="object-cover"
+              className={`object-cover ${alignClass}`}
               priority={index === 0}
               sizes="100vw"
             />
@@ -199,15 +202,43 @@ export function ProjectShowcase({ initialProjects }: { initialProjects?: any[] }
     <>
       <section id="projects" className="w-full bg-white">
         {projectsToRender.map((project, index) => {
+          // Map landing page specific full-screen background slides based on slug/id
+          let landingImage = project.image;
+          let landingMobileImage = project.mobileImage || project.image;
+          let landingInterior = (project.gallery && project.gallery[0]) || project.image;
+
+          const slug = project.slug;
+          if (slug === "mr-jagan-residence") {
+            landingImage = "/images/project1.png";
+            landingMobileImage = "/images/project1-mobile.png";
+            landingInterior = "/images/interiors/jagan_int.png";
+          } else if (slug === "mr-ramesh-residence") {
+            landingImage = "/images/project2.png";
+            landingMobileImage = "/images/project2-mobile.png";
+            landingInterior = "/images/interiors/ramesh_int.jpg";
+          } else if (slug === "kmch-diagnostic-center") {
+            landingImage = "/images/project3.png";
+            landingMobileImage = "/images/project3-mobile.png";
+            landingInterior = "/images/interiors/kmch_int.png";
+          } else if (slug === "siva-trade-centre") {
+            landingImage = "/images/project4.png";
+            landingMobileImage = "/images/project4-mobile.png";
+            landingInterior = "/images/interiors/siva_int.jpg";
+          } else if (slug === "drg-commercial-complex") {
+            landingImage = "/images/project5.png";
+            landingMobileImage = "/images/project5-mobile.png";
+            landingInterior = "/images/interiors/drg_int.png";
+          }
+
           const normalizedProject = {
             id: project.slug || String(project.id || project._id),
             name: project.title,
             location: project.location,
             description: project.subtitle || project.overview,
             date: project.year,
-            image: project.image,
-            mobileImage: project.mobileImage || project.image,
-            interiorImage: (project.gallery && project.gallery[0]) || project.image
+            image: landingImage,
+            mobileImage: landingMobileImage,
+            interiorImage: landingInterior
           };
 
           return (

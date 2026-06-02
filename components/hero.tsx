@@ -48,7 +48,9 @@ export function Hero() {
               src={src}
               alt={`Project Slide ${index + 1}`}
               fill
-              className="object-cover brightness-110 contrast-[1.02]"
+              className={`object-cover brightness-110 contrast-[1.02] ${
+                src.includes("project4") || src.includes("project2") ? "object-top" : "object-center"
+              }`}
               priority={index === 0}
               sizes="100vw"
             />
@@ -74,7 +76,9 @@ export function Hero() {
               src={src}
               alt={`Project Slide Mobile ${index + 1}`}
               fill
-              className="object-cover brightness-110 contrast-[1.02]"
+              className={`object-cover brightness-110 contrast-[1.02] ${
+                src.includes("project4") || src.includes("project2") ? "object-top" : "object-center"
+              }`}
               priority={index === 0}
               sizes="100vw"
             />
