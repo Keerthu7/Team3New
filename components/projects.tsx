@@ -8,33 +8,36 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const projectData = [
   {
     id: 1,
-    name: "Mr. Jagan residence",
-    location: "Coimbatore",
-    description: "A modern, sustainable architecture featuring sleek design, open spaces, and seamless indoor-outdoor living integration safely anchored by premium engineering.",
-    date: "21, DEC 2025",
-    image:"/images/project1.png",
-    mobileImage: "/images/project1-mobile.png",
-    interiorImage: "/images/interiors/jagan_int.png",
-  },
-  {
-    id: 2,
-    name: "Mr. Ramesh residence",
-    location: "Coimbatore",
-    description: "Luxury reimagined through a minimalist lens. This residence combines glass and stone to create a timeless sanctuary for urban living.",
-    date: "15, JAN 2026",
-    image:"/images/project2.png",
-    mobileImage: "/images/project2-mobile.png",
-    interiorImage:  "/images/interiors/ramesh_int.png" ,
-  },
-  {
-    id: 3,
-    name: "KMCH Diagnostic Centre",
+     name: "KMCH Diagnostic Centre",
     location: "Coimbatore",
     description: "Cutting-edge healthcare infrastructure designed for efficiency and patient comfort. A synthesis of advanced technology and human-centric design.",
     date: "10, FEB 2026",
     image: "/images/project3.png",
     mobileImage: "/images/project3-mobile.png",
     interiorImage: "/images/interiors/kmch_int.png",
+   
+  },
+  {
+    id: 2,
+     name: "Mr. Jagan residence",
+    location: "Coimbatore",
+    description: "A modern, sustainable architecture featuring sleek design, open spaces, and seamless indoor-outdoor living integration safely anchored by premium engineering.",
+    date: "21, DEC 2025",
+    image:"/images/project1.png",
+    mobileImage: "/images/project1-mobile.png",
+    interiorImage: "/images/interiors/jagan_int.png",
+    
+  },
+  {
+    id: 3,
+   name: "Mr. Ramesh residence",
+    location: "Coimbatore",
+    description: "Luxury reimagined through a minimalist lens. This residence combines glass and stone to create a timeless sanctuary for urban living.",
+    date: "15, JAN 2026",
+    image:"/images/project2.png",
+    mobileImage: "/images/project2-mobile.png",
+    interiorImage:  "/images/interiors/ramesh_int.png" ,
+   
   },
   {
     id: 4,
@@ -100,15 +103,29 @@ function ProjectItem({ project, index }: { project: any, index: number }) {
           </div>
 
           {/* Mobile Image */}
-          <div className="block md:hidden absolute inset-0">
-            <Image
-              src={(project as any).mobileImage || project.image}
-              alt={`${project.name} Mobile`}
-              fill
-              className={`object-cover ${alignClass}`}
-              priority={index === 0}
-              sizes="100vw"
-            />
+          <div className="block md:hidden absolute inset-0 flex flex-col h-full w-full">
+            <div className="relative w-full h-1/2">
+              <Image
+                src={(project as any).mobileImage || project.image}
+                alt={`${project.name} Mobile Top`}
+                fill
+                className={`object-cover ${alignClass}`}
+                priority={index === 0}
+                sizes="100vw"
+              />
+            </div>
+            {/* Divider Line */}
+            <div className="absolute top-1/2 left-0 right-0 h-[3px] bg-white z-10 pointer-events-none shadow-[0_0_10px_rgba(0,0,0,0.8)]" />
+            <div className="relative w-full h-1/2">
+              <Image
+                src={(project as any).mobileBottomImage || project.interiorImage}
+                alt={`${project.name} Mobile Bottom`}
+                fill
+                className="object-cover object-center"
+                priority={index === 0}
+                sizes="100vw"
+              />
+            </div>
           </div>
         </motion.div>
 
@@ -191,6 +208,46 @@ function ProjectItem({ project, index }: { project: any, index: number }) {
   );
 }
 
+// Manual image overrides for the landing page project showcase section.
+// You can edit the file paths below directly to change which images display.
+const SHOWCASE_IMAGES: Record<string, {
+  desktopImage: string;       // Background image for Desktop view
+  mobileTopImage: string;     // Background top half image for Mobile view
+  mobileBottomImage: string;  // Background bottom half image for Mobile view
+  interiorImage: string;      // Image inside the detailed check-project card
+}> = {
+  "mr-jagan-residence": {
+    desktopImage: "/images/project1.png",
+    mobileTopImage: "/images/project1.png",
+    mobileBottomImage: "/images/project1.png",
+    interiorImage: "/images/interiors/jagan_int.png"
+  },
+  "mr-ramesh-residence": {
+    desktopImage: "/images/project2.png",
+    mobileTopImage: "/images/project2.png",
+    mobileBottomImage: "/images/project2.png",
+    interiorImage: "/images/interiors/ramesh_int.jpg"
+  },
+  "kmch-diagnostic-center": {
+    desktopImage: "/images/project3.png",
+    mobileTopImage: "/images/project3.png",
+    mobileBottomImage:"/images/project3.png",
+    interiorImage: "/images/interiors/kmch_int.png"
+  },
+  "siva-trade-centre": {
+    desktopImage: "/images/project4.png",
+    mobileTopImage: "/images/project4.png",
+    mobileBottomImage: "/images/project4.png",
+    interiorImage: "/images/interiors/siva_int.jpg"
+  },
+  "drg-commercial-complex": {
+    desktopImage: "/images/project5.png",
+    mobileTopImage: "/images/project5.png",
+    mobileBottomImage:"/images/project5.png",
+    interiorImage: "/images/interiors/drg_int.png"
+  }
+};
+
 export function ProjectShowcase({ initialProjects }: { initialProjects?: any[] }) {
   const projectsToRender = initialProjects && initialProjects.length > 0 ? initialProjects : [];
 
@@ -202,33 +259,14 @@ export function ProjectShowcase({ initialProjects }: { initialProjects?: any[] }
     <>
       <section id="projects" className="w-full bg-white">
         {projectsToRender.map((project, index) => {
-          // Map landing page specific full-screen background slides based on slug/id
-          let landingImage = project.image;
-          let landingMobileImage = project.mobileImage || project.image;
-          let landingInterior = (project.gallery && project.gallery[0]) || project.image;
-
           const slug = project.slug;
-          if (slug === "mr-jagan-residence") {
-            landingImage = "/images/project1.png";
-            landingMobileImage = "/images/project1-mobile.png";
-            landingInterior = "/images/interiors/jagan_int.png";
-          } else if (slug === "mr-ramesh-residence") {
-            landingImage = "/images/project2.png";
-            landingMobileImage = "/images/project2-mobile.png";
-            landingInterior = "/images/interiors/ramesh_int.jpg";
-          } else if (slug === "kmch-diagnostic-center") {
-            landingImage = "/images/project3.png";
-            landingMobileImage = "/images/project3-mobile.png";
-            landingInterior = "/images/interiors/kmch_int.png";
-          } else if (slug === "siva-trade-centre") {
-            landingImage = "/images/project4.png";
-            landingMobileImage = "/images/project4-mobile.png";
-            landingInterior = "/images/interiors/siva_int.jpg";
-          } else if (slug === "drg-commercial-complex") {
-            landingImage = "/images/project5.png";
-            landingMobileImage = "/images/project5-mobile.png";
-            landingInterior = "/images/interiors/drg_int.png";
-          }
+          const overrides = SHOWCASE_IMAGES[slug];
+
+          // Use overrides if available, otherwise fall back to db properties
+          let landingImage = overrides ? overrides.desktopImage : project.image;
+          let landingMobileImage = overrides ? overrides.mobileTopImage : (project.mobileImage || project.image);
+          let landingMobileBottomImage = overrides ? overrides.mobileBottomImage : ((project.gallery && project.gallery[0]) || project.image);
+          let landingInterior = overrides ? overrides.interiorImage : ((project.gallery && project.gallery[0]) || project.image);
 
           const normalizedProject = {
             id: project.slug || String(project.id || project._id),
@@ -238,6 +276,7 @@ export function ProjectShowcase({ initialProjects }: { initialProjects?: any[] }
             date: project.year,
             image: landingImage,
             mobileImage: landingMobileImage,
+            mobileBottomImage: landingMobileBottomImage,
             interiorImage: landingInterior
           };
 

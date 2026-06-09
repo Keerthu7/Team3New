@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Search, X } from "lucide-react";
 
 interface ProjectsClientProps {
   initialProjects: any[];
@@ -10,7 +11,7 @@ interface ProjectsClientProps {
 
 export default function ProjectsClient({ initialProjects }: ProjectsClientProps) {
   const [activeFilter, setActiveFilter] = useState("All");
-
+  const [searchQuery, setSearchQuery] = useState("");
   const [errorImages, setErrorImages] = useState<Record<string, boolean>>({});
 
   // Filter Categories
@@ -44,6 +45,29 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
     return false;
   };
 
+  // Helper to check if a project matches search query
+  const matchesSearch = (project: any, query: string) => {
+    if (!query) return false;
+    const q = query.toLowerCase().trim();
+    return (
+      (project.title || "").toLowerCase().includes(q) ||
+      (project.category || "").toLowerCase().includes(q) ||
+      (project.location || "").toLowerCase().includes(q)
+    );
+  };
+
+  // Helper to sort matching items to the top
+  const sortProjectsBySearch = (items: any[], query: string) => {
+    if (!query) return items;
+    return [...items].sort((a, b) => {
+      const aMatches = matchesSearch(a, query);
+      const bMatches = matchesSearch(b, query);
+      if (aMatches && !bMatches) return -1;
+      if (!aMatches && bMatches) return 1;
+      return 0;
+    });
+  };
+
   // Split projects into matching (primary) and remaining (other) arrays
   const primaryProjects = activeFilter === "All"
     ? initialProjects
@@ -53,12 +77,36 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
     ? []
     : initialProjects.filter(p => !isMatchingFilter(p, activeFilter));
 
+  // Sort both arrays so that search matches rise to the top
+  const primaryProjectsFiltered = sortProjectsBySearch(primaryProjects, searchQuery);
+  const otherProjectsFiltered = sortProjectsBySearch(otherProjects, searchQuery);
+
   const handleImageError = (id: string) => {
     setErrorImages(prev => ({ ...prev, [id]: true }));
   };
 
   return (
     <>
+      {/* Search Bar */}
+      <div className="relative w-full max-w-md mb-8">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search projects by name, category, location..."
+          className="w-full pl-12 pr-10 py-3.5 bg-white border border-[#dfe2ed] rounded-full text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#28557F] focus:ring-1 focus:ring-[#28557F] transition-all duration-300 shadow-sm"
+        />
+        <Search className="absolute left-4.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+        {searchQuery && (
+          <button
+            onClick={() => setSearchQuery("")}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+
       {/* Filter Buttons */}
       <div className="flex flex-nowrap overflow-x-auto gap-3 mb-10 pb-4 md:pb-0 md:flex-wrap md:overflow-visible scrollbar-hide">
         {filters.map((filter) => (
@@ -78,12 +126,12 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-12 justify-items-center">
-        {primaryProjects.length === 0 ? (
+        {primaryProjectsFiltered.length === 0 ? (
           <div className="col-span-1 lg:col-span-2 py-12 text-center">
             <p className="text-gray-500 font-medium">No projects found in this category.</p>
           </div>
         ) : (
-          primaryProjects.map((project, index) => {
+          primaryProjectsFiltered.map((project, index) => {
             const projectId = project.id || project._id;
             const isError = errorImages[projectId];
             
@@ -136,7 +184,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
       </div>
 
       {/* Other Projects Section */}
-      {activeFilter !== "All" && otherProjects.length > 0 && (
+      {activeFilter !== "All" && otherProjectsFiltered.length > 0 && (
         <div className="w-full mt-20">
           {/* Decorative Divider */}
           <div className="w-full h-[1px] bg-[#dfe2ed]/60 mb-12"></div>
@@ -148,7 +196,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
           
           {/* Secondary Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-12 justify-items-center">
-            {otherProjects.map((project) => {
+            {otherProjectsFiltered.map((project) => {
               const projectId = project.id || project._id;
               const isError = errorImages[projectId];
               
