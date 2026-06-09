@@ -11,6 +11,7 @@ interface BlogsClientProps {
 
 export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const matchesSearch = (blog: any, query: string) => {
     if (!query) return false;
@@ -31,24 +32,54 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
 
   return (
     <>
-      {/* Search Bar */}
-      <div className="relative w-full max-w-md mb-12">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search journals by title or subtitle..."
-          className="w-full pl-12 pr-10 py-3.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#28557F] focus:ring-1 focus:ring-[#28557F] transition-all duration-300 shadow-sm"
-        />
-        <Search className="absolute left-4.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-        {searchQuery && (
-          <button
-            onClick={() => setSearchQuery("")}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        )}
+      {/* Search Popup Modal */}
+      {isSearchOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity">
+          <div className="bg-white rounded-2xl w-full max-w-lg p-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <button
+              onClick={() => setIsSearchOpen(false)}
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <h3 className="text-xl font-bold text-[#181c23] mb-4">Search Journals</h3>
+            <div className="relative w-full">
+              <input
+                type="text"
+                autoFocus
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    setIsSearchOpen(false);
+                  }
+                }}
+                placeholder="Search by title or subtitle..."
+                className="w-full pl-12 pr-10 py-4 bg-gray-50 border border-gray-200 rounded-xl text-base font-medium text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#28557F] focus:ring-2 focus:ring-[#28557F]/20 transition-all duration-300"
+              />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Search Icon Button */}
+      <div className="flex mb-10">
+        <button
+          onClick={() => setIsSearchOpen(true)}
+          className="flex-shrink-0 w-10 h-10 md:w-[42px] md:h-[42px] flex items-center justify-center rounded-full bg-white border border-[#dfe2ed] text-gray-600 hover:bg-gray-100 transition-all shadow-sm group"
+          aria-label="Open search"
+        >
+          <Search className="w-[18px] h-[18px] md:w-5 md:h-5 group-hover:text-[#28557F] transition-colors" />
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12">

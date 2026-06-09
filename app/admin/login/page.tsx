@@ -48,13 +48,12 @@ export default function AdminLoginPage() {
             <div 
                 className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
                 style={{ 
-                    backgroundImage: "url('/admin-bg.png')",
-                    filter: "brightness(0.6)"
+                    backgroundImage: "url('/images/project1.png')"
                 }}
             />
             
             {/* Overlay Gradient */}
-            <div className="absolute inset-0 z-1 bg-gradient-to-br from-black/40 via-transparent to-black/40" />
+            <div className="absolute inset-0 z-1 bg-gradient-to-br from-black/20 via-transparent to-black/20" />
 
             {/* Branding Container - Now in flow above the card */}
             <motion.div 

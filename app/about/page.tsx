@@ -244,19 +244,19 @@ export default function Page() {
               {
                 title: "KMCH Diagnostic Centre",
                 desc: "Modern research and expert evaluation in all these architecture projects and our services also reflect what individuals value.",
-                img: "/blog-res-3.png",
+                img: "/images/project3.png",
                 link: "/blog/kmch-diagnostic"
               },
               {
                 title: "Siva Trade Centre",
                 desc: "An iconic commercial landmark that redefines the skyline with a bold focus on sustainability and structural excellence.",
-                img: "/images/generated/siva_skyscraper_1775710572488.png",
+                img: "/images/project4.png",
                 link: "/blog/siva-trade-centre"
               },
               {
                 title: "Mr. Jagan Residence",
                 desc: "A stunning modern sustainable architecture featuring sleek design, and seamless indoor-outdoor living integration.",
-                img: "/images/generated/jagan_exterior_1775710472373.png",
+                img: "/images/project5.png",
                 link: "/blog/jagan-residence"
               }
             ].map((blog, idx) => (

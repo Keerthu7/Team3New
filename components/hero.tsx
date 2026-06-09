@@ -43,10 +43,9 @@ export function Hero() {
           return (
             <div
               key={src}
-              className="absolute inset-0 w-full h-full"
+              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out`}
               style={{
-                opacity: isCurrent ? 1 : (isPrev ? 1 : 0),
-                transition: isCurrent ? "opacity 1000ms ease-in-out" : "none",
+                opacity: isCurrent || isPrev ? 1 : 0,
                 zIndex: isCurrent ? 10 : (isPrev ? 5 : 0),
               }}
             >
@@ -57,7 +56,7 @@ export function Hero() {
                 className={`object-cover brightness-110 contrast-[1.02] ${
                   src.includes("project4") || src.includes("project2") ? "object-top" : "object-center"
                 }`}
-                priority={index === 0}
+                priority
                 sizes="100vw"
               />
             </div>
@@ -89,7 +88,7 @@ export function Hero() {
                 className={`object-cover brightness-110 contrast-[1.02] ${
                   src.includes("project4") || src.includes("project2") ? "object-top" : "object-center"
                 }`}
-                priority={index === 0}
+                priority
                 sizes="100vw"
               />
             </div>
