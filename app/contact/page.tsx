@@ -119,15 +119,18 @@ export default function ContactPage() {
                 <div className="space-y-5 text-[#28557F]">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 shrink-0 rounded-full bg-[#28557F]/10 flex items-center justify-center text-[#28557F]"><MapPin size={18} /></div>
-                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Headquarters</h4><p className="text-gray-900 text-sm font-medium leading-relaxed">Team 3 Associates, JKR Towers, Sitra, Coimbatore - 641048.</p></div>
+                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Headquarters</h4><p className="text-gray-900 text-sm font-medium leading-relaxed">JKR Towers, Door No. 5/6,
+Moonlight Garden, Sitra
+Kalapatti Road,
+Coimbatore, Tamil Nadu 641048.</p></div>
                   </div>
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 shrink-0 rounded-full bg-[#28557F]/10 flex items-center justify-center text-[#28557F]"><Phone size={18} /></div>
-                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Registry</h4><p className="text-gray-900 text-sm font-medium leading-relaxed">+91 999 443 333 1111</p></div>
+                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Registry</h4><p className="text-gray-900 text-sm font-medium leading-relaxed">+91 9092433339</p></div>
                   </div>
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 shrink-0 rounded-full bg-[#28557F]/10 flex items-center justify-center text-[#28557F]"><Mail size={18} /></div>
-                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Digital Inquiry</h4><p className="text-[#28557F] text-sm font-bold leading-relaxed break-all">team3.siteinfo@gmail.com</p></div>
+                    <div className="mt-0.5"><h4 className="text-xs font-bold uppercase tracking-widest mb-1 text-gray-500">Digital Inquiry</h4><p className="text-[#28557F] text-sm font-bold leading-relaxed break-all">admin@t3associates.in</p></div>
                   </div>
                 </div>
 

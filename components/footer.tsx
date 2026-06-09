@@ -29,12 +29,12 @@ export function Footer() {
             
             {/* Social Icons */}
             <div className="flex items-center gap-4 mt-8">
-              {/* Facebook */}
+              {/* Facebook
               <Link href="#" className="w-9 h-9 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors shadow-sm group">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#28557F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                 </svg>
-              </Link>
+              </Link> */}
               {/* Instagram */}
               <Link href="https://www.instagram.com/team3_associates?igsh=am10cWh1dGc3NDd4" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors shadow-sm group">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#28557F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -218,20 +218,20 @@ const SHOWCASE_IMAGES: Record<string, {
 }> = {
   "mr-jagan-residence": {
     desktopImage: "/images/project1.png",
-    mobileTopImage: "/images/project1.png",
-    mobileBottomImage: "/images/project1.png",
+    mobileTopImage: "/images/project1-mobileTop.png",
+    mobileBottomImage: "/images/project1-mobileBottom.png",
     interiorImage: "/images/interiors/jagan_int.png"
   },
   "mr-ramesh-residence": {
     desktopImage: "/images/project2.png",
-    mobileTopImage: "/images/project2.png",
-    mobileBottomImage: "/images/project2.png",
+    mobileTopImage: "/images/project2-mobileTop.png",
+    mobileBottomImage:  "/images/project2-mobileBottom.png",
     interiorImage: "/images/interiors/ramesh_int.jpg"
   },
   "kmch-diagnostic-center": {
     desktopImage: "/images/project3.png",
-    mobileTopImage: "/images/project3.png",
-    mobileBottomImage:"/images/project3.png",
+    mobileTopImage: "/images/project3-mobileTop.png",
+    mobileBottomImage: "/images/project3-mobileBottom.png",
     interiorImage: "/images/interiors/kmch_int.png"
   },
   "siva-trade-centre": {
@@ -242,8 +242,8 @@ const SHOWCASE_IMAGES: Record<string, {
   },
   "drg-commercial-complex": {
     desktopImage: "/images/project5.png",
-    mobileTopImage: "/images/project5.png",
-    mobileBottomImage:"/images/project5.png",
+    mobileTopImage: "/images/project5-mobileTop.png",
+    mobileBottomImage: "/images/project5-mobileBottom.png",
     interiorImage: "/images/interiors/drg_int.png"
   }
 };
