@@ -34,7 +34,7 @@ const projectData = [
     location: "Coimbatore",
     description: "Luxury reimagined through a minimalist lens. This residence combines glass and stone to create a timeless sanctuary for urban living.",
     date: "15, JAN 2026",
-    image:"/images/project2.png",
+    image:"/images/project2.jpeg",
     mobileImage: "/images/project2-mobile.png",
     interiorImage:  "/images/interiors/ramesh_int.png" ,
    
@@ -45,7 +45,7 @@ const projectData = [
     location: "Coimbatore",
     description: "A commercial landmark that redefines the skyline. Integrated workspace solutions with a focus on sustainability and structural excellence.",
     date: "05, MAR 2026",
-    image: "/images/project4.png",
+    image: "/images/project4.jpeg",
     mobileImage: "/images/project4-mobile.png",
     interiorImage: "/images/interiors/siva_int.png",
   },
@@ -223,7 +223,7 @@ const SHOWCASE_IMAGES: Record<string, {
     interiorImage: "/images/interiors/jagan_int.png"
   },
   "mr-ramesh-residence": {
-    desktopImage: "/images/project2.png",
+    desktopImage: "/images/project2.jpeg",
     mobileTopImage: "/images/project2-mobileTop.png",
     mobileBottomImage:  "/images/project2-mobileBottom.png",
     interiorImage: "/images/interiors/ramesh_int.jpg"
@@ -235,9 +235,9 @@ const SHOWCASE_IMAGES: Record<string, {
     interiorImage: "/images/interiors/kmch_int.png"
   },
   "siva-trade-centre": {
-    desktopImage: "/images/project4.png",
-    mobileTopImage: "/images/project4.png",
-    mobileBottomImage: "/images/project4.png",
+    desktopImage: "/images/project4.jpeg",
+    mobileTopImage: "/images/project4.jpeg",
+    mobileBottomImage: "/images/project4.jpeg",
     interiorImage: "/images/interiors/siva_int.jpg"
   },
   "drg-commercial-complex": {

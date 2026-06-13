@@ -5,9 +5,9 @@ import Image from "next/image";
 
 const desktopImages = [
   "/images/project1.png",
-  "/images/project2.png",
+  "/images/project2.jpeg",
   "/images/project3.png",
-  "/images/project4.png",
+  "/images/project4.jpeg",
   "/images/project5.png",
 ];
 

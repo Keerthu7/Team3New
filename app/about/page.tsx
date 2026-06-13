@@ -250,7 +250,7 @@ export default function Page() {
               {
                 title: "Siva Trade Centre",
                 desc: "An iconic commercial landmark that redefines the skyline with a bold focus on sustainability and structural excellence.",
-                img: "/images/project4.png",
+                img: "/images/project4.jpeg",
                 link: "/blog/siva-trade-centre"
               },
               {
