@@ -226,7 +226,7 @@ const SHOWCASE_IMAGES: Record<string, {
     desktopImage: "/images/project2.jpeg",
     mobileTopImage: "/images/project2-mobileTop.png",
     mobileBottomImage:  "/images/project2-mobileBottom.png",
-    interiorImage: "/images/interiors/ramesh_int.jpg"
+    interiorImage: "/images/interiors/ramesh_int.png"
   },
   "kmch-diagnostic-center": {
     desktopImage: "/images/project3.png",
@@ -235,10 +235,10 @@ const SHOWCASE_IMAGES: Record<string, {
     interiorImage: "/images/interiors/kmch_int.png"
   },
   "siva-trade-centre": {
-    desktopImage: "/images/project4.jpeg",
-    mobileTopImage: "/images/project4.jpeg",
-    mobileBottomImage: "/images/project4.jpeg",
-    interiorImage: "/images/interiors/siva_int.jpg"
+    desktopImage: "/images/project4.png",
+    mobileTopImage: "/images/project4-mobileTop.png",
+    mobileBottomImage: "/images/project4-mobileBottom.png",
+    interiorImage: "/images/interiors/siva_int.png"
   },
   "drg-commercial-complex": {
     desktopImage: "/images/project5.png",
