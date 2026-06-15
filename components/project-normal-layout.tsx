@@ -189,30 +189,11 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
             </div>
 
             <div className="space-y-20">
-               {/* 01 / DOCUMENTATION & CONTRIBUTORS */}
-               {hasTeam && (
-                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-                    <div className="lg:col-span-4">
-                       <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">01 / Project team</span>
-                    </div>
-                    <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
-                       {[...(project.technicalDetails?.photoCredits || []).map((p: any) => ({ ...p, label: `Photo / ${p.label}` })), ...(project.technicalDetails?.contributors || [])]
-                         .filter((c: any) => c.label?.trim() !== "" || c.value?.trim() !== "")
-                         .map((c: any, idx: number) => (
-                           <div key={idx} className="flex flex-col gap-2 transition-transform hover:translate-x-1">
-                             <span className="text-xs font-bold text-[#72777f] tracking-widest">{c.label}</span>
-                             <span className="text-base font-bold text-[#181c23] tracking-tight leading-tight">{c.value}</span>
-                           </div>
-                         ))}
-                    </div>
-                 </div>
-               )}
-
-               {/* 02 / MATERIAL APPLICATIONS */}
+               {/* 01 / MATERIAL APPLICATIONS */}
                {hasMaterials && (
                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
                     <div className="lg:col-span-4">
-                       <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">02 / Materials</span>
+                       <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">01 / Materials</span>
                     </div>
                     <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
                        {(project.technicalDetails?.materials || [])
@@ -227,11 +208,11 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                  </div>
                )}
 
-               {/* 03 / VISUAL PALETTE */}
+               {/* 02 / VISUAL PALETTE */}
                {hasPalette && (
                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
                     <div className="lg:col-span-4">
-                       <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">03 / Palette archive</span>
+                       <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">02 / Palette archive</span>
                     </div>
                     <div className="lg:col-span-8">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -257,6 +238,25 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                             />
                           )}
                         </div>
+                    </div>
+                 </div>
+               )}
+
+               {/* 03 / DOCUMENTATION & CONTRIBUTORS */}
+               {hasTeam && (
+                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+                    <div className="lg:col-span-4">
+                       <span className="text-sm font-bold text-[#28557F] opacity-40 tracking-[0.4em]">03 / Project team</span>
+                    </div>
+                    <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
+                       {[...(project.technicalDetails?.photoCredits || []).map((p: any) => ({ ...p, label: `Photo / ${p.label}` })), ...(project.technicalDetails?.contributors || [])]
+                         .filter((c: any) => c.label?.trim() !== "" || c.value?.trim() !== "")
+                         .map((c: any, idx: number) => (
+                           <div key={idx} className="flex flex-col gap-2 transition-transform hover:translate-x-1">
+                             <span className="text-xs font-bold text-[#72777f] tracking-widest">{c.label}</span>
+                             <span className="text-base font-bold text-[#181c23] tracking-tight leading-tight">{c.value}</span>
+                           </div>
+                         ))}
                     </div>
                  </div>
                )}
