@@ -37,7 +37,7 @@ async function run() {
       { slug: "siva-trade-centre" },
       {
         $set: {
-          image: "/images/interiors/siva_int.jpg",
+          image: "/images/interiors/siva_int.png",
           gallery: [
             "/images/projects/siva-trade/hero.png",
             "/images/projects/siva-trade/interior.png",
@@ -61,7 +61,7 @@ async function run() {
       { slug: "mr-ramesh-residence" },
       {
         $set: {
-          image: "/images/interiors/ramesh_int.jpg"
+          image: "/images/interiors/ramesh_int.png"
         }
       }
     );

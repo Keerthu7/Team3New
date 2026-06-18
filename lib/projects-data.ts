@@ -94,7 +94,7 @@ export const projects: Project[] = [
     category: "Residential Architecture",
     filterType: "Residential",
     subtitle: "A four-story luxury apartment and duplex penthouse.",
-    image: "/images/interiors/ramesh_int.jpg",
+    image: "/images/interiors/ramesh_int.png",
     gallery: [
       "/images/ramesh/3 (1).jpg",
       "/images/ramesh/1 (1).jpg",
@@ -204,7 +204,7 @@ export const projects: Project[] = [
     category: "Commercial Architecture",
     filterType: "Commercial",
     subtitle: "A dynamic commercial hub where form follows function.",
-    image: "/images/interiors/siva_int.jpg",
+    image: "/images/interiors/siva_int.png",
     gallery: [
       "/images/projects/siva-trade/hero.png",
       "/images/projects/siva-trade/interior.png",
