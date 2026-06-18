@@ -201,6 +201,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 613px"
                     onError={() => handleImageError(projectId)}
+                    quality={95}
                   />
                 </div>
 
@@ -214,6 +215,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="100vw"
                     onError={() => handleImageError(projectId)}
+                    quality={95}
                   />
                 </div>
 
@@ -265,6 +267,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 613px"
                       onError={() => handleImageError(projectId)}
+                      quality={95}
                     />
                   </div>
 
@@ -277,6 +280,7 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="100vw"
                       onError={() => handleImageError(projectId)}
+                      quality={95}
                     />
                   </div>
 

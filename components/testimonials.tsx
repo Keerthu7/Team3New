@@ -143,6 +143,7 @@ export function Testimonials() {
                         fill 
                         className={`object-contain p-2 ${testimonial.name === "KMCH" ? "scale-[0.7]" : ""}`} 
                         sizes="56px"
+                        quality={95}
                       />
                     </div>
 

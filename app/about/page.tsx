@@ -37,12 +37,13 @@ export default function Page() {
           className="absolute inset-0 z-0"
         >
           <Image
-            src="/images/about/group-photo.png"
-            alt="Team 3 Associates Group Portrait"
+            src="/images/about/about_hero_bg.png"
+            alt="Team 3 Associates Architectural Studio"
             fill
             sizes="100vw"
             className="object-cover"
             priority
+            quality={95}
           />
         </motion.div>
 
@@ -141,19 +142,20 @@ export default function Page() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                // மாற்றம் 1: items-stretch ஐ items-center ஆக மாற்றியுள்ளேன்
+               
                 className={`flex flex-col ${idx % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-16 lg:gap-24 group`}
               >
                 <div className="w-full md:w-[35%] flex-shrink-0">
-                  {/* மாற்றம் 2: md:h-full ஐ நீக்கிவிட்டு நிலையான உயரம் (md:h-[400px]) கொடுத்துள்ளேன் */}
+                 
                   <div className="relative h-[350px] md:h-[400px] w-full overflow-hidden shadow-[20px_20px_0_rgba(45,86,121,0.05)] transition-all duration-700 group-hover:shadow-[10px_10px_0_rgba(45,86,121,0.1)] rounded-sm">
                     <Image priority
                       src={member.img}
                       alt={member.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 35vw, 400px"
-                      // மாற்றம் 3: object-cover ஐ object-contain ஆக மாற்றியுள்ளேன்
+                     
                       className="object-contain transition-transform duration-700 hover:scale-105"
+                      quality={95}
                     />
                   </div>
                 </div>
@@ -250,7 +252,7 @@ export default function Page() {
               {
                 title: "Siva Trade Centre",
                 desc: "An iconic commercial landmark that redefines the skyline with a bold focus on sustainability and structural excellence.",
-                img: "/images/project4.jpeg",
+                img: "/images/project4.png",
                 link: "/blog/siva-trade-centre"
               },
               {
@@ -267,6 +269,7 @@ export default function Page() {
                     alt={blog.title}
                     fill
                     className="object-cover"
+                    quality={95}
                   />
                 </div>
 

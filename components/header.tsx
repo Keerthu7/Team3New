@@ -27,6 +27,7 @@ export function Header() {
           height={60} 
           priority 
           className="object-contain h-auto w-auto max-h-[44px] md:max-h-[52px]" 
+          quality={95}
         />
       </Link>
 

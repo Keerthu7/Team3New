@@ -100,6 +100,7 @@ export function LoadingImage({ containerClassName, ...props }: LoadingImageProps
       {/* Actual Image */}
       <Image
         ref={imageRef}
+        quality={95}
         {...props}
         onLoad={() => setIsImageLoaded(true)}
         className={`${props.className || ""} transition-opacity duration-300 ${

@@ -29,6 +29,7 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
                   priority={index < 3} // Optimize first few blog posts
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   sizes="(max-width: 1200px) 33vw, 400px"
+                  quality={95}
                 />
               </div>
               {/* Mobile Thumbnail */}
@@ -40,6 +41,7 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
                   priority={index < 3} // Optimize first few blog posts
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   sizes="100vw"
+                  quality={95}
                 />
               </div>
             </div>

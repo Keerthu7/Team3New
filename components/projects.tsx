@@ -99,6 +99,7 @@ function ProjectItem({ project, index }: { project: any, index: number }) {
               className={`object-cover ${alignClass}`}
               priority={index === 0}
               sizes="100vw"
+              quality={95}
             />
           </div>
 
@@ -112,6 +113,7 @@ function ProjectItem({ project, index }: { project: any, index: number }) {
                 className={`object-cover ${alignClass}`}
                 priority={index === 0}
                 sizes="100vw"
+                quality={95}
               />
             </div>
             {/* Divider Line */}
@@ -124,6 +126,7 @@ function ProjectItem({ project, index }: { project: any, index: number }) {
                 className="object-cover object-center"
                 priority={index === 0}
                 sizes="100vw"
+                quality={95}
               />
             </div>
           </div>
@@ -178,6 +181,7 @@ function ProjectItem({ project, index }: { project: any, index: number }) {
                 fill 
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 400px"
+                quality={95}
               />
             </div>
 

@@ -162,7 +162,7 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
                     loading={index < 2 ? 'eager' : 'lazy'}
                     className="object-cover transition-all duration-1000 group-hover:scale-110"
                     sizes={span === 12 ? '(max-width: 768px) 100vw, 90vw' : span === 8 ? '(max-width: 768px) 100vw, 60vw' : '(max-width: 768px) 100vw, 45vw'}
-                    quality={85}
+                    quality={95}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-700"></div>
                   
@@ -308,7 +308,7 @@ function PaletteItem({ image, label, desc }: any) {
           fill
           className="object-cover"
           sizes="(max-width: 768px) 45vw, 20vw"
-          quality={80}
+          quality={95}
         />
         <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
       </div>

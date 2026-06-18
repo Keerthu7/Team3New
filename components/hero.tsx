@@ -74,6 +74,7 @@ export function Hero() {
                 }`}
                 priority
                 sizes="100vw"
+                quality={95}
               />
             </div>
           );
@@ -106,6 +107,7 @@ export function Hero() {
                 }`}
                 priority
                 sizes="100vw"
+                quality={95}
               />
             </div>
           ))}

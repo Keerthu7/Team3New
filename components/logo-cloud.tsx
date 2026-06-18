@@ -52,6 +52,7 @@ export function OurClients() {
                   fill
                   className={`object-contain group-hover:scale-110 transition-transform duration-300 opacity-80 hover:opacity-100 ${logo.name.includes("KMCH") ? "scale-[0.7]" : ""}`} 
                   sizes="(max-width: 768px) 112px, 144px"
+                  quality={95}
                 />
               </div>
             ))}
@@ -81,6 +82,7 @@ export function OurClients() {
                   fill
                   className={`object-contain group-hover:scale-110 transition-transform duration-300 opacity-80 hover:opacity-100 ${logo.name.includes("KMCH") ? "scale-[0.7]" : ""}`} 
                   sizes="(max-width: 768px) 112px, 144px"
+                  quality={95}
                 />
               </div>
             ))}

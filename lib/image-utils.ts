@@ -5,7 +5,7 @@
  * @param maxDim Maximum width or height in pixels (default 1600 for hero, 800 for thumbnails)
  * @returns A Promise that resolves to a WebP Blob
  */
-export async function convertToWebP(file: File, quality: number = 0.82, maxDim: number = 1600): Promise<Blob> {
+export async function convertToWebP(file: File, quality: number = 0.95, maxDim: number = 3840): Promise<Blob> {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -74,14 +74,14 @@ export async function convertToWebP(file: File, quality: number = 0.82, maxDim: 
  * Converts a file to WebP and uploads it to the backend endpoint.
  * Supports progress/success feedback.
  * @param file The original image file to upload
- * @param quality WebP conversion quality (default 0.82)
- * @param maxDim Maximum dimension of the image (default 1600)
+ * @param quality WebP conversion quality (default 0.95)
+ * @param maxDim Maximum dimension of the image (default 3840)
  * @returns The final URL of the uploaded image
  */
 export async function uploadImage(
     file: File,
-    quality: number = 0.82,
-    maxDim: number = 1600
+    quality: number = 0.95,
+    maxDim: number = 3840
 ): Promise<string> {
     const webpBlob = await convertToWebP(file, quality, maxDim);
     

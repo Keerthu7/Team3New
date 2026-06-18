@@ -39,6 +39,7 @@ export function LogoMarquee() {
                 fill
                 className={`object-contain group-hover:scale-105 transition-transform duration-300 ${logo.name.includes("KMCH") ? "scale-[0.7]" : ""}`} 
                 sizes="(max-width: 768px) 112px, 160px"
+                quality={95}
               />
             </div>
           ))}

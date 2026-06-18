@@ -50,7 +50,7 @@ export function ProjectHeroSlider({ images }: ProjectHeroSliderProps) {
             priority={index === 0}
             className="w-full h-full object-cover"
             sizes="100vw"
-            quality={85}
+            quality={95}
           />
         </div>
       ))}

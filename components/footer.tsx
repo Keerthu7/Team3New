@@ -22,6 +22,7 @@ export function Footer() {
               width={320} 
               height={85} 
               className="object-contain object-left mr-auto h-auto w-auto max-h-[80px] brightness-0 invert opacity-100 mb-6" 
+              quality={95}
             />
             <p className="text-[15px] font-medium leading-loose text-white md:max-w-[85%] text-justify">
               A multidisciplinary architecture studio dedicated to creating refined spaces that inspire human connection and elevate the built environment.
@@ -44,7 +45,7 @@ export function Footer() {
                 </svg>
               </Link>
               {/* YouTube */}
-              <Link href="#" className="w-9 h-9 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors shadow-sm group">
+              <Link href="https://youtube.com/@team3admin?si=JDuc6j9AQbrUVhmi" className="w-9 h-9 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors shadow-sm group">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#28557F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"/>
                   <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
