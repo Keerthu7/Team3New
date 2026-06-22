@@ -8,7 +8,7 @@ const USERS = [
     },
     {
         username: process.env.USER_PRAVEEN_USERNAME || "praveen@t3",
-        password: process.env.USER_PRAVEEN_PASSWORD || "Arch.praveen0003",
+        password: process.env.USER_PRAVEEN_PASSWORD || "Eng.praveen0003",
     },
     {
         username: process.env.USER_PRABHAKAR_USERNAME || "prabhakar@t3",
