@@ -130,11 +130,11 @@ export default function ActivityLogPage() {
                     </div>
 
                     {/* Filter User */}
-                    <div className="relative flex items-center bg-[#f0f3fe]/40 border border-[#dfe2ed] rounded-xl focus-within:border-[#28557F] transition-all px-3 py-1.5">
+                    <div className="relative flex items-center bg-[#f0f3fe]/40 border border-[#dfe2ed] rounded-xl focus-within:border-[#28557F] focus-within:ring-2 focus-within:ring-[#28557F]/10 transition-all duration-300 px-3 py-1.5">
                         <select
                             value={selectedUser}
                             onChange={(e) => setSelectedUser(e.target.value)}
-                            className="w-full bg-transparent border-none text-slate-700 text-xs py-1.5 focus:outline-none cursor-pointer"
+                            className="w-full bg-transparent border-none outline-none appearance-none text-slate-700 text-xs py-1.5 pr-8 focus:ring-0 focus:outline-none cursor-pointer"
                         >
                             {USER_OPTIONS.map((opt) => (
                                 <option key={opt.value} value={opt.value}>
@@ -146,11 +146,11 @@ export default function ActivityLogPage() {
                     </div>
 
                     {/* Filter Action */}
-                    <div className="relative flex items-center bg-[#f0f3fe]/40 border border-[#dfe2ed] rounded-xl focus-within:border-[#28557F] transition-all px-3 py-1.5">
+                    <div className="relative flex items-center bg-[#f0f3fe]/40 border border-[#dfe2ed] rounded-xl focus-within:border-[#28557F] focus-within:ring-2 focus-within:ring-[#28557F]/10 transition-all duration-300 px-3 py-1.5">
                         <select
                             value={selectedAction}
                             onChange={(e) => setSelectedAction(e.target.value)}
-                            className="w-full bg-transparent border-none text-slate-700 text-xs py-1.5 focus:outline-none cursor-pointer"
+                            className="w-full bg-transparent border-none outline-none appearance-none text-slate-700 text-xs py-1.5 pr-8 focus:ring-0 focus:outline-none cursor-pointer"
                         >
                             {ACTION_OPTIONS.map((opt) => (
                                 <option key={opt.value} value={opt.value}>
@@ -188,7 +188,7 @@ export default function ActivityLogPage() {
                                 <div className="col-span-3 flex items-center gap-1.5"><User size={12} /> Administrator</div>
                                 <div className="col-span-2 flex items-center gap-1.5"><ArrowUpDown size={12} /> Action</div>
                                 <div className="col-span-4 flex items-center gap-1.5">Details</div>
-                                <div className="col-span-3 flex items-center gap-1.5"><Calendar size={12} /> Timestamp</div>
+                                <div className="col-span-3 flex items-center justify-end gap-1.5"><Calendar size={12} /> Timestamp</div>
                             </div>
 
                             {/* Logs List */}
