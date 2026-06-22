@@ -11,6 +11,7 @@ export default function AdminLoginPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [showForgotModal, setShowForgotModal] = useState(false);
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -69,19 +70,14 @@ export default function AdminLoginPage() {
                 />
             </motion.div>
 
-            {/* Glassmorphic Card */}
+            {/* Professional Glassmorphic Card */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative z-10 w-full max-w-[360px]"
+                className="relative z-10 w-full max-w-[380px]"
             >
-                <div className="bg-white/10 backdrop-blur-[25px] border border-white/20 rounded-[2rem] p-6 md:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative overflow-hidden">
-                    {/* Close Icon (decorative) */}
-                    <div className="absolute top-5 right-5 text-white/40 hover:text-white cursor-pointer transition-colors p-1 border border-white/20 rounded-md">
-                        <X size={12} />
-                    </div>
-
+                <div className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 md:p-10 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] relative overflow-hidden">
                     <div className="mb-8 text-center space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-lg">Login</h1>
                         <AnimatePresence>
@@ -101,33 +97,33 @@ export default function AdminLoginPage() {
                     <form onSubmit={handleLogin} className="space-y-6">
                         {/* Email Field */}
                         <div className="relative group">
-                            <label className="text-[9px] font-bold text-white/60 uppercase tracking-[0.2em] block mb-1.5 ml-1">Email</label>
-                            <div className="relative border-b border-white/30 focus-within:border-white transition-all duration-300 py-0.5">
+                            <label className="text-[10px] font-bold text-white/70 uppercase tracking-[0.15em] block mb-2 ml-1">Email Address</label>
+                            <div className="relative flex items-center bg-white/10 border border-white/20 rounded-xl focus-within:border-white/40 focus-within:ring-2 focus-within:ring-white/10 transition-all duration-300 px-3 py-1.5">
                                 <input
                                     type="text"
                                     name="username"
-                                    className="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-white/20 text-sm py-1.5 pr-8"
+                                    className="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-white/30 text-sm py-1.5 pr-8 focus:outline-none"
                                     placeholder="Enter your email"
                                     required
                                 />
-                                <Mail className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40" size={16} />
+                                <Mail className="absolute right-3 text-white/40 pointer-events-none" size={16} />
                             </div>
                         </div>
 
                         {/* Password Field */}
                         <div className="relative group">
-                            <label className="text-[9px] font-bold text-white/60 uppercase tracking-[0.2em] block mb-1.5 ml-1">Password</label>
-                            <div className="relative border-b border-white/30 focus-within:border-white transition-all duration-300 py-0.5">
+                            <label className="text-[10px] font-bold text-white/70 uppercase tracking-[0.15em] block mb-2 ml-1">Password</label>
+                            <div className="relative flex items-center bg-white/10 border border-white/20 rounded-xl focus-within:border-white/40 focus-within:ring-2 focus-within:ring-white/10 transition-all duration-300 px-3 py-1.5">
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
-                                    className="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-white/20 text-sm py-1.5 pr-8"
+                                    className="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-white/30 text-sm py-1.5 pr-8 focus:outline-none"
                                     placeholder="••••••••"
                                     required
                                 />
                                 <button 
                                     type="button"
-                                    className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors"
+                                    className="absolute right-3 text-white/40 hover:text-white transition-colors"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
@@ -138,10 +134,16 @@ export default function AdminLoginPage() {
                         {/* Actions */}
                         <div className="flex items-center justify-between text-[10px] text-white/60 font-bold uppercase tracking-widest">
                             <label className="flex items-center gap-1.5 cursor-pointer hover:text-white transition-colors">
-                                <input type="checkbox" className="h-3 w-3 rounded-sm bg-white/10 border-white/30 text-[#28557F] focus:ring-0 focus:ring-offset-0" />
+                                <input type="checkbox" className="h-3 w-3 rounded-sm bg-white/10 border-white/30 text-[#28557F] focus:ring-0 focus:ring-offset-0 cursor-pointer" />
                                 <span>Remember</span>
                             </label>
-                            <button type="button" className="hover:text-white transition-colors">Forgot?</button>
+                            <button 
+                                type="button" 
+                                onClick={() => setShowForgotModal(true)} 
+                                className="hover:text-white transition-colors cursor-pointer"
+                            >
+                                Forgot?
+                            </button>
                         </div>
 
                         {/* Submit */}
@@ -150,7 +152,7 @@ export default function AdminLoginPage() {
                             whileTap={{ scale: 0.98 }}
                             type="submit"
                             disabled={isLoading}
-                            className="w-full bg-white text-[#28557F] h-12 rounded-xl font-black text-xs shadow-[0_10px_20px_rgba(0,0,0,0.2)] transition-all duration-300 flex items-center justify-center gap-2 uppercase tracking-[0.1em]"
+                            className="w-full bg-white text-[#28557F] h-12 rounded-xl font-black text-xs shadow-[0_10px_20px_rgba(0,0,0,0.2)] transition-all duration-300 flex items-center justify-center gap-2 uppercase tracking-[0.1em] cursor-pointer"
                         >
                             {isLoading ? (
                                 <Loader2 className="animate-spin h-4 w-4" />
@@ -158,15 +160,50 @@ export default function AdminLoginPage() {
                                 "Sign In"
                             )}
                         </motion.button>
-                        
-                        <div className="text-center pt-1">
-                            <p className="text-[10px] text-white/40 font-medium">
-                                Don't have an account? <button type="button" className="text-white font-bold hover:underline ml-1">Register</button>
-                            </p>
-                        </div>
                     </form>
                 </div>
             </motion.div>
+
+            {/* Forgot Password Modal */}
+            <AnimatePresence>
+                {showForgotModal && (
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+                    >
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                            className="bg-white text-slate-800 rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-slate-100"
+                        >
+                            <h3 className="text-lg font-bold text-slate-900 mb-2">Password Recovery</h3>
+                            <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+                                This request is being forwarded to the development team. You will be redirected to WhatsApp to send the recovery request.
+                            </p>
+                            <div className="flex gap-3 justify-end">
+                                <button 
+                                    onClick={() => setShowForgotModal(false)}
+                                    className="px-4 py-2 border border-slate-200 hover:bg-slate-50 rounded-xl text-xs font-semibold text-slate-500 transition-colors cursor-pointer"
+                                >
+                                    Cancel
+                                </button>
+                                <button 
+                                    onClick={() => {
+                                        window.open("https://wa.me/918870524355?text=Hello%20Team%203%20Development%20Team%2C%20I%20have%20forgotten%20my%20admin%20password.%20Please%20help%20me%20recover%20it.", "_blank");
+                                        setShowForgotModal(false);
+                                    }}
+                                    className="px-4 py-2 bg-[#28557F] hover:bg-[#1f4365] text-white rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
+                                >
+                                    Proceed to WhatsApp
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
