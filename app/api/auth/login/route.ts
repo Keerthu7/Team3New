@@ -35,14 +35,19 @@ export async function POST(req: Request) {
 
         if (isValid) {
             // Set a secure HttpOnly cookie
+            const userIdentifier = username.trim().toLowerCase();
             const cookieStore = await cookies();
-            cookieStore.set("admin_session", "authenticated", {
+            cookieStore.set("admin_session", userIdentifier, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 sameSite: "lax",
                 path: "/",
                 maxAge: 60 * 60 * 24, // 1 day
             });
+
+            // Log login action in audit history
+            const { logActivity } = await import("@/lib/audit");
+            await logActivity("LOGIN", "Admin logged in successfully", userIdentifier);
 
             return NextResponse.json({ success: true });
         }

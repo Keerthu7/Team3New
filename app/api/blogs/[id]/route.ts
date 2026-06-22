@@ -24,6 +24,10 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     const blog = await Blog.findByIdAndUpdate(resolvedParams.id, body, { new: true, runValidators: true });
     if (!blog) return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
     
+    // Log audit activity
+    const { logActivity } = await import("@/lib/audit");
+    await logActivity("UPDATE_BLOG", `Updated blog post: ${blog.title}`);
+
     // Instant cache busting
     revalidatePath('/blog');
     revalidatePath(`/blog/${blog.slug}`);
@@ -43,6 +47,10 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     const blog = await Blog.findByIdAndDelete(resolvedParams.id);
     if (!blog) return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
     
+    // Log audit activity
+    const { logActivity } = await import("@/lib/audit");
+    await logActivity("DELETE_BLOG", `Deleted blog post: ${blog.title}`);
+
     // Instant cache busting
     revalidatePath('/blog');
     revalidatePath('/admin/blogs');

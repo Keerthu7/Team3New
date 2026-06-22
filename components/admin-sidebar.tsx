@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,7 +13,8 @@ import {
     Search,
     Menu,
     X,
-    FolderGit2
+    FolderGit2,
+    History
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -38,6 +39,11 @@ const menuItems = [
         href: "/admin/leads",
         icon: MessageSquare,
     },
+    {
+        title: "Activity Log",
+        href: "/admin/activities",
+        icon: History,
+    },
 ];
 
 export function AdminSidebar() {
@@ -45,6 +51,30 @@ export function AdminSidebar() {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const [adminInfo, setAdminInfo] = useState({
+        name: "Admin User",
+        role: "Administrator",
+        initials: "AD"
+    });
+
+    useEffect(() => {
+        async function fetchAdminInfo() {
+            try {
+                const res = await fetch("/api/auth/me");
+                if (res.ok) {
+                    const data = await res.json();
+                    setAdminInfo({
+                        name: data.name,
+                        role: data.role,
+                        initials: data.initials
+                    });
+                }
+            } catch (err) {
+                console.error("Failed to load admin profile info:", err);
+            }
+        }
+        fetchAdminInfo();
+    }, []);
 
     const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -146,11 +176,11 @@ export function AdminSidebar() {
                 <div className="p-4 border-t border-[#dfe2ed]">
                     <div className="flex items-center gap-3 p-2 rounded-lg bg-[#f0f3fe] border border-[#a0cafb]">
                         <div className="h-8 w-8 rounded bg-[#d0e4ff] flex items-center justify-center text-[#001d35] font-bold text-[10px]">
-                            AD
+                            {adminInfo.initials}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-[11px] font-bold text-[#181c23] truncate">Admin User</p>
-                            <p className="text-[9px] text-[#28557F] font-bold truncate uppercase tracking-widest">Administrator</p>
+                            <p className="text-[11px] font-bold text-[#181c23] truncate">{adminInfo.name}</p>
+                            <p className="text-[9px] text-[#28557F] font-bold truncate uppercase tracking-widest">{adminInfo.role}</p>
                         </div>
                     </div>
                 </div>

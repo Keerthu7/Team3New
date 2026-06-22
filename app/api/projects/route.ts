@@ -27,6 +27,10 @@ export async function POST(req: Request) {
     
     const project = await Project.create(body);
     
+    // Log audit activity
+    const { logActivity } = await import("@/lib/audit");
+    await logActivity("CREATE_PROJECT", `Created project: ${project.title}`);
+    
     // Instant cache busting for real-time updates
     revalidatePath('/projects');
     revalidatePath('/admin/projects');

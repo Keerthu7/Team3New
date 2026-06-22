@@ -3,18 +3,20 @@ import connectToDatabase from "@/lib/db";
 import Project from "@/models/Project";
 import Blog from "@/models/Blog";
 import Lead from "@/models/Lead";
+import ActivityLog from "@/models/ActivityLog";
 import AdminDashboardClient from "@/components/AdminDashboardClient";
 
-async function getAdminStats() {
+async function getAdminData() {
     try {
         await connectToDatabase();
         
-        // Fetch all counts in parallel for speed
-        const [projectCount, blogCount, leadCount, recentLeads] = await Promise.all([
+        // Fetch all counts and data in parallel for speed
+        const [projectCount, blogCount, leadCount, recentLeads, recentActivities] = await Promise.all([
             Project.countDocuments(),
             Blog.countDocuments(),
             Lead.countDocuments(),
-            Lead.find({}).sort({ createdAt: -1 }).limit(5)
+            Lead.find({}).sort({ createdAt: -1 }).limit(5),
+            ActivityLog.find({}).sort({ timestamp: -1 }).limit(5)
         ]);
 
         return {
@@ -23,24 +25,27 @@ async function getAdminStats() {
                 blogs: blogCount,
                 leads: leadCount
             },
-            recentLeads: JSON.parse(JSON.stringify(recentLeads))
+            recentLeads: JSON.parse(JSON.stringify(recentLeads)),
+            recentActivities: JSON.parse(JSON.stringify(recentActivities))
         };
     } catch (error) {
         console.error("Dashboard data fetch failed:", error);
         return {
             stats: { projects: 0, blogs: 0, leads: 0 },
-            recentLeads: []
+            recentLeads: [],
+            recentActivities: []
         };
     }
 }
 
 export default async function AdminDashboard() {
-    const data = await getAdminStats();
+    const data = await getAdminData();
 
     return (
         <AdminDashboardClient 
             stats={data.stats} 
             recentLeads={data.recentLeads} 
+            recentActivities={data.recentActivities}
         />
     );
 }

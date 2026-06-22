@@ -18,9 +18,10 @@ interface AdminDashboardClientProps {
         leads: number;
     };
     recentLeads: any[];
+    recentActivities: any[];
 }
 
-export default function AdminDashboardClient({ stats, recentLeads }: AdminDashboardClientProps) {
+export default function AdminDashboardClient({ stats, recentLeads, recentActivities }: AdminDashboardClientProps) {
     const statCards = [
         {
             title: "Portfolio",
@@ -95,38 +96,88 @@ export default function AdminDashboardClient({ stats, recentLeads }: AdminDashbo
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-10">
                 {/* Recent Feed */}
-                <div className="lg:col-span-2 space-y-6">
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-lg font-bold text-[#181c23] tracking-tight">Recent Activity</h2>
-                        <Link href="/admin/leads" className="text-[11px] font-bold text-[#28557F] flex items-center gap-1 uppercase tracking-widest hover:translate-x-1.5 transition-all duration-300">
-                            View All <ChevronRight size={14} />
-                        </Link>
+                <div className="lg:col-span-2 space-y-8">
+                    <div className="space-y-6">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-lg font-bold text-[#181c23] tracking-tight">Recent Inquiries</h2>
+                            <Link href="/admin/leads" className="text-[11px] font-bold text-[#28557F] flex items-center gap-1 uppercase tracking-widest hover:translate-x-1.5 transition-all duration-300">
+                                View All <ChevronRight size={14} />
+                            </Link>
+                        </div>
+
+                        <div className="border border-[#dfe2ed] rounded-2xl overflow-hidden divide-y divide-[#dfe2ed] bg-white shadow-sm">
+                            {recentLeads.length > 0 ? recentLeads.map((lead, index) => (
+                                <div key={lead._id || index} className="p-5 flex items-center justify-between bg-white hover:bg-[#f9f9ff] transition-colors group cursor-pointer">
+                                    <div className="flex items-center gap-4">
+                                        <div className="h-10 w-10 rounded-xl bg-[#f0f3fe] border border-[#d0e4ff] flex items-center justify-center font-bold text-[#28557F] text-xs">
+                                            {lead.name ? lead.name[0] : 'U'}
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-sm text-[#181c23] group-hover:text-[#28557F] transition-colors">{lead.name}</h4>
+                                            <p className="text-xs text-[#42474e] font-medium">{lead.category || "Consultation"}</p>
+                                        </div>
+                                    </div>
+                                    <div className="text-right flex flex-col items-end gap-1.5">
+                                        <span className="text-[10px] font-bold text-[#72777f] uppercase tracking-widest">{lead.date}</span>
+                                        <Link href="/admin/leads" className="h-7 w-7 rounded-lg border border-[#dfe2ed] flex items-center justify-center hover:bg-[#28557F] hover:border-[#28557F] hover:text-white transition-all duration-500 hover:scale-110 active:scale-90 shadow-sm text-[#42474e]">
+                                            <ArrowUpRight size={14} className="group-hover:text-white" />
+                                        </Link>
+                                    </div>
+                                </div>
+                            )) : (
+                                <div className="p-12 text-center">
+                                    <p className="text-[#a0cafb] font-bold uppercase tracking-widest text-[10px]">No new messages.</p>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="border border-[#dfe2ed] rounded-2xl overflow-hidden divide-y divide-[#dfe2ed] bg-white shadow-sm">
-                        {recentLeads.length > 0 ? recentLeads.map((lead, index) => (
-                            <div key={lead._id || index} className="p-5 flex items-center justify-between bg-white hover:bg-[#f9f9ff] transition-colors group cursor-pointer">
-                                <div className="flex items-center gap-4">
-                                    <div className="h-10 w-10 rounded-xl bg-[#f0f3fe] border border-[#d0e4ff] flex items-center justify-center font-bold text-[#28557F] text-xs">
-                                        {lead.name ? lead.name[0] : 'U'}
+                    {/* Admin Activity Feed */}
+                    <div className="space-y-6">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-lg font-bold text-[#181c23] tracking-tight">Recent Admin Activities</h2>
+                            <Link href="/admin/activities" className="text-[11px] font-bold text-[#28557F] flex items-center gap-1 uppercase tracking-widest hover:translate-x-1.5 transition-all duration-300">
+                                View Full Log <ChevronRight size={14} />
+                            </Link>
+                        </div>
+
+                        <div className="border border-[#dfe2ed] rounded-2xl overflow-hidden divide-y divide-[#dfe2ed] bg-white shadow-sm">
+                            {recentActivities && recentActivities.length > 0 ? recentActivities.map((act, index) => {
+                                // Dynamic tag colors based on action type
+                                let tagBg = "bg-slate-100 text-slate-700 border-slate-200";
+                                if (act.action === "LOGIN") tagBg = "bg-sky-50 text-sky-700 border-sky-100";
+                                else if (act.action === "LOGOUT") tagBg = "bg-rose-50 text-rose-700 border-rose-100";
+                                else if (act.action.startsWith("CREATE")) tagBg = "bg-emerald-50 text-emerald-700 border-emerald-100";
+                                else if (act.action.startsWith("UPDATE")) tagBg = "bg-amber-50 text-amber-700 border-amber-100";
+                                else if (act.action.startsWith("DELETE")) tagBg = "bg-red-50 text-red-700 border-red-100";
+
+                                return (
+                                    <div key={act._id || index} className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white hover:bg-[#f9f9ff] transition-colors">
+                                        <div className="flex items-start gap-4">
+                                            <div className="h-8 w-8 rounded-lg bg-[#dfe2ed] flex items-center justify-center font-bold text-[#42474e] text-[10px] shrink-0 uppercase">
+                                                {act.user ? act.user.slice(0, 2) : "AD"}
+                                            </div>
+                                            <div className="space-y-1">
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                    <span className="font-bold text-xs text-[#181c23]">{act.user}</span>
+                                                    <span className={`text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${tagBg}`}>
+                                                        {act.action}
+                                                    </span>
+                                                </div>
+                                                <p className="text-xs text-[#42474e] font-semibold">{act.details}</p>
+                                            </div>
+                                        </div>
+                                        <span className="text-[9px] text-[#72777f] font-bold whitespace-nowrap self-end md:self-center">
+                                            {new Date(act.timestamp).toLocaleString()}
+                                        </span>
                                     </div>
-                                    <div>
-                                        <h4 className="font-bold text-sm text-[#181c23] group-hover:text-[#28557F] transition-colors">{lead.name}</h4>
-                                        <p className="text-xs text-[#42474e] font-medium">{lead.category || "Consultation"}</p>
-                                    </div>
+                                );
+                            }) : (
+                                <div className="p-12 text-center">
+                                    <p className="text-[#a0cafb] font-bold uppercase tracking-widest text-[10px]">No recent admin activity.</p>
                                 </div>
-                                <div className="text-right flex flex-col items-end gap-1.5">
-                                    <span className="text-[10px] font-bold text-[#72777f] uppercase tracking-widest">{lead.date}</span>
-                                    <Link href="/admin/leads" className="h-7 w-7 rounded-lg border border-[#dfe2ed] flex items-center justify-center hover:bg-[#28557F] hover:border-[#28557F] hover:text-white transition-all duration-500 hover:scale-110 active:scale-90 shadow-sm text-[#42474e]">
-                                        <ArrowUpRight size={14} className="group-hover:text-white" />
-                                    </Link>
-                                </div>
-                            </div>
-                        )) : (
-                            <div className="p-12 text-center">
-                                <p className="text-[#a0cafb] font-bold uppercase tracking-widest text-[10px]">No new messages.</p>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
 

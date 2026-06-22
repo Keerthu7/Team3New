@@ -54,6 +54,10 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 
     if (!project) return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     
+    // Log audit activity
+    const { logActivity } = await import("@/lib/audit");
+    await logActivity("UPDATE_PROJECT", `Updated project: ${project.title}`);
+
     // Instant cache busting
     revalidatePath('/projects');
     revalidatePath(`/projects/${project.slug || project._id}`);
@@ -86,6 +90,10 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 
     if (!project) return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     
+    // Log audit activity
+    const { logActivity } = await import("@/lib/audit");
+    await logActivity("DELETE_PROJECT", `Deleted project: ${project.title}`);
+
     // Instant cache busting
     revalidatePath('/projects');
     revalidatePath('/admin/projects');

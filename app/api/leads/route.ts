@@ -51,6 +51,10 @@ export async function PUT(request: Request) {
             return NextResponse.json({ error: "Lead not found" }, { status: 404 });
         }
 
+        // Log audit activity
+        const { logActivity } = await import("@/lib/audit");
+        await logActivity("UPDATE_LEAD", `Updated lead status for ${updatedLead.name} to ${updatedLead.status || "Updated"}`);
+
         console.log("PUT /api/leads: Lead updated successfully.");
         return NextResponse.json(updatedLead);
     } catch (error: any) {
@@ -71,7 +75,17 @@ export async function DELETE(request: Request) {
         }
 
         console.log(`DELETE /api/leads: Deleting lead ${id}...`);
+        const lead = await Lead.findById(id);
+        if (!lead) {
+            return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+        }
+        
         await Lead.findByIdAndDelete(id);
+
+        // Log audit activity
+        const { logActivity } = await import("@/lib/audit");
+        await logActivity("DELETE_LEAD", `Deleted inquiry from ${lead.name} (${lead.email || "No Email"})`);
+
         console.log("DELETE /api/leads: Lead deleted successfully.");
         return NextResponse.json({ success: true });
     } catch (error: any) {

@@ -21,6 +21,10 @@ export async function POST(req: Request) {
     const body = await req.json();
     const blog = await Blog.create(body);
     
+    // Log audit activity
+    const { logActivity } = await import("@/lib/audit");
+    await logActivity("CREATE_BLOG", `Created blog post: ${blog.title}`);
+
     // Instant cache busting
     revalidatePath('/blog');
     revalidatePath('/admin/blogs');
