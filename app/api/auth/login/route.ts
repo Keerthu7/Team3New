@@ -7,12 +7,12 @@ const USERS = [
         password: process.env.ADMIN_PASSWORD || "team3",
     },
     {
-        username: process.env.USER_PRAVEEN_EMAIL || "praveen.eng@team3associates.com",
-        password: process.env.USER_PRAVEEN_PASSWORD || "Praveen@T3Eng",
+        username: process.env.USER_PRAVEEN_USERNAME || "praveen@t3",
+        password: process.env.USER_PRAVEEN_PASSWORD || "Arch.praveen0003",
     },
     {
-        username: process.env.USER_PRABHAKAR_EMAIL || "prabhakar.arch@team3associates.com",
-        password: process.env.USER_PRABHAKAR_PASSWORD || "Prabhakar@T3Arch",
+        username: process.env.USER_PRABHAKAR_USERNAME || "prabhakar@t3",
+        password: process.env.USER_PRABHAKAR_PASSWORD || "Arch.prabhakar0003",
     }
 ];
 

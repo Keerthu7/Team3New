@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 
 const USERS_INFO: Record<string, { name: string; role: string; initials: string }> = {
     "team3associates": { name: "Team 3 Admin", role: "Super Admin", initials: "TA" },
-    "praveen.eng@team3associates.com": { name: "Praveen Kumar", role: "Engineer", initials: "PK" },
-    "prabhakar.arch@team3associates.com": { name: "Prabhakar", role: "Architect", initials: "PA" }
+    "praveen@t3": { name: "Praveen Kumar", role: "Engineer", initials: "PK" },
+    "prabhakar@t3": { name: "Prabhakar", role: "Architect", initials: "PA" }
 };
 
 export async function GET() {
