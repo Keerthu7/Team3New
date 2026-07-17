@@ -258,7 +258,7 @@ export default function Page() {
               {
                 title: "Mr. Jagan Residence",
                 desc: "A stunning modern sustainable architecture featuring sleek design, and seamless indoor-outdoor living integration.",
-                img: "/images/project5.png",
+                img: "/images/jagan/1.jpg",
                 link: "/blog/jagan-residence"
               }
             ].map((blog, idx) => (

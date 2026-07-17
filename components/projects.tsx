@@ -23,9 +23,9 @@ const projectData = [
     location: "Coimbatore",
     description: "A modern, sustainable architecture featuring sleek design, open spaces, and seamless indoor-outdoor living integration safely anchored by premium engineering.",
     date: "21, DEC 2025",
-    image:"/images/project1.png",
-    mobileImage: "/images/project1-mobile.png",
-    interiorImage: "/images/interiors/jagan_int.png",
+    image:"/images/jagan/11.jpg",
+    mobileImage: "/images/jagan/11.jpg",
+    interiorImage: "/images/jagan/1.jpg",
     
   },
   {
@@ -221,10 +221,10 @@ const SHOWCASE_IMAGES: Record<string, {
   interiorImage: string;      // Image inside the detailed check-project card
 }> = {
   "mr-jagan-residence": {
-    desktopImage: "/images/project1.png",
-    mobileTopImage: "/images/project1-mobileTop.png",
-    mobileBottomImage: "/images/project1-mobileBottom.png",
-    interiorImage: "/images/interiors/jagan_int.png"
+    desktopImage: "/images/jagan/11.jpg",
+    mobileTopImage: "/images/jagan/11.jpg",
+    mobileBottomImage: "/images/jagan/11.jpg",
+    interiorImage: "/images/jagan/1.jpg"
   },
   "mr-ramesh-residence": {
     desktopImage: "/images/project2.png",

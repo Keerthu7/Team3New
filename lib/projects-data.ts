@@ -41,7 +41,7 @@ export const projects: Project[] = [
     category: "Residential Architecture",
     filterType: "Residential",
     subtitle: "A contemporary tropical courtyard residence.",
-    image: "/images/interiors/jagan_int.png",
+    image: "/images/jagan/1.jpg",
     gallery: [
       "/images/jagan/1.jpg",
       "/images/jagan/6.jpg",
