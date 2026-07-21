@@ -52,7 +52,7 @@ export function Footer() {
                 </svg>
               </Link>
               {/* LinkedIn */}
-              <Link href="#" className="w-9 h-9 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors shadow-sm group">
+              <Link href="https://www.linkedin.com/company/t3associates/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors shadow-sm group">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#28557F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
                   <rect x="2" y="9" width="4" height="12"/>

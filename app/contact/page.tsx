@@ -81,7 +81,7 @@ export default function ContactPage() {
         <a href="https://www.instagram.com/team3_associates?igsh=am10cWh1dGc3NDd4" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:bg-white hover:text-[#28557F] hover:scale-110 transition-all duration-300 shadow-lg backdrop-blur-sm">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
         </a>
-        <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:bg-white hover:text-[#28557F] hover:scale-110 transition-all duration-300 shadow-lg backdrop-blur-sm">
+        <a href="https://www.linkedin.com/company/t3associates/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:bg-white hover:text-[#28557F] hover:scale-110 transition-all duration-300 shadow-lg backdrop-blur-sm">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
         </a>
         <a href="https://www.youtube.com/@Team3Admin" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:bg-white hover:text-[#28557F] hover:scale-110 transition-all duration-300 shadow-lg backdrop-blur-sm">
@@ -139,7 +139,7 @@ Coimbatore, Tamil Nadu 641048.</p></div>
                   <a href="https://www.instagram.com/team3_associates?igsh=am10cWh1dGc3NDd4" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#28557F]/5 flex items-center justify-center text-[#28557F]">
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
                   </a>
-                  <a href="#" className="w-10 h-10 rounded-full bg-[#28557F]/5 flex items-center justify-center text-[#28557F]">
+                  <a href="https://www.linkedin.com/company/t3associates/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#28557F]/5 flex items-center justify-center text-[#28557F]">
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                   </a>
                   <a href="https://www.youtube.com/@Team3Admin" className="w-10 h-10 rounded-full bg-[#28557F]/5 flex items-center justify-center text-[#28557F]">
