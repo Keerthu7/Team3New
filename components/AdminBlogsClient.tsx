@@ -81,6 +81,10 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
     const [formData, setFormData] = useState<any>(JSON.parse(JSON.stringify(emptyBlog)));
     const [editingId, setEditingId] = useState<string | null>(null);
 
+    // Reorder state
+    const [isOrderModified, setIsOrderModified] = useState(false);
+    const [isSavingOrder, setIsSavingOrder] = useState(false);
+
     const fetchBlogs = async () => {
         setIsLoading(true);
         try {
@@ -97,6 +101,49 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
     const filteredBlogs = Array.isArray(blogs) ? blogs.filter(b => 
         (b.title && b.title.toLowerCase().includes(searchTerm.toLowerCase()))
     ) : [];
+
+    const moveBlog = (index: number, direction: 'up' | 'down') => {
+        if (searchTerm) return; // Disable reordering while searching
+        
+        const newBlogs = [...blogs];
+        if (direction === 'up' && index > 0) {
+            [newBlogs[index - 1], newBlogs[index]] = [newBlogs[index], newBlogs[index - 1]];
+        } else if (direction === 'down' && index < newBlogs.length - 1) {
+            [newBlogs[index], newBlogs[index + 1]] = [newBlogs[index + 1], newBlogs[index]];
+        } else {
+            return;
+        }
+        
+        // Update local order
+        newBlogs.forEach((b, i) => { b.order = i; });
+        
+        setBlogs(newBlogs);
+        setIsOrderModified(true);
+    };
+
+    const saveOrder = async () => {
+        setIsSavingOrder(true);
+        try {
+            const updates = blogs.map((b, i) => ({ _id: b._id, order: i }));
+            const res = await fetch('/api/blogs/reorder', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updates)
+            });
+            
+            if (res.ok) {
+                setIsOrderModified(false);
+                alert("Order saved successfully!");
+            } else {
+                throw new Error("Failed to save order");
+            }
+        } catch (error: any) {
+            console.error(error);
+            alert("Error saving order: " + error.message);
+        } finally {
+            setIsSavingOrder(false);
+        }
+    };
 
     const toggleModal = () => {
         if (isModalOpen) {
@@ -155,13 +202,25 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                     <h1 className="text-2xl font-bold tracking-tight text-[#181c23]">Journals & Insights</h1>
                     <p className="text-sm text-[#42474e] font-medium mt-1">Manage your editorial magazine content.</p>
                 </div>
-                <button 
-                    onClick={toggleModal}
-                    className="flex items-center justify-center bg-[#28557F] hover:bg-[#194973] text-white px-6 h-11 rounded-xl shadow-md transition-all duration-300 font-bold text-sm tracking-tight hover:shadow-lg"
-                >
-                    <Plus size={18} className="mr-2" />
-                    New Entry
-                </button>
+                <div className="flex gap-4">
+                    {isOrderModified && (
+                        <button 
+                            onClick={saveOrder}
+                            disabled={isSavingOrder}
+                            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center"
+                        >
+                            {isSavingOrder ? <Loader2 size={18} className="mr-2 animate-spin" /> : <Save size={18} className="mr-2" />}
+                            Save Order
+                        </button>
+                    )}
+                    <button 
+                        onClick={toggleModal}
+                        className="bg-[#28557F] hover:bg-[#1a3855] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all flex items-center"
+                    >
+                        <Plus size={18} className="mr-2" />
+                        New Entry
+                    </button>
+                </div>
             </div>
 
             <div className="flex bg-white p-2 rounded-2xl border border-[#dfe2ed] shadow-sm">
@@ -199,6 +258,16 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
                                     <button onClick={() => handleEdit(blog)} className="h-8 w-8 rounded-lg bg-white/90 shadow text-[#42474e] flex items-center justify-center hover:bg-[#28557F] hover:text-white transition-colors"><Edit2 size={14} /></button>
                                     <button onClick={() => handleDelete(blog._id)} className="h-8 w-8 rounded-lg bg-white/90 shadow text-[#ba1a1a] flex items-center justify-center hover:bg-[#ba1a1a] hover:text-white transition-colors"><Trash2 size={14} /></button>
                                 </div>
+                                {!searchTerm && (
+                                    <div className="absolute bottom-3 right-3 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button onClick={() => moveBlog(i, 'up')} disabled={i === 0} className="h-7 w-7 rounded bg-white/90 shadow text-[#28557F] flex items-center justify-center hover:bg-[#28557F] hover:text-white disabled:opacity-30 disabled:hover:bg-white/90 disabled:hover:text-[#28557F]">
+                                            ↑
+                                        </button>
+                                        <button onClick={() => moveBlog(i, 'down')} disabled={i === filteredBlogs.length - 1} className="h-7 w-7 rounded bg-white/90 shadow text-[#28557F] flex items-center justify-center hover:bg-[#28557F] hover:text-white disabled:opacity-30 disabled:hover:bg-white/90 disabled:hover:text-[#28557F]">
+                                            ↓
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                             <div className="p-5 flex flex-col h-[140px] justify-between">
                                 <div>

@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 async function getProjects() {
   try {
     await connectToDatabase();
-    const projects = await Project.find({}).sort({ createdAt: -1 });
+    const projects = await Project.find({}).sort({ order: 1, createdAt: -1 });
     return JSON.parse(JSON.stringify(projects));
   } catch (error: any) {
     console.error("MongoDB fetch failed for projects:", error.message);

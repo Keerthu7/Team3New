@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 async function getBlogs() {
   try {
     await connectToDatabase();
-    const mongoBlogs = await BlogModel.find({}).sort({ createdAt: -1 });
+    const mongoBlogs = await BlogModel.find({}).sort({ order: 1, createdAt: -1 });
     return JSON.parse(JSON.stringify(mongoBlogs || []));
   } catch (err) {
     console.error("MongoDB fetch failed for blogs:", err);

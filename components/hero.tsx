@@ -72,7 +72,7 @@ export function Hero() {
                 className={`object-cover brightness-110 contrast-[1.02] ${
                   src.includes("project4") || src.includes("project2") ? "object-top" : "object-center"
                 }`}
-                priority
+                priority={index === 0}
                 sizes="100vw"
                 quality={95}
               />
@@ -105,7 +105,7 @@ export function Hero() {
                 className={`object-cover brightness-110 contrast-[1.02] ${
                   src.includes("project4") || src.includes("project2") ? "object-top" : "object-center"
                 }`}
-                priority
+                priority={index === 0}
                 sizes="100vw"
                 quality={95}
               />

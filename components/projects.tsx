@@ -8,39 +8,40 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const projectData = [
   {
     id: 1,
-     name: "KMCH Diagnostic Centre",
+    slug: "kmch-diagnostic-center",
+    name: "KMCH Diagnostic Centre",
     location: "Coimbatore",
     description: "Cutting-edge healthcare infrastructure designed for efficiency and patient comfort. A synthesis of advanced technology and human-centric design.",
     date: "10, FEB 2026",
     image: "/images/project3.png",
     mobileImage: "/images/project3-mobile.png",
     interiorImage: "/images/interiors/kmch_int.png",
-   
   },
   {
     id: 2,
-     name: "Mr. Jagan residence",
+    slug: "mr-jagan-residence",
+    name: "Mr. Jagan residence",
     location: "Coimbatore",
     description: "A modern, sustainable architecture featuring sleek design, open spaces, and seamless indoor-outdoor living integration safely anchored by premium engineering.",
     date: "21, DEC 2025",
     image:"/images/jagan/11.jpg",
     mobileImage: "/images/jagan/11.jpg",
     interiorImage: "/images/jagan/1.jpg",
-    
   },
   {
     id: 3,
-   name: "Mr. Ramesh residence",
+    slug: "mr-ramesh-residence",
+    name: "Mr. Ramesh residence",
     location: "Coimbatore",
     description: "Luxury reimagined through a minimalist lens. This residence combines glass and stone to create a timeless sanctuary for urban living.",
     date: "15, JAN 2026",
     image:"/images/project2.jpeg",
     mobileImage: "/images/project2-mobile.png",
-    interiorImage:  "/images/interiors/ramesh_int.png" ,
-   
+    interiorImage:  "/images/interiors/ramesh_int.png",
   },
   {
     id: 4,
+    slug: "siva-trade-centre",
     name: "Siva Trade Centre",
     location: "Coimbatore",
     description: "A commercial landmark that redefines the skyline. Integrated workspace solutions with a focus on sustainability and structural excellence.",
@@ -51,6 +52,7 @@ const projectData = [
   },
   {
     id: 5,
+    slug: "drg-commercial-complex",
     name: "D.R.G commercial complex",
     location: "Coimbatore",
     description: "Multi-functional spaces designed for retail and premium offices. A bold architectural statement in the heart of the city's trade hub.",
@@ -180,6 +182,7 @@ function ProjectItem({ project, index }: { project: any, index: number }) {
                 alt={project.name} 
                 fill 
                 className="object-cover"
+                priority={index === 0}
                 sizes="(max-width: 768px) 100vw, 400px"
                 quality={95}
               />
@@ -253,7 +256,7 @@ const SHOWCASE_IMAGES: Record<string, {
 };
 
 export function ProjectShowcase({ initialProjects }: { initialProjects?: any[] }) {
-  const projectsToRender = initialProjects && initialProjects.length > 0 ? initialProjects : [];
+  const projectsToRender = initialProjects && initialProjects.length > 0 ? initialProjects : projectData;
 
   if (projectsToRender.length === 0) {
     return null;
@@ -274,10 +277,10 @@ export function ProjectShowcase({ initialProjects }: { initialProjects?: any[] }
 
           const normalizedProject = {
             id: project.slug || String(project.id || project._id),
-            name: project.title,
+            name: project.title || project.name,
             location: project.location,
-            description: project.subtitle || project.overview,
-            date: project.year,
+            description: project.subtitle || project.overview || project.description,
+            date: project.year || project.date,
             image: landingImage,
             mobileImage: landingMobileImage,
             mobileBottomImage: landingMobileBottomImage,

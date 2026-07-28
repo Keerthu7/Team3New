@@ -7,7 +7,7 @@ import { blogs as fallbackBlogs } from '@/data/blog-data';
 export async function GET(req: Request) {
   try {
     await connectToDatabase();
-    const blogs = await Blog.find({}).sort({ createdAt: -1 });
+    const blogs = await Blog.find({}).sort({ order: 1, createdAt: -1 });
     return NextResponse.json(blogs);
   } catch (error: any) {
     console.error("MongoDB fetch failed for blogs:", error.message);

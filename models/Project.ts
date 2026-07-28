@@ -32,6 +32,7 @@ export interface IProject extends Document {
   };
   galleryCaptions: string[]; // Desktop Gallery Captions
   mobileGalleryCaptions?: string[]; // Mobile Gallery Captions
+  order?: number;
   createdAt: Date;
 }
 
@@ -67,6 +68,7 @@ const ProjectSchema: Schema = new Schema({
   },
   galleryCaptions: [{ type: String }], // Desktop Gallery Captions
   mobileGalleryCaptions: [{ type: String }], // Mobile Gallery Captions
+  order: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
 

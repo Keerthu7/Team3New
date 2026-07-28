@@ -44,6 +44,7 @@ export interface IBlog extends Document {
   conclusionP1: string;
   conclusionP3: string;
   technicalDetails?: any;
+  order?: number;
   createdAt: Date;
 }
 
@@ -91,6 +92,7 @@ const BlogSchema: Schema = new Schema({
   conclusionP1: { type: String },
   conclusionP3: { type: String },
   technicalDetails: { type: Schema.Types.Mixed },
+  order: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
 

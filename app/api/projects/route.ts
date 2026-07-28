@@ -7,7 +7,7 @@ import { projects as fallbackProjects } from '@/lib/projects-data';
 export async function GET(req: Request) {
   try {
     await connectToDatabase();
-    const projects = await Project.find({}).sort({ createdAt: -1 });
+    const projects = await Project.find({}).sort({ order: 1, createdAt: -1 });
     return NextResponse.json(projects);
   } catch (error: any) {
     console.error("MongoDB fetch failed:", error.message);

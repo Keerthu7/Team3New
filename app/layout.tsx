@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css"; 
 import Script from "next/script";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
       </head>
       <body className={`antialiased ${poppins.className}`}>
         {children}
+        <ScrollToTop />
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-7BGPZEVERC" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
