@@ -287,6 +287,12 @@ export default function AdminProjectsClient({ initialProjects }: { initialProjec
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        if (!formData.image) {
+            alert("Please upload a Desktop Thumbnail Image in the Media section before saving.");
+            return;
+        }
+
         setSaving(true);
         
         if (!editingId && formData.title) {

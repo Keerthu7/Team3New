@@ -168,6 +168,12 @@ export default function AdminBlogsClient({ initialBlogs }: { initialBlogs: any[]
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        if (!formData.thumbnail || !formData.heroImage) {
+            alert("Please upload both a Desktop Grid Thumbnail and a Hero Magazine Image before saving.");
+            return;
+        }
+
         setSaving(true);
         
         if (!editingId && formData.title) {
