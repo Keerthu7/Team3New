@@ -90,7 +90,7 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={18} className="text-white/80" strokeWidth={1.5} />
-                <span className="text-[15px] font-bold tracking-wide">admin@t3associates.in</span>
+                <span className="text-[15px] font-bold tracking-wide">prabhakar@t3associates.in</span>
               </div>
             </div>
           </div>

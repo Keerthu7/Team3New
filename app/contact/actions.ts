@@ -55,7 +55,7 @@ export async function sendEmailAction(formData: FormData) {
         console.log("Sending email to owner...");
         await transporter.sendMail({
           from: "team3.siteinfo@gmail.com",
-          to: "team3.siteinfo@gmail.com",
+          to: "prabhakar@t3associates.in, admin@t3associates.in",
           subject: `New Meeting Scheduled: ${date} at ${time}`,
           html: `
             <h3>New Consultation Request</h3>

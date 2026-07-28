@@ -56,7 +56,7 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
 
         {/* Mobile Slider */}
         <div className="block md:hidden w-full h-full">
-          <ProjectHeroSlider images={(project.mobileHeroImage ? [project.mobileHeroImage, ...(project.mobileGallery || project.gallery).slice(0, 4)] : (project.mobileGallery || project.gallery).slice(0, 5))} />
+          <ProjectHeroSlider images={(project.mobileHeroImage ? [project.mobileHeroImage, ...(project.mobileGallery?.length ? project.mobileGallery : project.gallery).slice(0, 4)] : (project.mobileGallery?.length ? project.mobileGallery : project.gallery).slice(0, 5))} />
         </div>
         
         {/* Floating Back Button */}
@@ -126,8 +126,8 @@ export default function ProjectNormalLayout({ project }: ProjectNormalLayoutProp
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
             {project.gallery.map((img, index) => {
-              // Custom Mosaic Pattern: Full (12), Half-Half (6,6), Wide-Narrow (8,4), Full (12)
-              const pattern = [12, 6, 6, 8, 4, 12];
+              // Custom Mosaic Pattern: Full (12), Half-Half (6,6), Wide-Narrow (8,4)
+              const pattern = [12, 6, 6, 8, 4];
               const span = pattern[index % pattern.length];
               
               const spanClasses: { [key: number]: string } = {
