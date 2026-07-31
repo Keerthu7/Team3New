@@ -10,27 +10,14 @@ import Project from "@/models/Project";
 
 export const dynamic = 'force-dynamic';
 
-async function getLandingProjects() {
-  try {
-    await connectToDatabase();
-    const dbProjects = await Project.find({}).sort({ order: 1, createdAt: -1 }).limit(5);
-    
-    return JSON.parse(JSON.stringify(dbProjects));
-  } catch (err) {
-    console.error("Landing page projects fetch failed:", err);
-    return [];
-  }
-}
-
 export default async function Home() {
-  const projects = await getLandingProjects();
 
   return (
     <main className="min-h-screen">
        <Header />
        <Hero />
        <LogoMarquee />
-       <ProjectShowcase initialProjects={projects} />
+       <ProjectShowcase />
        <OurClients />
        <Testimonials />
        <Footer />
