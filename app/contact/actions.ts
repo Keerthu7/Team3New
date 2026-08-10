@@ -47,7 +47,7 @@ export async function sendEmailAction(formData: FormData) {
           service: "gmail",
           auth: {
             user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASS, 
+            pass: process.env.MAIL_PASS,
           },
         });
 
@@ -55,7 +55,7 @@ export async function sendEmailAction(formData: FormData) {
         console.log("Sending email to owner...");
         await transporter.sendMail({
           from: "team3.siteinfo@gmail.com",
-          to: "prabhakar@t3associates.in, admin@t3associates.in",
+          to: "admin@t3associates.in",
           subject: `New Meeting Scheduled: ${date} at ${time}`,
           html: `
             <h3>New Consultation Request</h3>
@@ -94,4 +94,4 @@ export async function sendEmailAction(formData: FormData) {
     console.error("General error in sendEmailAction:", error);
     return { success: false, error: error.message || "Failed to submit" };
   }
-}
+}
