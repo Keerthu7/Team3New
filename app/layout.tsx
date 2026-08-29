@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Space_Grotesk, Inter } from "next/font/google";
-import "./globals.css"; 
+import "./globals.css";
 import Script from "next/script";
 import { ScrollToTop } from "@/components/scroll-to-top";
 
@@ -13,6 +13,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Team3 Associates",
   description: "Healing Spaces and Premium Architecture",
+  icons: {
+    icon: '/favicon.png', // path relative to the public folder
+  },
 };
 
 export default function RootLayout({
@@ -22,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${poppins.variable} font-sans`}>
-       <head>
+      <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"

@@ -10,7 +10,7 @@ const projectData = [
     id: 1,
     slug: "kmch-diagnostic-center",
     name: "KMCH Diagnostic Centre",
-    location: "Coimbatore",
+    location: "Erode",
     description: "Cutting-edge healthcare infrastructure designed for efficiency and patient comfort. A synthesis of advanced technology and human-centric design.",
     date: "10, FEB 2026",
     image: "/images/project3.png",
