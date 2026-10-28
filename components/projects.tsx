@@ -227,7 +227,7 @@ const SHOWCASE_IMAGES: Record<string, {
     desktopImage: "/images/project1.png",
     mobileTopImage: "/images/project1-mobileTop.png",
     mobileBottomImage: "/images/project1-mobileBottom.png",
-    interiorImage: "/images/jagan_int.png"
+    interiorImage: "/images/interiors/jagan_int.png"
   },
   "mr-ramesh-residence": {
     desktopImage: "/images/project2.png",
