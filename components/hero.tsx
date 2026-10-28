@@ -13,7 +13,7 @@ const desktopImages = [
 ];
 
 const mobileImages = [
-   "/images/project1.png",
+   "/images/project1-mobile.png",
   "/images/project2-mobile.png",
   "/images/project3-mobile.png",
   "/images/project4-mobile.png",
