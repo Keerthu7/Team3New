@@ -224,7 +224,7 @@ const SHOWCASE_IMAGES: Record<string, {
   interiorImage: string;      // Image inside the detailed check-project card
 }> = {
   "mr-jagan-residence": {
-    desktopImage: "/images/project1.png",
+    desktopImage: "/images/jagan.png",
     mobileTopImage: "/images/project1-mobileTop.png",
     mobileBottomImage: "/images/project1-mobileBottom.png",
     interiorImage: "/images/interiors/jagan_int.png"
